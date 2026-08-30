@@ -87,6 +87,16 @@ criteria. The mix is 6 bid, 4 no-bid, and 2 insufficient-information, and each
 no-bid is driven by a **different** failing criterion, so all four triage rules
 are exercised.
 
+### Corpus provenance
+
+The corpus is entirely synthetic, but its shape is not invented. The document
+structures, the commercial terms (bonding percentages and liability limits), and
+the triage criteria follow documented industry practice rather than assumption.
+A corpus whose conventions were guessed would measure how well a model handles
+those guesses. See [`docs/corpus-v2-design.md`](docs/corpus-v2-design.md) for
+what was sourced and why it changes the design. Specific citations are pending
+and are marked as such there rather than filled in from memory.
+
 ### Data integrity
 
 - **Everything is synthetic.** "Summit Peak Mechanical", every client, every

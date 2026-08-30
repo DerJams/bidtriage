@@ -13,6 +13,37 @@ set changed" with "the lever worked".
 
 ---
 
+## 0. Provenance
+
+Three parts of this design come from **researched industry sources**, not from
+assumption or from what seemed plausible while writing synthetic data:
+
+1. **Platform invitation structure.** That BuildingConnected-style invitations
+   are system-generated from structured project fields, with a fixed sender, a
+   templated subject, and a body carrying project name, bid package, due date,
+   location, and lead contact, and that the ambiguity in platform-sourced work
+   lives in the attached scope documents rather than in the notification email.
+2. **Bonding and insurance conventions.** Bid bonds of 5 to 10% on private and
+   municipal work and up to 20% on federal Miller Act work; performance and
+   payment bonds at 100% of contract price; and commercial general liability at
+   2M per occurrence and 4M aggregate for HVAC and plumbing, those being
+   classified as higher-risk trades, rather than the 1M/2M baseline.
+3. **Decline-reason criteria.** That project size, workload, and geography are
+   the dominant real drivers when a contractor declines to bid, and that 80% of
+   accepted bids fall within 55 miles. This is peer-reviewed work, and it is why
+   the four capacity criteria are being kept unchanged rather than revised.
+
+This matters for reading the eval set. The corpus is entirely synthetic, but its
+*shape* is not invented: the document structures, the commercial terms, and the
+triage criteria follow documented practice. A corpus whose conventions were
+guessed would measure how well a model handles my guesses.
+
+> **Citations pending.** The specific sources are to be added here verbatim. They
+> are deliberately not paraphrased or named from memory in the meantime, because
+> a plausible-looking citation that turns out to be wrong is worse than an
+> acknowledged gap. Until this block is filled in, treat the three items above as
+> sourced but uncited.
+
 ## 1. What the research changes
 
 ### 1.1 Portal cases model the wrong thing
