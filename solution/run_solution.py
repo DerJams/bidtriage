@@ -111,6 +111,10 @@ trade from that list, the field is NOT_STATED.
 * Do not invent a bonding requirement the source never mentions. Omit what is \
 not stated rather than assuming a standard value.
 
+You are checking the eight extracted fields only. You are NOT being asked to \
+re-decide the bid/no-bid triage; copy whatever the draft says for \
+triage_decision and triage_reasons straight through unchanged.
+
 Return the corrected extraction in "verified" and your per-field findings in \
 "evidence"."""
 
@@ -241,5 +245,15 @@ def run(case_id: str, gold: dict, document_text: str) -> tuple:
 
     prediction, flagged, audit = _reconcile(
         payload.get("verified") or {}, payload.get("evidence") or {}, document_text)
+
+    # Lever isolation: lever 2 verifies the eight extracted FIELDS. It does not
+    # decide triage -- that is lever 3. The verifier's schema carries the triage
+    # keys because it reuses the extraction shape, and left to itself the model
+    # nulls them, which showed up as a spurious 11pp triage "regression". Carry
+    # triage through from the extraction pass so each lever is measured on the
+    # thing it actually changes.
+    prediction["triage_decision"] = draft.get("triage_decision")
+    prediction["triage_reasons"] = draft.get("triage_reasons")
+
     combined.verification_audit = audit
     return prediction, flagged, combined

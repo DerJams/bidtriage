@@ -1,0 +1,2328 @@
+{
+  "target": "solution",
+  "label": "lever2-verification-run-2",
+  "active_levers": [
+    "lever2_verify"
+  ],
+  "started_utc": "2026-08-30T04:24:35.298647+00:00",
+  "finished_utc": "2026-08-30T04:29:08.385177+00:00",
+  "wall_clock_s": 273.09,
+  "run_config": {
+    "model": "z-ai/glm-5.3-flash",
+    "routing_mode": "pinned_single_provider",
+    "pinned_provider": "deepinfra",
+    "provider_routing": {
+      "only": [
+        "deepinfra"
+      ],
+      "allow_fallbacks": false,
+      "require_parameters": true
+    },
+    "auto_exacto": "not_applicable_provider_pinned",
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "max_attempts": 6,
+    "api_base": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "resolved_providers": [
+    "DeepInfra"
+  ],
+  "n_cases": 12,
+  "metrics": {
+    "total_slots": 96,
+    "outcomes": {
+      "correct": 86,
+      "correct_abstention": 8,
+      "incorrect": 1,
+      "missed": 0,
+      "hallucinated": 0,
+      "flagged_for_review": 1
+    },
+    "field_accuracy": 0.9791666666666666,
+    "correct_slots": 94,
+    "asserted_fields": 87,
+    "hallucination_count": 1,
+    "hallucination_rate_asserted": 0.011494252873563218,
+    "hallucination_rate_all_slots": 0.010416666666666666,
+    "per_field": {
+      "bid_due_date": {
+        "correct": 12,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "bond_insurance": {
+        "correct": 11,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "client_name": {
+        "correct": 12,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "estimated_project_value": {
+        "correct": 9,
+        "correct_abstention": 2,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 1,
+        "accuracy": 0.9166666666666666
+      },
+      "location": {
+        "correct": 12,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "project_title": {
+        "correct": 11,
+        "correct_abstention": 0,
+        "incorrect": 1,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 0.9166666666666666
+      },
+      "trade_scope": {
+        "correct": 11,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "walkthrough_date": {
+        "correct": 8,
+        "correct_abstention": 4,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "triage": {
+    "decision_accuracy": 0.8333333333333334,
+    "n_correct": 10,
+    "per_case": [
+      {
+        "case_id": "case_01",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "arvada,_co_is_within_the_~90-mile_service_radius_of_golden.",
+          "bonding_and_insurance_requirements_are_standard_and_within_typical_capacity.",
+          "construction_window_(feb_15_-_jul_30,_2027)_begins_after_current_commitments_end_in_march_2027,_with_only_minor_overlap_during_mobilization.",
+          "project_value_($850,000)_falls_within_summit_peak's_$250k-$3m_range.",
+          "scope_(hvac,_sheet_metal,_controls)_matches_summit_peak's_self-performed_trades;_no_refrigeration_or_fire_protection_required."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_02",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "boulder_is_within_the_~90-mile_service_radius_of_golden",
+          "budget_of_$310,000_falls_within_the_$250k-$3m_project_range",
+          "march-june_2027_schedule_fits_after_current_commitments_ending_march_2027",
+          "no_bonding_required,_reducing_cost_and_qualification_burden",
+          "scope_(plumbing/piping)_matches_summit_peak's_self-performed_trades",
+          "site_access_available_on_demand_with_one_day's_notice,_so_no_walkthrough_barrier"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_03",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "hvac_work_is_described_as_small_and_ancillary;_the_controlling_trade_is_outside_summit_peak's_capabilities",
+          "package_is_refrigeration-led_(low-temperature_ammonia_system,_process_piping,_evaporator_coils),_a_trade_summit_peak_does_not_self-perform"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_04",
+        "gold_decision": "no_bid",
+        "pred_decision": null,
+        "decision_correct": false,
+        "gold_reasons": [
+          "within_radius"
+        ],
+        "pred_reasons": [],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_05",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok"
+        ],
+        "pred_reasons": [
+          "engineer's_estimate_of_$4,500,000_exceeds_summit_peak's_typical_project_range_of_$250,000_to_$3,000,000"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_06",
+        "gold_decision": "no_bid",
+        "pred_decision": "insufficient_information",
+        "decision_correct": false,
+        "gold_reasons": [
+          "timeline_conflict"
+        ],
+        "pred_reasons": [
+          "construction_window_(nov_2026_\u2013_feb_2027)_overlaps_the_existing_commitments_running_september_2026_into_march_2027;_the_document_does_not_state_how_many_projects_summit_peak_currently_has_in_progress,_so_capacity_against_the_3-project_concurrent_limit_cannot_be_confirmed.",
+          "engineer's_estimate_of_$1,200,000_falls_within_the_$250,000\u2013$3,000,000_project_range.",
+          "location_(denver,_co)_is_within_the_~90-mile_radius_of_golden.",
+          "no_exclusions_apply_(no_refrigeration_or_fire_protection_scope_in_this_package).",
+          "scope_(hvac,_hydronic_piping,_ddc_controls)_matches_summit_peak's_self-performed_trades;_plumbing_is_excluded,_which_is_fine_since_plumbing_is_self-performed_but_not_required_here."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_07",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "construction_start_of_april_12,_2027_begins_after_current_commitments_end_in_march_2027,_so_the_project_fits_capacity.",
+          "engineer's_estimate_of_$1,400,000_falls_within_the_firm's_$250,000\u2013$3,000,000_project_range.",
+          "fort_collins_is_within_the_~90-mile_service_radius_of_golden.",
+          "scope_(hvac,_sheet_metal,_controls)_matches_summit_peak's_self-performed_trades;_lab_process_piping_is_excluded_and_fume_hood_exhaust_manifolding_is_sheet_metal/ductwork,_not_refrigeration."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_08",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "colorado_springs_is_within_the_~90-mile_service_radius_of_golden",
+          "construction_start_(february_2027)_falls_after_current_commitments_end_in_march_2027,_though_overlap_with_the_march_2027_commitment_should_be_checked_against_the_3-project_concurrent_limit",
+          "engineer's_estimate_of_$600,000_falls_within_the_firm's_$250,000-$3,000,000_project_range",
+          "no_bonding_required,_reducing_bid_cost_and_risk",
+          "scope_is_plumbing_and_process_piping,_which_summit_peak_self-performs"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_09",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "bonding_and_insurance_requirements_(5%_bid_bond,_100%_performance/payment_bonds,_$4m_gl)_are_standard_and_likely_within_existing_capacity",
+          "construction_start_of_may_3,_2027_falls_after_current_commitments_ending_march_2027,_so_the_project_fits_the_schedule_and_the_3-project_concurrent_limit",
+          "engineer's_estimate_of_$2,200,000_falls_within_summit_peak's_$250,000-$3,000,000_project_range",
+          "longmont,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "scope_(sheet_metal_and_hvac)_is_fully_self-performed_by_summit_peak;_controls_are_excluded,_which_avoids_a_non-self-performed_trade"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_10",
+        "gold_decision": "insufficient_information",
+        "pred_decision": "insufficient_information",
+        "decision_correct": true,
+        "gold_reasons": [
+          "construction_window",
+          "estimated_project_value",
+          "trade_scope"
+        ],
+        "pred_reasons": [
+          "full_solicitation_documents_are_restricted_to_registered_plan_holders,_so_scope_details_are_unknown",
+          "no_pre-bid_walkthrough_or_bond/insurance_requirements_are_stated",
+          "notification_does_not_state_project_value,_so_fit_within_the_$250k-$3m_range_cannot_be_confirmed"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_11",
+        "gold_decision": "insufficient_information",
+        "pred_decision": "insufficient_information",
+        "decision_correct": true,
+        "gold_reasons": [
+          "construction_window",
+          "estimated_project_value"
+        ],
+        "pred_reasons": [
+          "insurance_requirements_and_additional_terms_are_in_the_bid_documents,_which_require_portal_login_to_review",
+          "no_details_on_construction_schedule_or_duration_to_check_against_existing_commitments_through_march_2027",
+          "no_project_value_or_engineer's_estimate_provided;_cannot_confirm_it_falls_within_the_$250k-$3m_range",
+          "scope_(plumbing/process_piping)_and_location_(~30_miles_from_golden)_fit_company_profile,_so_worth_downloading_documents_for_further_review"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_12",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "bid_date_extended_to_november_6,_2026_by_addendum_2;_both_addenda_must_be_acknowledged_on_the_bid_form",
+          "castle_rock,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "construction_start_of_march_15,_2027_is_after_current_commitments_end,_though_capacity_should_be_confirmed_against_the_3-project_concurrent_limit",
+          "engineer_estimate_of_$1.8m-$2.1m_falls_within_the_$250k-$3m_project_range",
+          "scope_(boilers,_hydronic_piping,_pumps,_ddc_controls)_matches_summit_peak's_self-performed_trades;_fire_protection_is_excluded_from_base_bid_and_only_appears_in_a_separately_priced_alternate_no._1_that_can_be_declined_without_prejudice"
+        ],
+        "reasons_recall": 0.0
+      }
+    ]
+  },
+  "minutes_proxy": {
+    "_disclaimer": "PROXY, not measured human time. Constants frozen in evals/harness/minutes.py before any measurement.",
+    "constants": {
+      "wpm_careful": 200.0,
+      "wpm_skim": 350.0,
+      "re_key_min_per_field": 1.5,
+      "decision_min": 4.0,
+      "brief_words": 250.0,
+      "fix_min_per_field": 3.0,
+      "review_min_per_flag": 1.5,
+      "decision_review_min": 1.0
+    },
+    "manual_minutes_mean": 17.31,
+    "assisted_minutes_mean": 2.08,
+    "minutes_saved_mean": 15.22,
+    "per_case": {
+      "case_01": {
+        "manual": 17.64,
+        "assisted": 1.71
+      },
+      "case_02": {
+        "manual": 16.94,
+        "assisted": 3.21
+      },
+      "case_03": {
+        "manual": 17.02,
+        "assisted": 1.71
+      },
+      "case_04": {
+        "manual": 16.59,
+        "assisted": 4.71
+      },
+      "case_05": {
+        "manual": 16.96,
+        "assisted": 1.71
+      },
+      "case_06": {
+        "manual": 17.4,
+        "assisted": 1.71
+      },
+      "case_07": {
+        "manual": 17.34,
+        "assisted": 1.71
+      },
+      "case_08": {
+        "manual": 17.36,
+        "assisted": 1.71
+      },
+      "case_09": {
+        "manual": 17.31,
+        "assisted": 1.71
+      },
+      "case_10": {
+        "manual": 16.62,
+        "assisted": 1.71
+      },
+      "case_11": {
+        "manual": 16.54,
+        "assisted": 1.71
+      },
+      "case_12": {
+        "manual": 19.96,
+        "assisted": 1.71
+      }
+    }
+  },
+  "cost": {
+    "total_usd": 0.004587,
+    "per_case_usd": 0.000382,
+    "_source": "OpenRouter usage.cost, actual charged amount"
+  },
+  "reliability": {
+    "total_retries": 10,
+    "failures": [],
+    "n_failures": 0
+  },
+  "case_scores": [
+    {
+      "case_id": "case_01",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cascade ridge school district 12",
+          "pred_raw": "Cascade Ridge School District 12",
+          "pred_normalized": "cascade ridge school district 12"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cascade ridge middle school rtu replacement",
+          "pred_raw": "Cascade Ridge Middle School RTU Replacement",
+          "pred_normalized": "cascade ridge middle school rtu replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "hvac",
+            "sheet_metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "arvada, co",
+          "pred_raw": "Cascade Ridge Middle School, Arvada, CO",
+          "pred_normalized": "arvada, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-25",
+          "pred_raw": "2026-09-25",
+          "pred_normalized": "2026-09-25"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 850000,
+            "high": 850000,
+            "currency": "USD"
+          },
+          "pred_raw": "$850,000",
+          "pred_normalized": {
+            "low": 850000,
+            "high": 850000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-11",
+          "pred_raw": "2026-09-11",
+          "pred_normalized": "2026-09-11"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_02",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "bright mesa property group",
+          "pred_raw": "Bright Mesa Property Group",
+          "pred_normalized": "bright mesa property group"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "bright mesa commons domestic water piping retrofit",
+          "pred_raw": "Bright Mesa Commons Domestic Water Piping Retrofit",
+          "pred_normalized": "bright mesa commons domestic water piping retrofit"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "plumbing",
+            "piping"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "boulder, co",
+          "pred_raw": "Boulder, CO",
+          "pred_normalized": "boulder, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-18",
+          "pred_raw": "2026-09-18",
+          "pred_normalized": "2026-09-18"
+        },
+        "estimated_project_value": {
+          "outcome": "flagged_for_review",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 310000,
+            "high": 310000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": false
+          },
+          "pred_raw": {
+            "required": false,
+            "bid_bond_pct": null,
+            "performance_bond_pct": null,
+            "payment_bond_pct": null,
+            "gl_limit_usd": null
+          },
+          "pred_normalized": {
+            "required": false
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match"
+      }
+    },
+    {
+      "case_id": "case_03",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "verge cold chain holdings",
+          "pred_raw": "Verge Cold Chain Holdings",
+          "pred_normalized": "verge cold chain holdings"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larimer street cold storage buildout",
+          "pred_raw": "Larimer Street Cold Storage Buildout",
+          "pred_normalized": "larimer street cold storage buildout"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "piping",
+            "refrigeration"
+          ],
+          "pred_raw": [
+            "refrigeration",
+            "piping",
+            "hvac"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "piping",
+            "refrigeration"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-30",
+          "pred_raw": "2026-09-30",
+          "pred_normalized": "2026-09-30"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 700000,
+            "high": 700000,
+            "currency": "USD"
+          },
+          "pred_raw": "$700,000",
+          "pred_normalized": {
+            "low": 700000,
+            "high": 700000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 1000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 1000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 1000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-14",
+          "pred_raw": "2026-09-14",
+          "pred_normalized": "2026-09-14"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_04",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "mesa verdana industrial partners",
+          "pred_raw": "Mesa Verdana Industrial Partners",
+          "pred_normalized": "mesa verdana industrial partners"
+        },
+        "project_title": {
+          "outcome": "incorrect",
+          "gold_present": true,
+          "gold_normalized": "mesa verdana industrial park building c",
+          "pred_raw": "Mesa Verdana Industrial Park Building C - HVAC",
+          "pred_normalized": "mesa verdana industrial park building c - hvac"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "hvac",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "grand junction, co",
+          "pred_raw": "Grand Junction, CO",
+          "pred_normalized": "grand junction, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-22",
+          "pred_raw": "2026-09-22",
+          "pred_normalized": "2026-09-22"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 480000,
+            "high": 480000,
+            "currency": "USD"
+          },
+          "pred_raw": "$480,000",
+          "pred_normalized": {
+            "low": 480000,
+            "high": 480000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-08",
+          "pred_raw": "2026-09-08",
+          "pred_normalized": "2026-09-08"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_05",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "helioptix data infrastructure",
+          "pred_raw": "Helioptix Data Infrastructure",
+          "pred_normalized": "helioptix data infrastructure"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "helioptix data campus phase ii",
+          "pred_raw": "Helioptix Data Campus Phase II",
+          "pred_normalized": "helioptix data campus phase ii"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "hvac",
+            "piping",
+            "sheet_metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-09",
+          "pred_raw": "2026-10-09",
+          "pred_normalized": "2026-10-09"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 4500000,
+            "high": 4500000,
+            "currency": "USD"
+          },
+          "pred_raw": "$4,500,000",
+          "pred_normalized": {
+            "low": 4500000,
+            "high": 4500000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 5000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 5000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 5000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-17",
+          "pred_raw": "2026-09-17",
+          "pred_normalized": "2026-09-17"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_06",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur civic development authority",
+          "pred_raw": "Larkspur Civic Development Authority",
+          "pred_normalized": "larkspur civic development authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur civic center annex mechanical package",
+          "pred_raw": "Larkspur Civic Center Annex Mechanical Package",
+          "pred_normalized": "larkspur civic center annex mechanical package"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "hvac",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-29",
+          "pred_raw": "2026-09-29",
+          "pred_normalized": "2026-09-29"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1200000,
+            "high": 1200000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,200,000 (engineer's estimate)",
+          "pred_normalized": {
+            "low": 1200000,
+            "high": 1200000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-15",
+          "pred_raw": "2026-09-15",
+          "pred_normalized": "2026-09-15"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_07",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cache la poudre community college district",
+          "pred_raw": "Cache La Poudre Community College District",
+          "pred_normalized": "cache la poudre community college district"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "science building hvac modernization",
+          "pred_raw": "Science Building HVAC Modernization",
+          "pred_normalized": "science building hvac modernization"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "hvac",
+            "sheet_metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "fort collins, co",
+          "pred_raw": "Fort Collins, CO",
+          "pred_normalized": "fort collins, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-20",
+          "pred_raw": "2026-10-20",
+          "pred_normalized": "2026-10-20"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1400000,
+            "high": 1400000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,400,000",
+          "pred_normalized": {
+            "low": 1400000,
+            "high": 1400000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 3000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 3000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 3000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-02",
+          "pred_raw": "2026-10-02",
+          "pred_normalized": "2026-10-02"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_08",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "pikes hollow athletic club",
+          "pred_raw": "Pikes Hollow Athletic Club",
+          "pred_normalized": "pikes hollow athletic club"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "natatorium pool mechanical replacement",
+          "pred_raw": "Natatorium Pool Mechanical Replacement",
+          "pred_normalized": "natatorium pool mechanical replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "plumbing",
+            "piping"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "colorado springs, co",
+          "pred_raw": "Colorado Springs, CO",
+          "pred_normalized": "colorado springs, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-14",
+          "pred_raw": "2026-10-14",
+          "pred_normalized": "2026-10-14"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 600000,
+            "high": 600000,
+            "currency": "USD"
+          },
+          "pred_raw": "$600,000",
+          "pred_normalized": {
+            "low": 600000,
+            "high": 600000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": false
+          },
+          "pred_raw": {
+            "required": false,
+            "bid_bond_pct": null,
+            "performance_bond_pct": null,
+            "payment_bond_pct": null,
+            "gl_limit_usd": null
+          },
+          "pred_normalized": {
+            "required": false
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match"
+      }
+    },
+    {
+      "case_id": "case_09",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "vantage point logistics",
+          "pred_raw": "Vantage Point Logistics",
+          "pred_normalized": "vantage point logistics"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "distribution center ventilation upgrade",
+          "pred_raw": "Distribution Center Ventilation Upgrade",
+          "pred_normalized": "distribution center ventilation upgrade"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "sheet_metal",
+            "hvac"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "longmont, co",
+          "pred_raw": "Longmont, CO",
+          "pred_normalized": "longmont, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-10",
+          "pred_raw": "2026-11-10",
+          "pred_normalized": "2026-11-10"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 2200000,
+            "high": 2200000,
+            "currency": "USD"
+          },
+          "pred_raw": "$2,200,000 (engineer's estimate)",
+          "pred_normalized": {
+            "low": 2200000,
+            "high": 2200000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-22",
+          "pred_raw": "2026-10-22",
+          "pred_normalized": "2026-10-22"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_10",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "front range regional transit authority",
+          "pred_raw": "Front Range Regional Transit Authority",
+          "pred_normalized": "front range regional transit authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "maintenance facility bay 4 mechanical upgrades",
+          "pred_raw": "Maintenance Facility Bay 4 Mechanical Upgrades",
+          "pred_normalized": "maintenance facility bay 4 mechanical upgrades"
+        },
+        "trade_scope": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-06",
+          "pred_raw": "2026-10-06",
+          "pred_normalized": "2026-10-06"
+        },
+        "estimated_project_value": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {}
+    },
+    {
+      "case_id": "case_11",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "idaho springs municipal utilities district",
+          "pred_raw": "Idaho Springs Municipal Utilities District",
+          "pred_normalized": "idaho springs municipal utilities district"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "water treatment plant no. 2 chemical feed piping replacement",
+          "pred_raw": "Water Treatment Plant No. 2 Chemical Feed Piping Replacement",
+          "pred_normalized": "water treatment plant no. 2 chemical feed piping replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "plumbing",
+            "piping"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "idaho springs, co",
+          "pred_raw": "Idaho Springs, CO",
+          "pred_normalized": "idaho springs, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-03",
+          "pred_raw": "2026-11-03",
+          "pred_normalized": "2026-11-03"
+        },
+        "estimated_project_value": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": null,
+            "payment_bond_pct": null,
+            "gl_limit_usd": null
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match"
+      }
+    },
+    {
+      "case_id": "case_12",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "silver aspen regional medical campus",
+          "pred_raw": "Silver Aspen Regional Medical Campus",
+          "pred_normalized": "silver aspen regional medical campus"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "central plant upgrade",
+          "pred_raw": "Central Plant Upgrade",
+          "pred_normalized": "central plant upgrade"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "piping"
+          ],
+          "pred_raw": [
+            "hvac",
+            "piping",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "piping"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "castle rock, co",
+          "pred_raw": "Castle Rock, CO",
+          "pred_normalized": "castle rock, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-06",
+          "pred_raw": "2026-11-06",
+          "pred_normalized": "2026-11-06"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1800000,
+            "high": 2100000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,800,000 - $2,100,000",
+          "pred_normalized": {
+            "low": 1800000,
+            "high": 2100000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 5000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 5000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 5000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-30",
+          "pred_raw": "2026-09-30",
+          "pred_normalized": "2026-09-30"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    }
+  ],
+  "call_meta": {
+    "case_01": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 2118,
+      "completion_tokens": 994,
+      "reasoning_tokens": 17,
+      "cost_usd": 0.00040735,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 23.104,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_02": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1621,
+      "completion_tokens": 860,
+      "reasoning_tokens": 49,
+      "cost_usd": 0.000336575,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 21.693,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "flagged_supported_but_null",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "EXPLICITLY_NONE",
+          "verdict": "abstained_explicit",
+          "span_verified": true
+        }
+      },
+      "flagged_fields": [
+        "estimated_project_value"
+      ]
+    },
+    "case_03": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1755,
+      "completion_tokens": 828,
+      "reasoning_tokens": 58,
+      "cost_usd": 0.000338625,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 17.19,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_04": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1487,
+      "completion_tokens": 827,
+      "reasoning_tokens": 65,
+      "cost_usd": 0.000318275,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 17.142,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_05": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1817,
+      "completion_tokens": 922,
+      "reasoning_tokens": 132,
+      "cost_usd": 0.000366775,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 28.665,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_06": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 2034,
+      "completion_tokens": 1290,
+      "reasoning_tokens": 234,
+      "cost_usd": 0.00047505000000000003,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 29.565,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_07": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1959,
+      "completion_tokens": 1012,
+      "reasoning_tokens": 30,
+      "cost_usd": 0.000399925,
+      "attempts": 2,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 22.389,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_08": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1828,
+      "completion_tokens": 857,
+      "reasoning_tokens": 50,
+      "cost_usd": 0.00035135,
+      "attempts": 2,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 23.551,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "EXPLICITLY_NONE",
+          "verdict": "abstained_explicit",
+          "span_verified": true
+        }
+      }
+    },
+    "case_09": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1972,
+      "completion_tokens": 1015,
+      "reasoning_tokens": 38,
+      "cost_usd": 0.00040165000000000003,
+      "attempts": 5,
+      "retries": 3,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        },
+        {
+          "attempt": 2,
+          "status": 429,
+          "sleep_s": 4.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        },
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 25.203,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    },
+    "case_10": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1518,
+      "completion_tokens": 634,
+      "reasoning_tokens": 61,
+      "cost_usd": 0.00027235,
+      "attempts": 3,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 15.496,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span_verified": false
+        },
+        "bond_insurance": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span_verified": false
+        },
+        "walkthrough_date": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span_verified": false
+        }
+      }
+    },
+    "case_11": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1480,
+      "completion_tokens": 842,
+      "reasoning_tokens": 29,
+      "cost_usd": 0.0003215,
+      "attempts": 2,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 15.508,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span_verified": false
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span_verified": false
+        }
+      }
+    },
+    "case_12": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 3751,
+      "completion_tokens": 1264,
+      "reasoning_tokens": 201,
+      "cost_usd": 0.000597325,
+      "attempts": 2,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 33.519,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span_verified": true
+        }
+      }
+    }
+  }
+}
