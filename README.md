@@ -53,7 +53,14 @@ Scoring is fully deterministic. There is no LLM judge anywhere in the harness.
 
 ## Eval set
 
-12 synthetic cases, **96 scored slots** (8 required fields by 12 cases).
+There are two corpora and both are kept. **v1** is the original 12 cases and 96
+scored slots, described below. **v2** is the revised and expanded set used for
+the final measurement: 30 cases, 240 scored slots, 18 document formats,
+including multi-part platform cases. See
+[`docs/corpus-v2-design.md`](docs/corpus-v2-design.md) for what changed and why,
+and the v2 results section for its numbers.
+
+### Corpus v1, 12 cases and 96 scored slots
 
 | Format | Cases | Notes |
 |---|---|---|
@@ -128,7 +135,7 @@ methodology, so it is treated as directional rather than as a constant.
 | 2. Baseline | done, measured over 8 runs |
 | 3. Eval harness | done |
 | 4. Solution levers | all four built and measured. Lever 1 measured flat and is the removed experiment |
-| 5. Corpus v2 | done: 30 cases, 240 slots, measured at n=5 across four arms |
+| 5. Corpus v2 | done: 30 cases, 240 slots. Headline arms measured at n=8, intermediate arms at n=5 |
 
 ## System design and measured results
 
@@ -146,9 +153,10 @@ methodology, so it is treated as directional rather than as a constant.
 > sources above. Every figure in the second diagram is also written out as a
 > table below, so the numbers stay readable however the image scales.
 
-**What the pipeline does.** Twelve synthetic cases, four input shapes (email
-RFPs, RFP PDFs, sparse portal notices, and one deliberately hard PDF), feed two
-paths. The **baseline** pastes the raw document text into a single model call
+**What the pipeline does.** Synthetic cases across several input shapes (email
+RFPs, RFP PDFs, platform invitations with attachments, and deliberately hard
+documents) feed two paths. The diagrams show the v1 set of twelve; the final
+measurement uses the v2 set of thirty. The **baseline** pastes the raw document text into a single model call
 with no tools, no retry logic, and no verification. The **solution** runs an
 extraction call, then a verification call, then a triage call, adding one lever
 at a time. Both paths emit the same fixed prediction schema and are scored by
@@ -234,15 +242,6 @@ is applied as written rather than relaxed once the numbers became suggestive.
 One statement about levels rather than deltas, which the rule does not cover:
 lever 2's mean hallucination of 1.88% is under the 2% target and the baseline's
 2.87% is not, at 3 of 8 runs versus 0 of 8.
-
-### Lever verdicts
-
-| Lever | State | Verdict |
-|---|---|---|
-| 1. Document parsing | built (`solution/parse.py`), **measured on v2** | **removed experiment.** Flat on every metric: field accuracy p=0.770, hallucination p=0.976, triage p=0.643, cost unchanged p=0.103. Predicted flat, because pdfplumber finds tables only in the clean RFPs that already score well and finds **zero** in the hard case whose quantity block is monospace text. Measured anyway, which mattered: the prediction had already been wrong once about whether the lever was wired at all. |
-| 2. Verification with span checking | measured, n=8 per arm | **not an improvement.** Both headline deltas are smaller than the run-to-run spread. The only statistically solid result is that it costs 3.1 times more. A revision to fix the case 12 regression is pending separate measurement. |
-| 3. Structured triage | measured, n=8 per arm | **improvement, and the only one so far.** Triage 89.58% to 100.00%, zero variance across 8 runs, p=0.000, clearing the 8.33 noise floor. Verified model-driven: the model agreed with the boolean rule on 96 of 96 decisions and the rule corrected it zero times. |
-| 4. Estimator brief | built (`solution/brief.py`), wiring in progress | no measurable effect on the field metrics by construction, since it renders already-verified fields and makes no model call. Judged on whether it is forwardable without edits. |
 
 ### Corpus v2 results, 30 cases and 240 slots (headline arms n = 8, others n = 5)
 
@@ -351,6 +350,19 @@ Exported briefs for all three are in [`docs/sample-briefs/`](docs/sample-briefs/
 **On v2 the baseline already meets both frozen targets**, 96.83% accuracy
 against 90% and 1.07% hallucination against 2%. The remaining headroom is
 almost entirely triage, which is where lever 3 delivers.
+
+### Lever verdicts, across both corpora
+
+Each row names the corpus its evidence comes from, because the same lever does
+not always give the same answer on both.
+
+| Lever | Measured on | Verdict |
+|---|---|---|
+| **1. Document parsing** | v2, n=8 vs 5 | **Removed experiment.** Flat on every metric: field accuracy p=0.770, hallucination p=0.976, triage p=0.643, cost unchanged p=0.103. Predicted flat and measured anyway, which mattered, because the prediction had already been wrong once about whether the lever was wired at all. |
+| **2. Verification with span checking** | v1, n=8; v2, n=5 | **Superseded by 2b.** On v1 both headline deltas were within noise. On v2 it **regressed** field accuracy by 1.58pp (p=0.008), by converting 26 missed slots into 42 flagged ones. Kept as an arm so the before and after remain comparable. |
+| **2b. Verification, revised** | v2, n=5 standalone and n=8 in the final stack | **Improvement over lever 2.** Abstains when the verifier marks a field supported, returns null, and produces a span that locates in the source. Field accuracy 95.67% to 97.50% in the full stack, +1.83pp, p=0.008, at no extra cost (p=0.944). |
+| **3. Structured triage** | v1, n=8; v2, n=8 | **The win, and it replicates.** v1 triage +9.38pp; v2 +19.58pp at p=0.000155 with the two arms completely disjoint. Verified model-driven both times: the model agreed with the boolean rule on 96 of 96 decisions on v1 and 234 of 239 on v2. |
+| **4. Estimator brief** | v2, in the final stack | **No measurable effect on the field metrics by construction**, since it renders already-verified fields and makes no model call. Judged as an artifact instead: see [`docs/sample-briefs/`](docs/sample-briefs/). |
 
 ### Two findings that shape the project
 

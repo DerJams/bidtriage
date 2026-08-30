@@ -24,28 +24,28 @@ Eight required fields per case, 12 cases -> **96 scored slots**.
 
 ### Match rule definitions
 
-- **`normalized_string`** — casefold, collapse internal whitespace, strip
+- **`normalized_string`**: casefold, collapse internal whitespace, strip
   leading/trailing punctuation, drop a trailing corporate suffix
   (`inc`, `llc`, `ltd`, `corp`) before comparison. Then exact equality.
   `co` is deliberately NOT a stripped suffix: it is also the Colorado state
   abbreviation, and stripping it truncated `denver, co` to `denver`.
-- **`us_city_state`** (`location` only) — reduce to `city, st`, taking the
+- **`us_city_state`** (`location` only): reduce to `city, st`, taking the
   trailing `City, ST` match. A target answering "Cascade Ridge Middle School,
   Arvada, CO" has found the right place and named the building too; city+state
   is the unit the radius check keys on, since the profile's distance table is
   keyed exactly that way. Extra site detail neither helps nor hurts.
-- **`iso_date`** — both sides parsed to `YYYY-MM-DD`. Accepts ISO datetimes
+- **`iso_date`**: both sides parsed to `YYYY-MM-DD`. Accepts ISO datetimes
   (`2026-09-25T14:00:00-06:00`), ISO dates, `September 25, 2026`, `25 September
   2026`, and `9/25/2026`. Time-of-day is carried in gold under
   `extra.time_local` but is **not scored**.
-- **`currency_interval`** — normalized to `{low, high, currency}` as integer USD.
+- **`currency_interval`**: normalized to `{low, high, currency}` as integer USD.
   A point estimate is the degenerate interval `low == high`. Exact equality of
   both bounds. `"$1.2M"`, `"1,200,000"`, and `"approximately $1.2 million"` all
   normalize to `1200000`.
-- **`token_set`** — set equality against the closed trade vocabulary:
+- **`token_set`**: set equality against the closed trade vocabulary:
   `hvac`, `plumbing`, `piping`, `sheet_metal`, `controls`, `refrigeration`,
   `fire_protection`. Any token outside the vocabulary makes the field wrong.
-- **`bond_dict`** — see section 2.
+- **`bond_dict`**: see section 2.
 
 ## 2. `bond_insurance` (compound field, binary score)
 
@@ -61,7 +61,7 @@ Gold stores a **normalized dict**, not formatted tokens:
   `"$2M"`, `"2,000,000"`, and `"two million"` for `gl_limit_usd`.
 - **"None required" is an explicit assertion.** Where no bonding is required,
   gold is `{"required": false}` and the system must positively state that.
-  A `null`, an omitted field, or "not found" scores **wrong** — not abstained.
+  A `null`, an omitted field, or "not found" scores **wrong** rather than abstained.
 - Scoring is **all-or-nothing on the full dict**. One wrong GL limit fails the
   field.
 - **Key-set convention.** Keys not stated in the source are **omitted** from the
@@ -92,13 +92,13 @@ lever would be self-scoring. It is not free.
 
 ## 4. Metrics
 
-**Primary — field accuracy** (target >= 90%):
+**Primary metric, field accuracy** (target >= 90%):
 
 ```
 (correct + correct_abstention) / 96
 ```
 
-**Secondary — hallucination rate** (target <= 2%):
+**Secondary metric, hallucination rate** (target <= 2%):
 
 ```
 judged:      (incorrect + hallucinated) / asserted
@@ -110,7 +110,7 @@ figure is logged in the results JSON as a **diagnostic only**, so both views are
 auditable. The harness prints **the asserted-field count alongside the rate on
 every run**, so a shrinking denominator can never hide behind a falling rate.
 
-**Secondary — minutes per intake:** a transparent proxy, **not** a measured
+**Secondary metric, minutes per intake:** a transparent proxy, **not** a measured
 human time. Constants live in `evals/harness/minutes.py` and are fixed before
 measurement. It is reported as a proxy everywhere it appears, and no claim in
 this repo asserts observed human time.
