@@ -23,6 +23,8 @@ import re
 import sys
 from datetime import date
 
+from evals.harness.normalize import normalize_field
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "data" / "synthetic" / "source_text"
 OUT = ROOT / "evals" / "gold"
@@ -469,6 +471,21 @@ def main() -> int:
                 bad = set(fval["normalized"]) - TRADE_VOCAB
                 if bad:
                     failures.append("%s.trade_scope: outside vocabulary %s" % (case_id, sorted(bad)))
+
+        # Property 3: gold's hand-authored `normalized` must be reproducible by
+        # the SAME normalizer the scorer uses. Without this, a normalizer bug
+        # silently fails every prediction while gold looks fine -- which is
+        # exactly what happened when the corporate-suffix stripper ate the "CO"
+        # in "Denver, CO". bond_insurance is excluded: its `value` is prose and
+        # its `normalized` is a dict, so re-derivation is not defined.
+        for fname, fval in case["fields"].items():
+            if fname == "bond_insurance" or not fval["present_in_source"]:
+                continue
+            rederived = normalize_field(fname, fval["value"])
+            if rederived != fval["normalized"]:
+                failures.append("%s.%s: normalized not reproducible from value "
+                                "(authored=%r, normalizer=%r)"
+                                % (case_id, fname, fval["normalized"], rederived))
 
         # Property 2: triage derived, not asserted.
         case["triage"] = derive_triage(case)
