@@ -40,15 +40,16 @@ def load_cases(only: list | None = None) -> list:
 
 
 def get_runner(target: str):
+    """Return (run_callable, active_levers)."""
     if target == "baseline":
-        from baseline.run_baseline import run
-        return run
+        from baseline import run_baseline
+        return run_baseline.run, None
     if target == "solution":
         try:
-            from solution.run_solution import run
+            from solution import run_solution
         except ImportError as e:
             raise SystemExit("solution target not implemented yet (%s)" % e)
-        return run
+        return run_solution.run, list(getattr(run_solution, "ACTIVE_LEVERS", ()))
     raise SystemExit("unknown target: %s" % target)
 
 
@@ -68,7 +69,7 @@ def main(argv=None) -> int:
     if not cases:
         raise SystemExit("no cases matched")
 
-    runner = get_runner(args.target)
+    runner, active_levers = get_runner(args.target)
     started = datetime.now(timezone.utc)
 
     case_scores, triage_scores, call_meta = [], [], {}
@@ -79,6 +80,8 @@ def main(argv=None) -> int:
     print("target=%s  model=%s  routing=%s(%s)  cases=%d"
           % (args.target, args.model or config.MODEL, config.ROUTING_MODE,
              config.PINNED_PROVIDER, len(cases)))
+    if active_levers is not None:
+        print("active levers: %s" % (", ".join(active_levers) or "none"))
     print("-" * 92)
 
     for cid, gold, text in cases:
@@ -90,6 +93,11 @@ def main(argv=None) -> int:
             res = None
 
         meta = res.as_dict() if res is not None else {"ok": False, "error": "no result"}
+        audit = getattr(res, "verification_audit", None)
+        if audit:
+            meta["verification_audit"] = audit
+        if flagged:
+            meta["flagged_fields"] = list(flagged)
         call_meta[cid] = meta
         total_cost += (res.cost_usd if res else 0.0)
         total_retries += (res.retries if res else 0)
@@ -125,6 +133,7 @@ def main(argv=None) -> int:
     results = {
         "target": args.target,
         "label": args.label,
+        "active_levers": active_levers,
         "started_utc": started.isoformat(),
         "finished_utc": finished.isoformat(),
         "wall_clock_s": round((finished - started).total_seconds(), 2),
