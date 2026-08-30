@@ -305,6 +305,16 @@ About 7.8 hours sequential for four arms at n=8, before lever 4 adds a call.
 
 ## 5. Sample size and concurrency (measured, decided)
 
+> **Outcome, added after the work was done.** The predictions in this section
+> were partly right and partly wrong, and both are recorded rather than the page
+> being quietly updated to match. The predicted noise floor of 0.54pp was NOT
+> used and should not be cited: the floor is measured on whatever arms are being
+> compared, and on v2 it came out at 1.25 to 1.67 for field accuracy and 10.00
+> for triage. The concurrency estimate held: the full v2 measurement took about
+> 90 minutes of wall clock against the 4.9 hours it would have taken
+> sequentially. Total API spend for every recorded v2 run was $0.39.
+
+
 **n=5 on 30 cases**, not n=8. A 240-slot corpus should cut per-run variance
 relative to 96 slots, so n=5 on the expanded set should resolve lever effects at
 least as well as n=8 did on the small one, at about 60% of the run time. This is

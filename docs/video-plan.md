@@ -38,7 +38,7 @@ point of the whole harness.
 | 4 | 1:30 to 2:15 | Terminal, command B | One case end to end, live. The realistic execution beat. |
 | 5 | 2:15 to 2:50 | Terminal, command C | The estimator brief for that same case. The user-facing artifact. |
 | 6 | 2:50 to 3:35 | Terminal, command D | The final comparison table. The headline result. |
-| 7 | 3:35 to 4:05 | Terminal, command E | Lever 3 verified model-driven, 96 of 96. |
+| 7 | 3:35 to 4:05 | Terminal, command E | Lever 3 verified model-driven, 234 of 239. |
 | 8 | 4:05 to 4:30 | Editor, `CHANGELOG.md` | The changelog beat, and the removed experiment. |
 
 ---
@@ -60,7 +60,8 @@ This is the one command in the sequence that calls the API. It is a single
 case, so it is cheap and fast enough to watch.
 
 ```bash
-BIDTRIAGE_LEVERS=lever2_verify,lever3_triage,lever4_brief \
+BIDTRIAGE_CORPUS=v2 \
+BIDTRIAGE_LEVERS=lever2b_verify,lever3_triage,lever4_brief \
   $PY -m evals.run --target solution --cases case_12 --label demo
 ```
 
@@ -73,7 +74,7 @@ instead. Nothing downstream depends on B having just executed.
 ### C. The artifact a person actually receives (instant)
 
 ```bash
-cat docs/sample-briefs/case_06_no_bid.txt
+cat docs/sample-briefs/case_06_no_bid.txt   # from the v1 corpus
 ```
 
 Scroll slowly. The three things to point at: the **NO BID** recommendation with
@@ -86,7 +87,8 @@ not a staged example.
 ### D. The final comparison (measured 1.5 s)
 
 ```bash
-$PY -m evals.compare --a baseline --b lever2_verify+lever3_triage
+BIDTRIAGE_CORPUS=v2 \
+  $PY -m evals.compare --a baseline --b lever2b_verify+lever3_triage+lever4_brief
 ```
 
 The single most important frame in the video. Let it sit on screen.
@@ -99,8 +101,8 @@ import json, glob, pathlib
 runs = [json.loads(pathlib.Path(f).read_text(encoding='utf-8'))
         for f in glob.glob('evals/results/*_solution*.json')
         if 'SUPERSEDED' not in f and 'CONCTEST' not in f]
-runs = [r for r in runs if r.get('n_cases') == 12
-        and set(r.get('active_levers') or []) == {'lever2_verify', 'lever3_triage'}]
+runs = [r for r in runs if r.get('n_cases') == 30
+        and set(r.get('active_levers') or []) == {'lever2b_verify', 'lever3_triage', 'lever4_brief'}]
 agree = sum(1 for r in runs for m in r['call_meta'].values()
             if (m.get('triage_audit') or {}).get('model_agreed_with_rule'))
 total = sum(1 for r in runs for m in r['call_meta'].values() if m.get('triage_audit'))
@@ -108,7 +110,7 @@ print("model agreed with the boolean rule on %d of %d decisions" % (agree, total
 EOF
 ```
 
-Prints `model agreed with the boolean rule on 96 of 96 decisions`.
+Prints `model agreed with the boolean rule on 234 of 239 decisions`.
 
 ---
 
@@ -130,9 +132,10 @@ Prints `model agreed with the boolean rule on 96 of 96 decisions`.
 > even self-perform.
 
 > The baseline is what you would build first: paste the text into one model
-> call and ask for the fields. **It scores 95.3 percent.** That surprised me.
-> The bar I had frozen before measuring was 90, so the obvious approach already
-> clears it.
+> call and ask for the fields. On the full thirty case set **it scores 97
+> percent**, and its hallucination rate is one percent. That surprised me. The
+> bars I had frozen before measuring were ninety and two, so the obvious
+> approach already clears both of them.
 
 ### 1:05 The realistic execution (beat 3 and 4)
 
@@ -164,8 +167,10 @@ Prints `model agreed with the boolean rule on 96 of 96 decisions`.
 > within noise**, because neither delta clears the run-to-run spread, and I am
 > not going to call something an improvement because it points the right way.
 
-> Triage is different. Ninety point six to a hundred percent, zero variance,
-> p equals zero point zero zero zero. That one clears the bar.
+> Triage is different. Seventy eight percent to ninety seven and a half, p
+> equals zero point zero zero zero one five five. That is the smallest number
+> this test can return at eight runs, and it is that small because the two arms
+> do not overlap at all. My worst solution run beats my best baseline run.
 
 ### 3:35 The biggest contributor, and why I do not trust it yet (beat 7)
 
@@ -174,9 +179,10 @@ Prints `model agreed with the boolean rule on 96 of 96 decisions`.
 > boolean formula. If the formula were doing the work, this number would prove
 > nothing.
 
-> So I checked. Across ninety six decisions the model agreed with the rule
-> every single time, and the rule never once corrected it. The formula
-> contributed nothing. The model worked out the at-capacity window itself.
+> So I checked. Across two hundred and thirty nine decisions the model agreed
+> with the rule two hundred and thirty four times. The rule corrected it five
+> times out of two hundred and thirty nine, so it is not carrying the result.
+> The model worked out the at-capacity window itself.
 
 ### 4:05 The changelog and the removed experiment (beat 8)
 
@@ -202,6 +208,10 @@ Prints `model agreed with the boolean rule on 96 of 96 decisions`.
 - The lever 1 numbers are now measured and can be stated directly: flat on
   every metric, field accuracy p = 0.770, hallucination p = 0.976, triage
   p = 0.643, cost unchanged.
+- The brief shown in shot 5 is from the v1 corpus, because it is the one that
+  contains a real NOT CONFIRMED marker. The v2 briefs are clean, which is a
+  better result and a worse demo. Say which corpus it is from rather than
+  glossing it.
 - If there is room, the strongest extra beat is lever 2b: the one regression
   the project found in its own work, diagnosed to a single reconciliation rule
   and fixed for a measured 1.83 point gain at no extra cost. It shows the loop

@@ -134,7 +134,11 @@ def compare(name_a: str, name_b: str) -> int:
                      "delta": delta, "noise_floor": floor, "p_value": p,
                      "verdict": verdict, "a_values": a, "b_values": b})
 
-    out = RESULTS / ("comparison_%s_vs_%s.json" % (name_a, name_b))
+    # The corpus must be in the filename. Without it a v2 comparison silently
+    # overwrote the v1 comparison of the same two arms, because the arms are
+    # named identically on both corpora. Same class of collision as the results
+    # filenames, found the same way: by looking at what was actually on disk.
+    out = RESULTS / ("comparison_%s_%s_vs_%s.json" % (config.CORPUS, name_a, name_b))
     out.write_text(json.dumps({"a": name_a, "b": name_b, "n_a": len(ga), "n_b": len(gb),
                                "alpha": ALPHA, "rows": rows}, indent=2) + "\n",
                    encoding="utf-8", newline="\n")

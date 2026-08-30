@@ -308,9 +308,10 @@ having checked.
 **Lever 3 replicates, and larger.** On v1 it moved triage 9.38pp. On v2, where
 the baseline triage is much weaker at 78%, it moves it 20.00pp. The harder
 corpus exposes more of the capacity reasoning the baseline never does. Checked
-for hollowness again: across 148 case-decisions the model agreed with the
-boolean rule 147 times and the rule corrected it once, so the formula is
-contributing almost nothing to the number rather than carrying it.
+for hollowness again. Across the final arm's eight runs the model agreed with
+the boolean rule on **234 of 239** case-decisions, so the rule corrected it 5
+times in 239. The formula is contributing almost nothing to the number rather
+than carrying it.
 
 **The lever 2 regression was diagnosed and fixed, and the fix is a measured
 improvement.** 40 of lever 2's 42 flags were `SUPPORTED` with a null value,
