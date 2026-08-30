@@ -165,50 +165,67 @@ because scoring it against itself would prove nothing.
 
 ### Results, n = 8 runs per arm
 
-| Metric | Target | Baseline | Lever 2 | Delta | Noise floor | p | Verdict |
-|---|---|---|---|---|---|---|---|
-| Field accuracy | at least 90% | 95.31% | 96.74% | 1.43pp higher | 2.08 | 0.009 | within noise |
-| Hallucination (asserted denom.) | at most 2% | 2.87% | 1.88% | 1.00pp lower | 2.30 | 0.037 | within noise |
-| Triage decision accuracy | n/a | 90.62% | 89.58% | 1.04pp lower | 8.33 | 1.000 | within noise |
-| Cost per case | n/a | $0.00013 | $0.00040 | 3.1x higher | n/a | 0.000 | **regression** |
-| Hard failures | n/a | 0 | 0 | none | n/a | n/a | n/a |
+Levels first. Every figure comes from a run recorded in `evals/results/`.
+Nothing is estimated, and cost is the amount OpenRouter actually charged.
 
-Ranges: baseline field accuracy 93.75 to 95.83, lever 2 field accuracy 95.83 to
-97.92. Baseline hallucination 2.30 to 4.60, lever 2 hallucination 1.15 to 2.33.
+| Metric | Target | Baseline | Lever 2 | Lever 2+3 |
+|---|---|---|---|---|
+| Field accuracy | at least 90% | 95.31% | 96.74% | 96.88% |
+| Hallucination (asserted denom.) | at most 2% | 2.87% | 1.88% | 2.02% |
+| Triage decision accuracy | n/a | 90.62% | 89.58% | **100.00%** |
+| Cost per case | n/a | $0.00013 | $0.00040 | $0.00060 |
+| Hard failures | n/a | 0 | 0 | 0 |
 
-### Lever verdicts
+Verdicts against the baseline, under the rule enforced in
+[`evals/compare.py`](evals/compare.py):
 
-| Lever | State | Verdict |
-|---|---|---|
-| 1. Document parsing | built (`solution/parse.py`), not yet measured | pending. Expected flat: pdfplumber finds tables in cases 06 to 09, which already score near-perfectly, and **zero** tables in case 12, whose quantity block is monospace text. It is measured anyway rather than assumed. |
-| 2. Verification with span checking | measured, n=8 per arm | **not an improvement.** Both headline deltas are smaller than the run-to-run spread. The only statistically solid result is that it costs 3.1 times more. A revision to fix the case 12 regression is pending separate measurement. |
-| 3. Structured triage | measurement running, n=8 | pending. On a three-case probe it fixed case_06, the systematic timeline-conflict failure that neither the baseline nor lever 2 gets right. |
-| 4. Estimator brief | not started | pending |
+| Metric | Delta | Noise floor | p | Verdict |
+|---|---|---|---|---|
+| Field accuracy | 1.56pp higher | 2.08 | 0.003 | within noise |
+| Hallucination | 0.86pp lower | 2.30 | 0.061 | within noise |
+| Triage accuracy | **9.38pp higher** | 8.33 | 0.000 | **improvement** |
+| Cost per case | 4.6x higher | n/a | 0.000 | **regression** |
 
-**Lever 2 is not reported as an improvement.** That verdict deserves an honest
-caveat, because at n=8 the two headline metrics are doing something more
-interesting than simply failing to move. The permutation test returns p = 0.009
-for field accuracy and p = 0.037 for hallucination, so the direction is
-consistent enough that chance is an unlikely explanation. The deltas are
-nevertheless smaller than the run-to-run spread, and the rule in force requires
-a delta to clear that spread before it counts. Both things are true at once: the
-difference is probably real, and it is smaller than the noise the system
-produces between identical runs. The rule is deliberately conservative, and it
+Lever 3's own incremental contribution, measured against lever 2 rather than
+against the baseline, so it is not credited with lever 2's work:
+
+| Metric | Lever 2 | Lever 2+3 | Delta | p | Verdict |
+|---|---|---|---|---|---|
+| Triage accuracy | 89.58% | **100.00%** | 10.42pp higher | 0.000 | **improvement** |
+| Field accuracy | 96.74% | 96.88% | 0.13pp | 1.000 | within noise |
+| Hallucination | 1.88% | 2.02% | 0.14pp higher | 0.840 | within noise |
+| Cost per case | $0.00040 | $0.00060 | 1.5x higher | 0.000 | regression |
+
+**Lever 3 is the first lever to clear the bar.** Triage reaches 100.00% on every
+one of the 8 runs, with zero variance, against a baseline that sat at 90.62%
+with an 8.33 point spread. It leaves field accuracy and hallucination untouched,
+which is what lever isolation should look like: it was built to fix triage and
+it moved triage.
+
+That result was checked for the obvious way it could be hollow. Lever 3 splits
+the work so the model evaluates the four capacity criteria and code applies only
+the published boolean formula. If the formula were carrying the score, the
+result would prove nothing. Across all 96 case-decisions the model's own
+decision agreed with the rule **96 out of 96 times**, and the rule corrected the
+model on **zero** occasions. The formula contributed nothing to the number. On
+case_06, the systematic timeline-conflict failure that neither the baseline nor
+lever 2 ever gets right, the model derived the at-capacity window itself in 8
+runs out of 8:
+
+> "All three committed projects run concurrently from 2026-10-01 (Foothills
+> start) to 2026-12-10 (Clear Creek end), which is the maximum of 3. The new
+> window (2026-11-01 to 2027-02-28) overlaps that period."
+
+That window matches what `derive_triage()` computes, and it was reached without
+being given it.
+
+**Lever 2 is still not reported as an improvement.** Its two headline deltas
+remain smaller than the run-to-run spread even though the permutation test now
+puts both at p below 0.05. The rule requires a delta to clear the spread, and it
 is applied as written rather than relaxed once the numbers became suggestive.
-
 One statement about levels rather than deltas, which the rule does not cover:
-lever 2's mean hallucination rate of 1.88% is under the 2% target frozen before
-measurement, and the baseline's 2.87% is not. Per run, 3 of 8 lever 2 runs come
-in at or under 2% against 0 of 8 baseline runs. The difference between the two
-arms remains within noise.
-
-The verdict rule is enforced in code by [`evals/compare.py`](evals/compare.py),
-not by judgement: an exact two-sided permutation test, with an improvement
-requiring the delta to clear the larger observed spread **and** reach p below
-0.05. Anything else prints as within noise regardless of direction. Every figure
-above comes from a run recorded in `evals/results/`. Nothing is estimated, and
-cost is the amount OpenRouter actually charged, read from the response usage
-block.
+lever 2's mean hallucination of 1.88% is under the 2% target and the baseline's
+2.87% is not, at 3 of 8 runs versus 0 of 8.
 
 ### Two findings that shape the project
 
