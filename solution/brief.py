@@ -15,10 +15,15 @@ being wrong costs a bid.
 So the model does the judgment, and the renderer does the typography. The brief
 adds no new hallucination surface and costs nothing extra per case.
 
-Three properties the brief maintains, all checkable by `brief_checks`:
+Four properties the brief maintains, all checkable by `brief_checks`:
 
 * Every asserted field carries a citation from the source document.
-* Every field the system was unsure about is surfaced at the TOP, not buried.
+* Every field the system was unsure about is surfaced at the TOP, and is also
+  marked NOT CONFIRMED at the point where its value appears. A reader who skims
+  the middle of the page must not be able to mistake an unverified figure for a
+  verified one.
+* Disqualifying conditions, such as a mandatory walk-through, are promoted out
+  of the citations and stated where they will be seen.
 * Nothing appears in the brief that verification did not support.
 """
 from __future__ import annotations
@@ -32,6 +37,12 @@ FIELD_LABELS = [
     ("estimated_project_value", "Estimated value"),
 ]
 
+CITATION_LABELS = {
+    "client_name": "Client", "project_title": "Project", "trade_scope": "Trade scope",
+    "location": "Location", "bid_due_date": "Bid due", "walkthrough_date": "Walk-through",
+    "estimated_project_value": "Estimated value", "bond_insurance": "Bonding",
+}
+
 CRITERION_LABELS = {
     "trade_fit": "Trade fit",
     "within_radius": "Service radius",
@@ -39,8 +50,18 @@ CRITERION_LABELS = {
     "timeline_conflict": "Timeline",
 }
 
-RULE = "=" * 68
-THIN = "-" * 68
+# What an estimator must go and get when a criterion cannot be evaluated.
+CRITERION_NEEDS = {
+    "trade_fit": "Trade scope, specific enough to identify the trades",
+    "within_radius": "Project location",
+    "size_band_ok": "Estimated project value or engineer's estimate",
+    "timeline_conflict": "Construction window (start and substantial completion)",
+}
+
+UNCONFIRMED = "NOT CONFIRMED, see review above"
+LBL = 20          # label column width
+RULE = "=" * 72
+THIN = "-" * 72
 
 
 def _fmt_trades(v):
@@ -54,7 +75,7 @@ def _fmt_trades(v):
     return ", ".join(pretty.get(str(t).lower(), str(t)) for t in v)
 
 
-def _fmt_bond(b):
+def _fmt_bond(b, flagged):
     if b is None:
         return ["Not stated in the document."]
     if b.get("required") is False:
@@ -64,36 +85,71 @@ def _fmt_bond(b):
                        ("performance_bond_pct", "Performance bond"),
                        ("payment_bond_pct", "Payment bond")):
         if b.get(key) is not None:
-            out.append("%-20s %s%%" % (label, b[key]))
+            out.append("%-*s %s%%" % (LBL, label, b[key]))
     occ, agg = b.get("gl_per_occurrence_usd"), b.get("gl_aggregate_usd")
-    if occ is not None or agg is not None:
-        parts = []
-        if occ is not None:
-            parts.append("${:,} per occurrence".format(int(occ)))
-        if agg is not None:
-            parts.append("${:,} aggregate".format(int(agg)))
-        out.append("%-20s %s" % ("General liability", " / ".join(parts)))
-    elif b.get("gl_limit_usd") is not None:  # v1 single-limit shape, kept readable
-        out.append("%-20s $%s" % ("General liability",
-                                  "{:,}".format(int(b["gl_limit_usd"]))))
-    return out or ["Stated, but no specific requirement recorded."]
+    parts = []
+    if occ is not None:
+        parts.append("${:,} per occurrence".format(int(occ)))
+    if agg is not None:
+        parts.append("${:,} aggregate".format(int(agg)))
+    if parts:
+        out.append("%-*s %s" % (LBL, "General liability", " / ".join(parts)))
+    elif b.get("gl_limit_usd") is not None:  # v1 single-limit shape
+        out.append("%-*s $%s" % (LBL, "General liability",
+                                 "{:,}".format(int(b["gl_limit_usd"]))))
+    if not out:
+        out = ["Stated, but no specific requirement recorded."]
+    if "bond_insurance" in flagged:
+        out.append("%-*s %s" % (LBL, "", "(" + UNCONFIRMED + ")"))
+    return out
 
 
-def _wrap(text, width=48, indent=22):
+def _wrap(text, width, indent):
     words = str(text).split()
     lines, cur = [], ""
     for w in words:
-        if len(cur) + len(w) + 1 > width:
+        if cur and len(cur) + len(w) + 1 > width:
             lines.append(cur)
             cur = w
         else:
             cur = (cur + " " + w).strip()
     if cur:
         lines.append(cur)
-    if not lines:
-        return ""
-    pad = " " * indent
-    return ("\n" + pad).join(lines)
+    return ("\n" + " " * indent).join(lines) if lines else ""
+
+
+def _value_line(label, value, flagged_key, flagged):
+    """A value line that cannot be mistaken for verified when it is not."""
+    shown = value if value not in (None, "") else "not stated"
+    if flagged_key in flagged:
+        return "  %-*s %s  (%s)" % (LBL, label, shown, UNCONFIRMED)
+    return "  %-*s %s" % (LBL, label, shown)
+
+
+def _mandatory_walkthrough(evidence):
+    span = ((evidence or {}).get("walkthrough_date") or {}).get("span") or ""
+    return bool(re.search(r"\bmandator", span, re.IGNORECASE))
+
+
+# Explicit zone list, matched case-sensitively. A generic [A-Z]{2,4} under
+# IGNORECASE swallowed the "loca" of "local time" and rendered "9:00 AM loca".
+# A truncated time on a bid brief is precisely the kind of small error that
+# costs a bid, so the zone must be matched exactly rather than approximately.
+_TZ = r"(?:MT|MST|MDT|CT|CST|CDT|ET|EST|EDT|PT|PST|PDT|UTC|local time)"
+_TIME_RE = re.compile(r"(\d{1,2}:\d{2}\s*(?:[AaPp]\.?[Mm]\.?)?)\s*(" + _TZ + r")?")
+
+
+def _time_from_span(evidence, key):
+    """Surface a stated time of day. The scored field is date-only, but an
+    estimator who misses a 2:00 PM cutoff has lost the bid regardless."""
+    span = ((evidence or {}).get(key) or {}).get("span") or ""
+    m = _TIME_RE.search(span)
+    if not m:
+        return None
+    out = m.group(1).strip()
+    if m.group(2):
+        out += " " + m.group(2)
+    return out
 
 
 def render(case_id, prediction, flagged, evidence=None, triage_audit=None):
@@ -105,11 +161,8 @@ def render(case_id, prediction, flagged, evidence=None, triage_audit=None):
     title = p.get("project_title") or "Untitled solicitation"
     decision = (p.get("triage_decision") or "no recommendation").upper().replace("_", " ")
 
-    L = [RULE, "BID TRIAGE BRIEF", title, RULE, ""]
+    L = [RULE, "BID TRIAGE BRIEF", title, RULE, "", "RECOMMENDATION: %s" % decision, ""]
 
-    # --- recommendation -----------------------------------------------------
-    L.append("RECOMMENDATION: %s" % decision)
-    L.append("")
     if triage_audit and triage_audit.get("criteria"):
         crit = triage_audit["criteria"]
         reasons = triage_audit.get("criteria_reasons") or {}
@@ -121,66 +174,94 @@ def render(case_id, prediction, flagged, evidence=None, triage_audit=None):
                 mark = "CONFLICT" if val else "CLEAR"
             else:
                 mark = "PASS" if val else "FAIL"
-            L.append("  %-16s %-9s %s" % (label, mark, _wrap(reasons.get(key) or "", 44, 29)))
+            L.append("  %-16s %-9s %s"
+                     % (label, mark, _wrap(reasons.get(key) or "", 43, 29)))
         L.append("")
 
-    # --- review queue, deliberately near the top ----------------------------
+    # --- review queue, deliberately above the values it refers to -----------
     if flagged:
         L.append("NEEDS YOUR REVIEW (%d item%s)" % (len(flagged), "" if len(flagged) == 1 else "s"))
         for f in flagged:
-            label = f.replace("_", " ")
-            note = "Could not be confirmed against the source document. Check "\
-                   "before relying on it."
-            L.append("  ! %-18s %s" % (label, _wrap(note, 44, 23)))
+            label = CITATION_LABELS.get(f, f.replace("_", " "))
+            note = ("Could not be confirmed against the source document. "
+                    "Verify before relying on it.")
+            L.append("  ! %-*s %s" % (LBL, label, _wrap(note, 44, LBL + 5)))
         L.append("")
     else:
-        L.append("NEEDS YOUR REVIEW: nothing. Every field was confirmed against")
-        L.append("the source document.")
+        # "Every field was confirmed" is false when fields are simply absent.
+        absent = [lbl for key, lbl in CITATION_LABELS.items() if p.get(key) is None]
+        L.append("NEEDS YOUR REVIEW")
+        L.append("  Nothing was flagged as uncertain.")
+        if absent:
+            L.append("  %s %s"
+                     % ("Fields shown as \"not stated\" are genuinely absent from",
+                        "the document:"))
+            L.append("  " + _wrap(", ".join(absent) + ".", 66, 2))
+        else:
+            L.append("  Every field below was confirmed against the source document.")
         L.append("")
+
+    # --- what to obtain, when the decision cannot be made yet ---------------
+    if (p.get("triage_decision") == "insufficient_information"
+            and triage_audit and triage_audit.get("criteria")):
+        needed = [CRITERION_NEEDS[c] for c, v in triage_audit["criteria"].items()
+                  if v is None and c in CRITERION_NEEDS]
+        if needed:
+            L.append("TO DECIDE, OBTAIN")
+            for n in sorted(needed):
+                L.append("  - " + n)
+            L.append("")
 
     # --- dates --------------------------------------------------------------
     L.append("KEY DATES")
     due = p.get("bid_due_date")
-    L.append("  %-18s %s" % ("Bid due", due or "not stated"))
+    due_time = _time_from_span(evidence, "bid_due_date")
+    if due and due_time:
+        due = "%s at %s" % (due, due_time)
+    L.append(_value_line("Bid due", due, "bid_due_date", flagged))
+
     walk = p.get("walkthrough_date")
-    L.append("  %-18s %s" % ("Walk-through", walk or "none stated"))
+    walk_time = _time_from_span(evidence, "walkthrough_date")
+    if walk and walk_time:
+        walk = "%s at %s" % (walk, walk_time)
+    if walk and _mandatory_walkthrough(evidence):
+        walk = "%s  ** MANDATORY, non-attendance disqualifies **" % walk
+    L.append(_value_line("Walk-through", walk or "none stated", "walkthrough_date", flagged))
     L.append("")
 
     # --- project ------------------------------------------------------------
     L.append("PROJECT")
     for key, label in FIELD_LABELS:
-        v = p.get(key)
-        if key == "trade_scope":
-            v = _fmt_trades(v)
-        L.append("  %-18s %s" % (label, v if v not in (None, "") else "not stated"))
+        v = _fmt_trades(p.get(key)) if key == "trade_scope" else p.get(key)
+        L.append(_value_line(label, v, key, flagged))
     L.append("")
 
     # --- bonding ------------------------------------------------------------
     L.append("BONDING AND INSURANCE")
-    for line in _fmt_bond(p.get("bond_insurance")):
+    for line in _fmt_bond(p.get("bond_insurance"), flagged):
         L.append("  " + line)
     L.append("")
 
     # --- citations ----------------------------------------------------------
-    cited = [(f, (evidence.get(f) or {}).get("span")) for f in
-             ("client_name", "project_title", "trade_scope", "location",
-              "bid_due_date", "estimated_project_value", "bond_insurance",
-              "walkthrough_date")]
+    cited = [(f, (evidence.get(f) or {}).get("span")) for f in CITATION_LABELS]
     cited = [(f, s) for f, s in cited if s]
     if cited:
         L.append(THIN)
         L.append("SOURCE CITATIONS")
+        L.append("  Every figure above is quoted from the document below.")
+        L.append("")
         for f, span in cited:
             span = re.sub(r"\s+", " ", span).strip()
-            if len(span) > 92:
-                span = span[:89] + "..."
-            L.append("  %-24s %s" % (f.replace("_", " "), '"' + span + '"'))
+            if len(span) > 78:
+                span = span[:75] + "..."
+            L.append("  %-*s %s" % (LBL, CITATION_LABELS[f], '"' + span + '"'))
         L.append("")
 
     L.append(THIN)
     L.append("Prepared by BidTriage from the source document for %s." % case_id)
-    L.append("Every figure above is quoted from that document. Items marked for")
-    L.append("review were not confirmed and need a human read before use.")
+    if flagged:
+        L.append("Items marked NOT CONFIRMED were not verified against the source")
+        L.append("and need a human read before use.")
     return "\n".join(L)
 
 
@@ -195,20 +276,24 @@ def brief_checks(text, prediction, flagged, evidence=None):
     evidence = evidence or {}
     p = prediction or {}
     flagged = set(flagged or [])
+    fields = list(CITATION_LABELS)
 
-    asserted = [f for f in ("client_name", "project_title", "trade_scope", "location",
-                            "bid_due_date", "estimated_project_value", "bond_insurance",
-                            "walkthrough_date")
-                if p.get(f) is not None and f not in flagged]
+    asserted = [f for f in fields if p.get(f) is not None and f not in flagged]
     cited = [f for f in asserted if (evidence.get(f) or {}).get("span")]
-
     placeholders = re.findall(r"\bTODO\b|\bTBD\b|\bFIXME\b|\bXXX\b|\{\{|\}\}|<[a-z_]+>", text)
+
+    # Every flagged field must be marked at its value, not only in the queue.
+    marked = all(text.count(UNCONFIRMED) >= 1 for _ in [0]) if flagged else True
+    unmarked = [f for f in flagged
+                if CITATION_LABELS.get(f, f.replace("_", " ")) not in text]
 
     return {
         "has_recommendation": "RECOMMENDATION:" in text,
         "recommendation_not_empty": "RECOMMENDATION: NO RECOMMENDATION" not in text,
         "review_section_present": "NEEDS YOUR REVIEW" in text,
-        "flagged_all_surfaced": all(f.replace("_", " ") in text for f in flagged),
+        "flagged_all_surfaced": not unmarked,
+        "flagged_marked_at_value": marked,
+        "unconfirmed_markers": text.count(UNCONFIRMED),
         "asserted_fields": len(asserted),
         "asserted_fields_cited": len(cited),
         "citation_coverage": (len(cited) / len(asserted)) if asserted else 1.0,
