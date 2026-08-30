@@ -1,0 +1,27 @@
+target=baseline  model=z-ai/glm-5.3-flash  routing=pinned_single_provider(deepinfra)  cases=12
+--------------------------------------------------------------------------------------------
+  case_01   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00016
+  case_02   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00010
+  case_03   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_04   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00009
+  case_05   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_06   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00015
+  case_07   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_08   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00012
+  case_09   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00014
+  case_10   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00009
+  case_11   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00010
+  case_12   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00024
+--------------------------------------------------------------------------------------------
+field accuracy ..............   94.8%   (91/96 slots)
+hallucination rate (judged) .    3.4%   (3 of 87 asserted fields)
+hallucination rate (/96) .....    3.1%   [diagnostic only]
+triage decision accuracy ....   91.7%   (11/12)
+minutes/intake (PROXY) ......    3.0    vs 17.3 manual
+cost per case ............... $0.00013  (total $0.00155)
+retries / failures .......... 0 / 0
+resolved provider(s) ........ DeepInfra
+
+outcome breakdown: correct=84  correct_abstention=7  incorrect=2  missed=2  hallucinated=1
+
+wrote evals\results\20260830T051449Z_baseline.json
