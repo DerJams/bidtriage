@@ -38,6 +38,7 @@ import re
 from evals.harness import client
 from evals.harness.normalize import TRADE_VOCAB, norm_trades
 from evals.harness.schema import response_format as extract_response_format
+from solution import brief
 from solution import triage as triage_mod
 from solution import verify_schema
 
@@ -235,7 +236,7 @@ def _reconcile(verified: dict, evidence: dict, source: str):
             flagged.append(field)
             verdict = "flagged_bad_status"
 
-        audit[field] = {"status": status, "verdict": verdict,
+        audit[field] = {"status": status, "verdict": verdict, "span": span,
                         "span_verified": bool(span) and _span_found(span or "", source)}
 
     # Closed-vocabulary guard. An unrecognised trade is not a low-confidence
@@ -301,11 +302,11 @@ def run(case_id: str, gold: dict, document_text: str) -> tuple:
         return None, [], res1
 
     if "lever2_verify" not in ACTIVE_LEVERS:
+        combined = res1
         if "lever3_triage" in ACTIVE_LEVERS:
-            combined = res1
             draft = _apply_triage(draft, case_id, document_text, combined)
-            return draft, [], combined
-        return draft, [], res1
+        _attach_brief(combined, case_id, draft, [], None)
+        return draft, [], combined
 
     payload, res2 = _verify(case_id, draft, document_text)
 
@@ -345,4 +346,23 @@ def run(case_id: str, gold: dict, document_text: str) -> tuple:
     if "lever3_triage" in ACTIVE_LEVERS:
         prediction = _apply_triage(prediction, case_id, document_text, combined)
 
+    _attach_brief(combined, case_id, prediction, flagged, audit)
     return prediction, flagged, combined
+
+
+def _attach_brief(combined, case_id, prediction, flagged, audit=None):
+    """Lever 4. Renders from what is already verified; makes no model call.
+
+    Citations come from spans the verification pass produced and that
+    reconciliation then located in the source, so the brief can only quote text
+    that was actually found in the document.
+    """
+    if "lever4_brief" not in ACTIVE_LEVERS:
+        return
+    evidence = {f: {"span": a.get("span")}
+                for f, a in (audit or {}).items()
+                if a.get("span") and a.get("span_verified")}
+    text = brief.render(case_id, prediction, flagged, evidence,
+                        getattr(combined, "triage_audit", None))
+    combined.brief = text
+    combined.brief_checks = brief.brief_checks(text, prediction, flagged, evidence)

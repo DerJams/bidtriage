@@ -1,0 +1,828 @@
+{
+  "target": "solution",
+  "label": "lever4-wiring-check",
+  "active_levers": [
+    "lever2_verify",
+    "lever3_triage",
+    "lever4_brief"
+  ],
+  "started_utc": "2026-08-30T07:15:20.650051+00:00",
+  "finished_utc": "2026-08-30T07:17:08.639344+00:00",
+  "wall_clock_s": 107.99,
+  "run_config": {
+    "model": "z-ai/glm-5.3-flash",
+    "routing_mode": "pinned_single_provider",
+    "pinned_provider": "deepinfra",
+    "provider_routing": {
+      "only": [
+        "deepinfra"
+      ],
+      "allow_fallbacks": false,
+      "require_parameters": true
+    },
+    "auto_exacto": "not_applicable_provider_pinned",
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "max_attempts": 6,
+    "api_base": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "resolved_providers": [
+    "DeepInfra"
+  ],
+  "n_cases": 3,
+  "metrics": {
+    "total_slots": 24,
+    "outcomes": {
+      "correct": 20,
+      "correct_abstention": 4,
+      "incorrect": 0,
+      "missed": 0,
+      "hallucinated": 0,
+      "flagged_for_review": 0
+    },
+    "field_accuracy": 1.0,
+    "correct_slots": 24,
+    "asserted_fields": 20,
+    "hallucination_count": 0,
+    "hallucination_rate_asserted": 0.0,
+    "hallucination_rate_all_slots": 0.0,
+    "per_field": {
+      "bid_due_date": {
+        "correct": 3,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "bond_insurance": {
+        "correct": 2,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "client_name": {
+        "correct": 3,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "estimated_project_value": {
+        "correct": 2,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "location": {
+        "correct": 3,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "project_title": {
+        "correct": 3,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "trade_scope": {
+        "correct": 2,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "walkthrough_date": {
+        "correct": 2,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "triage": {
+    "decision_accuracy": 1.0,
+    "n_correct": 3,
+    "per_case": [
+      {
+        "case_id": "case_01",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "reasons_recall": 1.0
+      },
+      {
+        "case_id": "case_06",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "timeline_conflict"
+        ],
+        "pred_reasons": [
+          "timeline_conflict"
+        ],
+        "reasons_recall": 1.0
+      },
+      {
+        "case_id": "case_10",
+        "gold_decision": "insufficient_information",
+        "pred_decision": "insufficient_information",
+        "decision_correct": true,
+        "gold_reasons": [
+          "construction_window",
+          "estimated_project_value",
+          "trade_scope"
+        ],
+        "pred_reasons": [
+          "construction_window",
+          "estimated_project_value",
+          "trade_scope"
+        ],
+        "reasons_recall": 1.0
+      }
+    ]
+  },
+  "minutes_proxy": {
+    "_disclaimer": "PROXY, not measured human time. Constants frozen in evals/harness/minutes.py before any measurement.",
+    "constants": {
+      "wpm_careful": 200.0,
+      "wpm_skim": 350.0,
+      "re_key_min_per_field": 1.5,
+      "decision_min": 4.0,
+      "brief_words": 250.0,
+      "fix_min_per_field": 3.0,
+      "review_min_per_flag": 1.5,
+      "decision_review_min": 1.0
+    },
+    "manual_minutes_mean": 17.22,
+    "assisted_minutes_mean": 1.71,
+    "minutes_saved_mean": 15.51,
+    "per_case": {
+      "case_01": {
+        "manual": 17.64,
+        "assisted": 1.71
+      },
+      "case_06": {
+        "manual": 17.4,
+        "assisted": 1.71
+      },
+      "case_10": {
+        "manual": 16.62,
+        "assisted": 1.71
+      }
+    }
+  },
+  "cost": {
+    "total_usd": 0.001816,
+    "per_case_usd": 0.000605,
+    "_source": "OpenRouter usage.cost, actual charged amount"
+  },
+  "reliability": {
+    "total_retries": 5,
+    "failures": [],
+    "n_failures": 0
+  },
+  "case_scores": [
+    {
+      "case_id": "case_01",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cascade ridge school district 12",
+          "pred_raw": "Cascade Ridge School District 12",
+          "pred_normalized": "cascade ridge school district 12"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cascade ridge middle school rtu replacement",
+          "pred_raw": "Cascade Ridge Middle School RTU Replacement",
+          "pred_normalized": "cascade ridge middle school rtu replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "hvac",
+            "sheet_metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "arvada, co",
+          "pred_raw": "Cascade Ridge Middle School, Arvada, CO",
+          "pred_normalized": "arvada, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-25",
+          "pred_raw": "2026-09-25T14:00:00-06:00",
+          "pred_normalized": "2026-09-25"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 850000,
+            "high": 850000,
+            "currency": "USD"
+          },
+          "pred_raw": "$850,000",
+          "pred_normalized": {
+            "low": 850000,
+            "high": 850000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-11",
+          "pred_raw": "2026-09-11T09:00:00-06:00",
+          "pred_normalized": "2026-09-11"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_06",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur civic development authority",
+          "pred_raw": "Larkspur Civic Development Authority",
+          "pred_normalized": "larkspur civic development authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur civic center annex mechanical package",
+          "pred_raw": "Larkspur Civic Center Annex Mechanical Package",
+          "pred_normalized": "larkspur civic center annex mechanical package"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "hvac",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-29",
+          "pred_raw": "2026-09-29",
+          "pred_normalized": "2026-09-29"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1200000,
+            "high": 1200000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,200,000 (engineer's estimate)",
+          "pred_normalized": {
+            "low": 1200000,
+            "high": 1200000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_limit_usd": 2000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-15",
+          "pred_raw": "2026-09-15",
+          "pred_normalized": "2026-09-15"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_limit_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_10",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "front range regional transit authority",
+          "pred_raw": "Front Range Regional Transit Authority",
+          "pred_normalized": "front range regional transit authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "maintenance facility bay 4 mechanical upgrades",
+          "pred_raw": "Maintenance Facility Bay 4 Mechanical Upgrades",
+          "pred_normalized": "maintenance facility bay 4 mechanical upgrades"
+        },
+        "trade_scope": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-06",
+          "pred_raw": "2026-10-06",
+          "pred_normalized": "2026-10-06"
+        },
+        "estimated_project_value": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {}
+    }
+  ],
+  "call_meta": {
+    "case_01": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 3889,
+      "completion_tokens": 1602,
+      "reasoning_tokens": 24,
+      "cost_usd": 0.000692175,
+      "attempts": 3,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 31.154,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Cascade Ridge School District 12 is soliciting competitive sealed bids",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Cascade Ridge Middle School RTU Replacement project",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Trades required: HVAC, sheet metal, and controls.",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Cascade Ridge Middle School, Arvada, CO.",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Sealed bids are due no later than September 25, 2026 at 2:00 PM MT",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "a construction budget of $850,000 for\nthis scope of work",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "A bid bond in the amount of 5% of the total bid is required with submission.\nThe successful bidder shall furnish a performance bond and a payment bond,\neach in the amount of 100% of the contract sum. Contractors shall maintain\ncommercial general liability coverage with a limit of not less than\n$2,000,000 per occurrence.",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Mandatory pre-bid walk-through: September 11, 2026 at 9:00 AM local time.",
+          "span_verified": true
+        }
+      },
+      "triage_audit": {
+        "model_decision": "bid",
+        "rule_decision": "bid",
+        "model_agreed_with_rule": true,
+        "criteria": {
+          "trade_fit": true,
+          "within_radius": true,
+          "size_band_ok": true,
+          "timeline_conflict": false
+        },
+        "criteria_reasons": {
+          "trade_fit": "Required trades are HVAC, sheet metal, and controls; all three are on Summit Peak's self-performed list. No plumbing, refrigeration, or fire protection is required (document explicitly states no plumbing work).",
+          "within_radius": "Project is in Arvada, CO, listed at 10 miles from Golden, well within the 90-mile radius.",
+          "size_band_ok": "Single-point estimate of $850,000 (no range, so midpoint = $850,000), which falls inside the $250,000\u2013$3,000,000 band.",
+          "timeline_conflict": "All three committed projects run concurrently only from 2026-10-01 (Foothills start) to 2026-12-10 (Clear Creek end). The new window (2027-02-15 to 2027-07-30) starts after Clear Creek ends; during the Feb 15\u2013Mar 20, 2027 overlap with Ridgeline and Foothills only 2 projects are running, under the 3-project max. No overlap with any 3-concurrent period."
+        },
+        "construction_window": {
+          "start": "2027-02-15",
+          "end": "2027-07-30"
+        }
+      },
+      "brief": "========================================================================\nBID TRIAGE BRIEF\nCascade Ridge Middle School RTU Replacement\n========================================================================\n\nRECOMMENDATION: BID\n\n  Trade fit        PASS      Required trades are HVAC, sheet metal, and\n                             controls; all three are on Summit Peak's\n                             self-performed list. No plumbing,\n                             refrigeration, or fire protection is\n                             required (document explicitly states no\n                             plumbing work).\n  Service radius   PASS      Project is in Arvada, CO, listed at 10\n                             miles from Golden, well within the 90-mile\n                             radius.\n  Size band        PASS      Single-point estimate of $850,000 (no\n                             range, so midpoint = $850,000), which falls\n                             inside the $250,000\u2013$3,000,000 band.\n  Timeline         CLEAR     All three committed projects run\n                             concurrently only from 2026-10-01\n                             (Foothills start) to 2026-12-10 (Clear\n                             Creek end). The new window (2027-02-15 to\n                             2027-07-30) starts after Clear Creek ends;\n                             during the Feb 15\u2013Mar 20, 2027 overlap with\n                             Ridgeline and Foothills only 2 projects are\n                             running, under the 3-project max. No\n                             overlap with any 3-concurrent period.\n\nNEEDS YOUR REVIEW\n  Nothing was flagged as uncertain.\n  Every field below was confirmed against the source document.\n\nKEY DATES\n  Bid due              2026-09-25T14:00:00-06:00 at 2:00 PM MT\n  Walk-through         2026-09-11T09:00:00-06:00 at 9:00 AM local time  ** MANDATORY, non-attendance disqualifies **\n\nPROJECT\n  Client               Cascade Ridge School District 12\n  Location             Cascade Ridge Middle School, Arvada, CO\n  Trade scope          HVAC, sheet metal, controls\n  Estimated value      $850,000\n\nBONDING AND INSURANCE\n  Bid bond             5%\n  Performance bond     100%\n  Payment bond         100%\n  General liability    $2,000,000\n\n------------------------------------------------------------------------\nSOURCE CITATIONS\n  Every figure above is quoted from the document below.\n\n  Client               \"Cascade Ridge School District 12 is soliciting competitive sealed bids\"\n  Project              \"Cascade Ridge Middle School RTU Replacement project\"\n  Trade scope          \"Trades required: HVAC, sheet metal, and controls.\"\n  Location             \"Cascade Ridge Middle School, Arvada, CO.\"\n  Bid due              \"Sealed bids are due no later than September 25, 2026 at 2:00 PM MT\"\n  Walk-through         \"Mandatory pre-bid walk-through: September 11, 2026 at 9:00 AM local time.\"\n  Estimated value      \"a construction budget of $850,000 for this scope of work\"\n  Bonding              \"A bid bond in the amount of 5% of the total bid is required with submission...\"\n\n------------------------------------------------------------------------\nPrepared by BidTriage from the source document for case_01.",
+      "brief_checks": {
+        "has_recommendation": true,
+        "recommendation_not_empty": true,
+        "review_section_present": true,
+        "flagged_all_surfaced": true,
+        "flagged_marked_at_value": true,
+        "unconfirmed_markers": 0,
+        "asserted_fields": 8,
+        "asserted_fields_cited": 8,
+        "citation_coverage": 1.0,
+        "no_placeholder_text": true,
+        "placeholders_found": [],
+        "line_count": 64,
+        "no_em_dashes": false
+      }
+    },
+    "case_06": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 3743,
+      "completion_tokens": 1455,
+      "reasoning_tokens": 21,
+      "cost_usd": 0.000644475,
+      "attempts": 6,
+      "retries": 3,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        },
+        {
+          "attempt": 2,
+          "status": 429,
+          "sleep_s": 4.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        },
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 42.315,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Owner Larkspur Civic Development Authority",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Project Larkspur Civic Center Annex Mechanical Package",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Trades Required HVAC and controls",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Project Location Denver, CO",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Bid due September 29, 2026 at 2:00 PM MT",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Engineer's estimate $1,200,000",
+          "span_verified": true
+        },
+        "bond_insurance": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Bid bond 5% of total base bid\nPerformance bond 100% of contract sum\nPayment bond 100% of contract sum\nCommercial general liability $2,000,000 per occurrence",
+          "span_verified": true
+        },
+        "walkthrough_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Pre-bid walk-through September 15, 2026 at 8:30 AM",
+          "span_verified": true
+        }
+      },
+      "triage_audit": {
+        "model_decision": "no_bid",
+        "rule_decision": "no_bid",
+        "model_agreed_with_rule": true,
+        "criteria": {
+          "trade_fit": true,
+          "within_radius": true,
+          "size_band_ok": true,
+          "timeline_conflict": true
+        },
+        "criteria_reasons": {
+          "trade_fit": "Required trades are HVAC and controls, both self-performed; plumbing is explicitly excluded from this package.",
+          "within_radius": "Project is in Denver, CO, listed at 15 miles from Golden, well within the 90-mile radius.",
+          "size_band_ok": "Engineer's estimate is a single value of $1,200,000 (midpoint $1,200,000), inside the $250,000\u2013$3,000,000 band.",
+          "timeline_conflict": "All three committed projects run concurrently from 2026-10-01 (Foothills start) to 2026-12-10 (Clear Creek end), which is the maximum of 3. The new window (2026-11-01 to 2027-02-28) overlaps that period from Nov 1 to Dec 10, 2026."
+        },
+        "construction_window": {
+          "start": "2026-11-01",
+          "end": "2027-02-28"
+        }
+      },
+      "brief": "========================================================================\nBID TRIAGE BRIEF\nLarkspur Civic Center Annex Mechanical Package\n========================================================================\n\nRECOMMENDATION: NO BID\n\n  Trade fit        PASS      Required trades are HVAC and controls, both\n                             self-performed; plumbing is explicitly\n                             excluded from this package.\n  Service radius   PASS      Project is in Denver, CO, listed at 15\n                             miles from Golden, well within the 90-mile\n                             radius.\n  Size band        PASS      Engineer's estimate is a single value of\n                             $1,200,000 (midpoint $1,200,000), inside\n                             the $250,000\u2013$3,000,000 band.\n  Timeline         CONFLICT  All three committed projects run\n                             concurrently from 2026-10-01 (Foothills\n                             start) to 2026-12-10 (Clear Creek end),\n                             which is the maximum of 3. The new window\n                             (2026-11-01 to 2027-02-28) overlaps that\n                             period from Nov 1 to Dec 10, 2026.\n\nNEEDS YOUR REVIEW\n  Nothing was flagged as uncertain.\n  Every field below was confirmed against the source document.\n\nKEY DATES\n  Bid due              2026-09-29 at 2:00 PM MT\n  Walk-through         2026-09-15 at 8:30 AM\n\nPROJECT\n  Client               Larkspur Civic Development Authority\n  Location             Denver, CO\n  Trade scope          HVAC, controls\n  Estimated value      $1,200,000 (engineer's estimate)\n\nBONDING AND INSURANCE\n  Bid bond             5%\n  Performance bond     100%\n  Payment bond         100%\n  General liability    $2,000,000\n\n------------------------------------------------------------------------\nSOURCE CITATIONS\n  Every figure above is quoted from the document below.\n\n  Client               \"Owner Larkspur Civic Development Authority\"\n  Project              \"Project Larkspur Civic Center Annex Mechanical Package\"\n  Trade scope          \"Trades Required HVAC and controls\"\n  Location             \"Project Location Denver, CO\"\n  Bid due              \"Bid due September 29, 2026 at 2:00 PM MT\"\n  Walk-through         \"Pre-bid walk-through September 15, 2026 at 8:30 AM\"\n  Estimated value      \"Engineer's estimate $1,200,000\"\n  Bonding              \"Bid bond 5% of total base bid Performance bond 100% of contract sum Payment...\"\n\n------------------------------------------------------------------------\nPrepared by BidTriage from the source document for case_06.",
+      "brief_checks": {
+        "has_recommendation": true,
+        "recommendation_not_empty": true,
+        "review_section_present": true,
+        "flagged_all_surfaced": true,
+        "flagged_marked_at_value": true,
+        "unconfirmed_markers": 0,
+        "asserted_fields": 8,
+        "asserted_fields_cited": 8,
+        "citation_coverage": 1.0,
+        "no_placeholder_text": true,
+        "placeholders_found": [],
+        "line_count": 58,
+        "no_em_dashes": false
+      }
+    },
+    "case_10": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 3054,
+      "completion_tokens": 1001,
+      "reasoning_tokens": 20,
+      "cost_usd": 0.0004793,
+      "attempts": 5,
+      "retries": 2,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": 429,
+          "sleep_s": 2.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        },
+        {
+          "attempt": 2,
+          "status": 429,
+          "sleep_s": 4.0,
+          "detail": "{\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"z-ai/glm-5.3-flash is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate l"
+        }
+      ],
+      "latency_s": 34.48,
+      "error": null,
+      "verification_audit": {
+        "client_name": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Agency:          Front Range Regional Transit Authority",
+          "span_verified": true
+        },
+        "project_title": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Title:           Maintenance Facility Bay 4 Mechanical Upgrades",
+          "span_verified": true
+        },
+        "trade_scope": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span": "Category:        Mechanical",
+          "span_verified": true
+        },
+        "location": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Place of perf.:  Denver, CO",
+          "span_verified": true
+        },
+        "bid_due_date": {
+          "status": "SUPPORTED",
+          "verdict": "kept_span_verified",
+          "span": "Response due:    2026-10-06 15:00 MT",
+          "span_verified": true
+        },
+        "estimated_project_value": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span": null,
+          "span_verified": false
+        },
+        "bond_insurance": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span": null,
+          "span_verified": false
+        },
+        "walkthrough_date": {
+          "status": "NOT_STATED",
+          "verdict": "abstained_silent",
+          "span": null,
+          "span_verified": false
+        }
+      },
+      "triage_audit": {
+        "model_decision": "insufficient_information",
+        "rule_decision": "insufficient_information",
+        "model_agreed_with_rule": true,
+        "criteria": {
+          "trade_fit": null,
+          "within_radius": true,
+          "size_band_ok": null,
+          "timeline_conflict": null
+        },
+        "criteria_reasons": {
+          "trade_fit": "The alert only lists category 'Mechanical'; no trade scope is stated, so it cannot be confirmed every required trade is self-performed.",
+          "within_radius": "Place of performance is Denver, CO, listed at 15 miles, within the 90-mile radius from Golden.",
+          "size_band_ok": "No estimated project value is provided in the notification, so the midpoint cannot be computed against the $250,000-$3,000,000 band.",
+          "timeline_conflict": "No construction start or substantial completion date is stated in the document, so no overlap can be assessed."
+        },
+        "construction_window": {
+          "start": null,
+          "end": null
+        }
+      },
+      "brief": "========================================================================\nBID TRIAGE BRIEF\nMaintenance Facility Bay 4 Mechanical Upgrades\n========================================================================\n\nRECOMMENDATION: INSUFFICIENT INFORMATION\n\n  Trade fit        UNKNOWN   The alert only lists category 'Mechanical';\n                             no trade scope is stated, so it cannot be\n                             confirmed every required trade is\n                             self-performed.\n  Service radius   PASS      Place of performance is Denver, CO, listed\n                             at 15 miles, within the 90-mile radius from\n                             Golden.\n  Size band        UNKNOWN   No estimated project value is provided in\n                             the notification, so the midpoint cannot be\n                             computed against the $250,000-$3,000,000\n                             band.\n  Timeline         UNKNOWN   No construction start or substantial\n                             completion date is stated in the document,\n                             so no overlap can be assessed.\n\nNEEDS YOUR REVIEW\n  Nothing was flagged as uncertain.\n  Fields shown as \"not stated\" are genuinely absent from the document:\n  Trade scope, Walk-through, Estimated value, Bonding.\n\nTO DECIDE, OBTAIN\n  - Construction window (start and substantial completion)\n  - Estimated project value or engineer's estimate\n  - Trade scope, specific enough to identify the trades\n\nKEY DATES\n  Bid due              2026-10-06 at 15:00 MT\n  Walk-through         none stated\n\nPROJECT\n  Client               Front Range Regional Transit Authority\n  Location             Denver, CO\n  Trade scope          not stated\n  Estimated value      not stated\n\nBONDING AND INSURANCE\n  Not stated in the document.\n\n------------------------------------------------------------------------\nSOURCE CITATIONS\n  Every figure above is quoted from the document below.\n\n  Client               \"Agency: Front Range Regional Transit Authority\"\n  Project              \"Title: Maintenance Facility Bay 4 Mechanical Upgrades\"\n  Trade scope          \"Category: Mechanical\"\n  Location             \"Place of perf.: Denver, CO\"\n  Bid due              \"Response due: 2026-10-06 15:00 MT\"\n\n------------------------------------------------------------------------\nPrepared by BidTriage from the source document for case_10.",
+      "brief_checks": {
+        "has_recommendation": true,
+        "recommendation_not_empty": true,
+        "review_section_present": true,
+        "flagged_all_surfaced": true,
+        "flagged_marked_at_value": true,
+        "unconfirmed_markers": 0,
+        "asserted_fields": 4,
+        "asserted_fields_cited": 4,
+        "citation_coverage": 1.0,
+        "no_placeholder_text": true,
+        "placeholders_found": [],
+        "line_count": 57,
+        "no_em_dashes": true
+      }
+    }
+  }
+}

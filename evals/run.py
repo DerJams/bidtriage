@@ -102,6 +102,10 @@ def main(argv=None) -> int:
             meta["triage_audit"] = t_audit
         if flagged:
             meta["flagged_fields"] = list(flagged)
+        brief_text = getattr(res, "brief", None)
+        if brief_text:
+            meta["brief"] = brief_text
+            meta["brief_checks"] = getattr(res, "brief_checks", None)
         call_meta[cid] = meta
         total_cost += (res.cost_usd if res else 0.0)
         total_retries += (res.retries if res else 0)

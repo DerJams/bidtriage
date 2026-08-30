@@ -64,6 +64,25 @@ RULE = "=" * 72
 THIN = "-" * 72
 
 
+def _plain(text):
+    """Strip em and en dashes from MODEL-AUTHORED prose.
+
+    The criterion reasons and field values are written by the model, and it
+    emits things like "$250,000-en dash-$3,000,000". Those land verbatim in the
+    brief, which is the artifact a person forwards, so they are rewritten here
+    rather than left to leak through.
+
+    Deliberately NOT applied to source citations. A citation is a quote, and
+    silently editing a quote to satisfy a house style is worse than the dash it
+    removes. brief_checks reports the two separately for that reason.
+    """
+    t = str(text)
+    t = re.sub(r"(?<=\d)\s*[–—]\s*(?=[$\d])", " to ", t)
+    t = re.sub(r"\s*—\s*", ", ", t)
+    t = re.sub(r"\s*–\s*", " to ", t)
+    return t
+
+
 def _fmt_trades(v):
     if not v:
         return None
@@ -120,7 +139,7 @@ def _wrap(text, width, indent):
 
 def _value_line(label, value, flagged_key, flagged):
     """A value line that cannot be mistaken for verified when it is not."""
-    shown = value if value not in (None, "") else "not stated"
+    shown = _plain(value) if value not in (None, "") else "not stated"
     if flagged_key in flagged:
         return "  %-*s %s  (%s)" % (LBL, label, shown, UNCONFIRMED)
     return "  %-*s %s" % (LBL, label, shown)
@@ -175,7 +194,7 @@ def render(case_id, prediction, flagged, evidence=None, triage_audit=None):
             else:
                 mark = "PASS" if val else "FAIL"
             L.append("  %-16s %-9s %s"
-                     % (label, mark, _wrap(reasons.get(key) or "", 43, 29)))
+                     % (label, mark, _wrap(_plain(reasons.get(key) or ""), 43, 29)))
         L.append("")
 
     # --- review queue, deliberately above the values it refers to -----------
@@ -300,5 +319,11 @@ def brief_checks(text, prediction, flagged, evidence=None):
         "no_placeholder_text": not placeholders,
         "placeholders_found": placeholders,
         "line_count": len(text.splitlines()),
-        "no_em_dashes": "—" not in text and "–" not in text,
+        # Citations are quotes and are exempt: editing a quote to satisfy a
+        # house style is worse than the dash. Prose must be clean.
+        "no_em_dashes_in_prose": ("—" not in text.split("SOURCE CITATIONS")[0]
+                                  and "–" not in text.split("SOURCE CITATIONS")[0]),
+        "dashes_in_citations_only": ("—" in text or "–" in text)
+                                    and "—" not in text.split("SOURCE CITATIONS")[0]
+                                    and "–" not in text.split("SOURCE CITATIONS")[0],
     }
