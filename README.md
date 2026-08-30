@@ -94,8 +94,15 @@ structures, the commercial terms (bonding percentages and liability limits), and
 the triage criteria follow documented industry practice rather than assumption.
 A corpus whose conventions were guessed would measure how well a model handles
 those guesses. See [`docs/corpus-v2-design.md`](docs/corpus-v2-design.md) for
-what was sourced and why it changes the design. Specific citations are pending
-and are marked as such there rather than filled in from memory.
+what was sourced, with citations, and for what is deliberately **not** sourced.
+
+Source quality is graded there rather than flattened. Platform invitation
+structure and bonding conventions are well documented, from BuildingConnected's
+own documentation and FAR Part 28 respectively. The decline-reason criteria are
+partly peer-reviewed (project size, capital, payment timeliness, workload,
+overhead) and partly vendor-derived: the frequently quoted figure that 80% of
+accepted bids fall within 55 miles comes from a vendor toolkit with no published
+methodology, so it is treated as directional rather than as a constant.
 
 ### Data integrity
 
