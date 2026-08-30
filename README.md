@@ -102,6 +102,15 @@ are exercised.
   warning. Gold citations therefore cannot be things that merely seemed to be in
   the document.
 
+## System design
+
+![BidTriage system design: baseline path vs. verified agent path, sharing one input set and one evaluation harness](docs/system-design.png)
+
+Baseline and solution run over the same 12 cases and are scored by the same
+harness, so the comparison is like-for-like. Source:
+[`docs/system-design.excalidraw`](docs/system-design.excalidraw) (open at
+[excalidraw.com](https://excalidraw.com)).
+
 ## Status
 
 | Step | State |
