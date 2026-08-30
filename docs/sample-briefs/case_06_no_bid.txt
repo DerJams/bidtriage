@@ -1,0 +1,70 @@
+Exported from 20260830T072000446011Z_solution_p19644.json
+Run label: sample-briefs   levers: lever2_verify, lever3_triage, lever4_brief
+Model: z-ai/glm-5.3-flash via DeepInfra
+This file is generated output from a recorded run, not written by hand.
+------------------------------------------------------------------------
+
+========================================================================
+BID TRIAGE BRIEF
+Larkspur Civic Center Annex Mechanical Package
+========================================================================
+
+RECOMMENDATION: NO BID
+
+  Trade fit        PASS      Required trades are HVAC, controls, and
+                             piping (plumbing explicitly excluded from
+                             this package), all of which are
+                             self-performed by Summit Peak Mechanical.
+  Service radius   PASS      Project is in Denver, CO, listed at 15
+                             miles from Golden, well within the 90-mile
+                             service radius.
+  Size band        PASS      Engineer's estimate is $1,200,000 (single
+                             figure, so midpoint = $1,200,000), which
+                             falls inside the $250,000-$3,000,000 band.
+  Timeline         CONFLICT  Construction window is 2026-11-01 to
+                             2027-02-28. The three committed projects
+                             (Ridgeline 2026-09-15 to 2027-01-28,
+                             Foothills 2026-10-01 to 2027-03-20, Clear
+                             Creek 2026-08-02 to 2026-12-10) all run
+                             simultaneously from 2026-10-01 to
+                             2026-12-10, which is the maximum of 3
+                             concurrent projects. The new window
+                             overlaps this period (e.g., Nov 1 - Dec 10,
+                             2026), so it conflicts.
+
+NEEDS YOUR REVIEW (1 item)
+  ! Trade scope          Could not be confirmed against the source
+                         document. Verify before relying on it.
+
+KEY DATES
+  Bid due              2026-09-29 at 2:00 PM MT
+  Walk-through         2026-09-15 at 8:30 AM
+
+PROJECT
+  Client               Larkspur Civic Development Authority
+  Location             Denver, CO
+  Trade scope          HVAC, controls, piping  (NOT CONFIRMED, see review above)
+  Estimated value      $1,200,000
+
+BONDING AND INSURANCE
+  Bid bond             5%
+  Performance bond     100%
+  Payment bond         100%
+  General liability    $2,000,000
+
+------------------------------------------------------------------------
+SOURCE CITATIONS
+  Every figure above is quoted from the document below.
+
+  Client               "Owner Larkspur Civic Development Authority"
+  Project              "Project Larkspur Civic Center Annex Mechanical Package"
+  Location             "Project Location Denver, CO"
+  Bid due              "Bid due September 29, 2026 at 2:00 PM MT"
+  Walk-through         "Pre-bid walk-through September 15, 2026 at 8:30 AM"
+  Estimated value      "Engineer's estimate $1,200,000"
+  Bonding              "Bid bond 5% of total base bid Performance bond 100% of contract sum Payment..."
+
+------------------------------------------------------------------------
+Prepared by BidTriage from the source document for case_06.
+Items marked NOT CONFIRMED were not verified against the source
+and need a human read before use.
