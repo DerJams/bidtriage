@@ -1,0 +1,110 @@
+{
+  "case_id": "case_02",
+  "format": "email_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_02.eml",
+      "role": "document",
+      "kind": "email"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Bright Mesa Property Group",
+      "normalized": "bright mesa property group",
+      "source_span": "Bright Mesa Property Group is looking for bids on this one.",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Bright Mesa Commons Domestic Water Piping Retrofit",
+      "normalized": "bright mesa commons domestic water piping retrofit",
+      "source_span": "The job is the Bright Mesa Commons Domestic Water Piping Retrofit.",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "plumbing",
+        "piping"
+      ],
+      "normalized": [
+        "piping",
+        "plumbing"
+      ],
+      "source_span": "Scope is plumbing and piping only. No HVAC, no controls.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Boulder, CO",
+      "normalized": "boulder, co",
+      "source_span": "Property is in Boulder, CO.",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "September 18, 2026",
+      "normalized": "2026-09-18",
+      "source_span": "Bids are due September 18, 2026.",
+      "extra": {}
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$310,000",
+      "normalized": {
+        "low": 310000,
+        "high": 310000,
+        "currency": "USD"
+      },
+      "source_span": "Budget we're working with is $310,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "No bonding required",
+      "normalized": {
+        "required": false
+      },
+      "source_span": "This is a private project and we are not requiring any bonding on it. No bid bond, no performance bond, no payment bond. A standard certificate of insurance is fine.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Source states no formal walk-through will be held."
+      }
+    }
+  },
+  "construction_window": [
+    "2027-03-01",
+    "2027-06-15"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_02.eml",
+      "role": "document",
+      "kind": "email",
+      "chars": 975
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

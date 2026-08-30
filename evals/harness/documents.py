@@ -26,8 +26,10 @@ from __future__ import annotations
 
 import pathlib
 
+from evals import config
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-SRC_DIR = ROOT / "data" / "synthetic" / "source_text"
+SRC_DIR = ROOT / "data" / "synthetic" / config.SOURCE_DIRNAME
 
 
 def _part_header(index: int, total: int, role: str, kind: str) -> str:

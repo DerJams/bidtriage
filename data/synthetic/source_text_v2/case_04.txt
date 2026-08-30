@@ -1,0 +1,27 @@
+From: Aurelio Nakashima-Prather <anakashima@mesaverdanaindustrial.example>
+To: estimating@summitpeakmech.example
+Subject: ITB - Mesa Verdana Industrial Park Building C - HVAC
+Date: Wed, 26 Aug 2026 07:28:40 -0600
+Content-Type: text/plain; charset="utf-8"
+
+Summit Peak,
+
+We are bidding out the mechanical package for Mesa Verdana Industrial Park Building C.
+
+The site is in Grand Junction, CO.
+
+Scope: HVAC and controls.
+
+Six split systems, one makeup air unit, and BAS point mapping to the existing park-wide front end. No plumbing.
+
+Estimated value: $480,000.
+
+Walk-through: September 8, 2026 at 10:00 AM.
+
+Bids due: September 22, 2026.
+
+Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.
+
+Construction runs January 11, 2027 to May 28, 2027.
+
+Aurelio Nakashima-Prather, Mesa Verdana Industrial Partners

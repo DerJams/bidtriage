@@ -1,0 +1,31 @@
+From: Rosalind Achterberg-Nwosu <rachterberg@helioptixdata.example>
+To: estimating@summitpeakmech.example
+Subject: Helioptix Data Campus Phase II - Mechanical Bid Package
+Date: Fri, 28 Aug 2026 13:55:17 -0600
+Content-Type: text/plain; charset="utf-8"
+
+BID PACKAGE HDC2-M-01 - MECHANICAL
+
+Issuing entity ......... Helioptix Data Infrastructure
+
+Project ................ Helioptix Data Campus Phase II
+
+Site ................... Denver, CO
+
+Trades required ...... HVAC, piping, sheet metal, controls
+
+Scope .................. Chilled water plant, four 900-ton centrifugal chillers; primary and secondary distribution piping; 28 computer room air handlers; sheet metal containment.
+
+Engineer's estimate .. $4,500,000
+
+Bid due date ......... October 9, 2026, 4:00 PM MT
+
+Pre-bid walk-through . September 17, 2026
+
+Construction start ... March 22, 2027
+Substantial compl. ... December 18, 2027
+
+Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.
+
+Rosalind Achterberg-Nwosu
+Procurement Lead

@@ -1,0 +1,117 @@
+{
+  "case_id": "case_01",
+  "format": "email_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_01.eml",
+      "role": "document",
+      "kind": "email"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Cascade Ridge School District 12",
+      "normalized": "cascade ridge school district 12",
+      "source_span": "Cascade Ridge School District 12 is soliciting competitive sealed bids from qualified mechanical contractors.",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Cascade Ridge Middle School RTU Replacement",
+      "normalized": "cascade ridge middle school rtu replacement",
+      "source_span": "The project is the Cascade Ridge Middle School RTU Replacement.",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "sheet_metal",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "sheet_metal"
+      ],
+      "source_span": "Trades required: HVAC, sheet metal, and controls.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Arvada, CO",
+      "normalized": "arvada, co",
+      "source_span": "Site: Cascade Ridge Middle School, Arvada, CO.",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "September 25, 2026",
+      "normalized": "2026-09-25",
+      "source_span": "Sealed bids are due no later than September 25, 2026 at 2:00 PM MT.",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$850,000",
+      "normalized": {
+        "low": 850000,
+        "high": 850000,
+        "currency": "USD"
+      },
+      "source_span": "The District's engineer has established a construction budget of $850,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bid security shall be 10% of the bid amount. Performance and payment bonds are each 100% of the contract price. Contractor shall carry commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 11, 2026",
+      "normalized": "2026-09-11",
+      "source_span": "Mandatory pre-bid walk-through: September 11, 2026 at 9:00 AM local time. Attendance is mandatory.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-02-15",
+    "2027-07-30"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_01.eml",
+      "role": "document",
+      "kind": "email",
+      "chars": 1435
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}
