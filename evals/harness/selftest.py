@@ -15,6 +15,7 @@ from evals.harness.normalize import (
     UNPARSEABLE,
     norm_bond,
     norm_date,
+    norm_location,
     norm_money,
     norm_string,
     norm_trades,
@@ -38,10 +39,23 @@ def main() -> int:
         ("6 November 2026", "2026-11-06"),
         ("9/25/2026", "2026-09-25"),
         ("2026-10-06 15:00 MT", "2026-10-06"),
+        # ISO datetimes: a more precise correct answer must not score as junk.
+        ("2026-09-25T14:00:00-06:00", "2026-09-25"),
+        ("2026-09-11T09:00:00Z", "2026-09-11"),
         ("sometime next spring", UNPARSEABLE),
         (None, None),
     ]:
         check("date(%r)" % raw, norm_date(raw), want)
+
+    # --- locations ---------------------------------------------------------
+    for raw, want in [
+        ("Arvada, CO", "arvada, co"),
+        ("Cascade Ridge Middle School, Arvada, CO", "arvada, co"),
+        ("  Colorado Springs,   CO ", "colorado springs, co"),
+        ("Grand Junction, CO", "grand junction, co"),
+        (None, None),
+    ]:
+        check("location(%r)" % raw, norm_location(raw), want)
 
     # --- money -------------------------------------------------------------
     for raw, want in [

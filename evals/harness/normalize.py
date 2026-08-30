@@ -87,7 +87,10 @@ def norm_date(v):
         v = str(v)
     s = _ws(v)
 
-    m = re.search(r"\b(\d{4})-(\d{2})-(\d{2})\b", s)
+    # Lookarounds, not \b: an ISO datetime like "2026-09-25T14:00:00-06:00" has
+    # no word boundary before the T, so \b made a MORE precise correct answer
+    # score as unparseable. Caught by the first single-case smoke run.
+    m = re.search(r"(?<!\d)(\d{4})-(\d{2})-(\d{2})(?!\d)", s)
     if m:
         try:
             return date(int(m.group(1)), int(m.group(2)), int(m.group(3))).isoformat()
@@ -330,19 +333,49 @@ def norm_bond(v):
     return out
 
 
+# --- us_city_state ---------------------------------------------------------
+
+_CITY_STATE = re.compile(r"([A-Za-z][A-Za-z .'\-]*?),\s*([A-Za-z]{2})(?![A-Za-z])")
+
+
+def norm_location(v):
+    """Reduce a location to 'city, st'.
+
+    A target that answers "Cascade Ridge Middle School, Arvada, CO" has found
+    the right place and named the building too. Under bare string equality that
+    scored wrong, which overstates error: city+state is the unit the radius
+    check actually keys on (the profile's distance table is keyed exactly this
+    way). So the scored unit is city+state, and extra site detail neither helps
+    nor hurts. Applied identically to every target.
+
+    Rule clarified after a single-case smoke run and before any full run was
+    recorded; see CHANGELOG.md.
+    """
+    if v is None:
+        return None
+    if not isinstance(v, str):
+        v = str(v)
+    matches = _CITY_STATE.findall(_ws(v))
+    if matches:
+        city, state = matches[-1]  # trailing "City, ST" wins over any prefix
+        return "%s, %s" % (_ws(city).casefold(), state.casefold())
+    return norm_string(v)
+
+
 NORMALIZERS = {
     "normalized_string": norm_string,
     "iso_date": norm_date,
     "currency_interval": norm_money,
     "token_set": norm_trades,
     "bond_dict": norm_bond,
+    "us_city_state": norm_location,
 }
 
 FIELD_RULES = {
     "client_name": "normalized_string",
     "project_title": "normalized_string",
     "trade_scope": "token_set",
-    "location": "normalized_string",
+    "location": "us_city_state",
     "bid_due_date": "iso_date",
     "estimated_project_value": "currency_interval",
     "bond_insurance": "bond_dict",

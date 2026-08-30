@@ -26,9 +26,18 @@ Eight required fields per case, 12 cases -> **96 scored slots**.
 
 - **`normalized_string`** — casefold, collapse internal whitespace, strip
   leading/trailing punctuation, drop a trailing corporate suffix
-  (`inc`, `llc`, `ltd`, `co`, `corp`) before comparison. Then exact equality.
-- **`iso_date`** — both sides parsed to `YYYY-MM-DD`. Time-of-day is carried in
-  gold under `extra.time_local` but is **not scored**.
+  (`inc`, `llc`, `ltd`, `corp`) before comparison. Then exact equality.
+  `co` is deliberately NOT a stripped suffix: it is also the Colorado state
+  abbreviation, and stripping it truncated `denver, co` to `denver`.
+- **`us_city_state`** (`location` only) — reduce to `city, st`, taking the
+  trailing `City, ST` match. A target answering "Cascade Ridge Middle School,
+  Arvada, CO" has found the right place and named the building too; city+state
+  is the unit the radius check keys on, since the profile's distance table is
+  keyed exactly that way. Extra site detail neither helps nor hurts.
+- **`iso_date`** — both sides parsed to `YYYY-MM-DD`. Accepts ISO datetimes
+  (`2026-09-25T14:00:00-06:00`), ISO dates, `September 25, 2026`, `25 September
+  2026`, and `9/25/2026`. Time-of-day is carried in gold under
+  `extra.time_local` but is **not scored**.
 - **`currency_interval`** — normalized to `{low, high, currency}` as integer USD.
   A point estimate is the degenerate interval `low == high`. Exact equality of
   both bounds. `"$1.2M"`, `"1,200,000"`, and `"approximately $1.2 million"` all
@@ -114,3 +123,25 @@ multiplied by published per-token prices. Never estimated.
 Bid/no-bid is scored against `data/contractor_profile.json` and does **not**
 enter the frozen field-accuracy metric. Reported as decision accuracy plus
 per-criterion agreement.
+
+
+---
+
+## 6. Amendments after freezing
+
+Honesty requires listing these rather than editing silently. Both were made
+**after a single-case smoke run and before any full run was recorded**, and both
+were defects in the *normalizer*, not changes to the metric, its targets, or the
+gold values. Both apply identically to every target.
+
+| When | Change | Why |
+|---|---|---|
+| Before first full run | `iso_date` accepts ISO datetimes | The model returned `2026-09-25T14:00:00-06:00`. A `` in the regex meant this **more precise, correct** answer scored as unparseable. A bug that penalised correctness. |
+| Before first full run | `location` uses `us_city_state`, not bare string equality | The model returned `"Cascade Ridge Middle School, Arvada, CO"`. Bare equality called that wrong even though the city is right and is what the radius check consumes. Under-specification, not a metric change. |
+| Before first full run | `co` removed from corporate-suffix stripping | It silently truncated every `City, CO` location. Caught by `selftest.py`. |
+
+`project_title` was deliberately **left strict**. The model returned a title with
+the bid-package number appended, which strict equality scores wrong. That is
+harsh, but there is no principled canonical form to reduce a title to, and the
+harshness applies equally to every target, so it does not bias any comparison.
+It is called out here rather than quietly softened.
