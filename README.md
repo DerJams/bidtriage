@@ -108,27 +108,81 @@ are exercised.
 |---|---|
 | 0 — Repo setup | done |
 | 1 — Synthetic eval set + gold keys | done |
-| 2 — Baseline | not started |
-| 3 — Eval harness | not started |
+| 2 — Baseline | **done, measured over 4 runs** |
+| 3 — Eval harness | done |
 | 4 — Solution levers | not started |
 
-**No performance numbers are claimed yet, because none have been measured.**
-`CHANGELOG.md` and `REPRODUCE.md` carry explicit placeholders rather than
-projected figures.
+## Baseline results (measured, n = 4 runs)
+
+Every figure below comes from a run recorded in `evals/results/`. Nothing is
+estimated. Cost is the amount OpenRouter actually charged, read from the
+response usage block.
+
+| Metric | Target | Baseline (mean of 4) | Range | Meets target? |
+|---|---|---|---|---|
+| Field accuracy | ≥ 90% | **95.05%** | 93.75 – 95.83 | **yes** |
+| Hallucination (asserted denom.) | ≤ 2% | **3.16%** | 2.30 – 4.60 | **no** |
+| Triage decision accuracy | — | **91.67%** | identical all 4 runs | — |
+| Cost per case | — | **$0.00013** | — | — |
+| Hard failures | — | **0** | 5–6 retries/run on upstream 429s | — |
+
+Two findings worth stating plainly:
+
+**The baseline already clears the field-accuracy bar.** The ≥90% target, frozen
+before measurement, is met by a single untooled call. The primary metric has
+very little headroom. The bar it *misses* is hallucination, so that — and triage
+— is where the real work is.
+
+**Temperature 0 is not deterministic here.** Re-running the identical config
+spreads results by 2.08 percentage points (2 slots, sd 0.86). Any lever delta
+below roughly 2pp is indistinguishable from noise at n=1, so every comparison
+uses n=3 minimum. Separating stable from flaky failures across the 4 runs gives
+four **systematic** failures — the only honest lever targets:
+
+| Slot | Failure |
+|---|---|
+| `case_02.estimated_project_value` | misses a conversationally phrased budget ("Budget we're working with is $310,000") |
+| `case_04.project_title` | appends the bid-package code; scored strictly, documented as harsh |
+| `case_08.bond_insurance` | returns null instead of positively asserting "no bonding required" |
+| `case_10.trade_scope` | asserts "Mechanical" where the correct answer is abstention — this is the hallucination |
+
+Notably, the baseline **passed both headline traps in case 12**: it found the
+Addendum No. 2 date rather than the five copies of the superseded one, and kept
+fire protection out of the base scope.
 
 ## Tools disclosure
 
 | Tool | Used for |
 |---|---|
 | Claude Code (Opus 5) | all development in this repo, driven interactively |
-| Anthropic API | the agent itself (baseline and solution). The only external service. |
+| **OpenRouter API** | the agent itself (baseline and solution). The only external service the agent calls. |
+| **`z-ai/glm-5.3-flash`** | the model under test, via OpenRouter |
 | Python 3.12 via `uv` | pinned runtime, exact versions in `requirements.txt` |
 | `reportlab` | generating the synthetic RFP PDFs |
 | `pdfplumber` | PDF text extraction |
 | `gh` CLI | repo creation |
 
-No other services. No vector database, no orchestration framework, no
-third-party API.
+The agent client is stdlib `urllib` — no vendor SDK, no vector database, no
+orchestration framework. Nine pinned packages total.
+
+### Model and routing
+
+| | |
+|---|---|
+| Model | `z-ai/glm-5.3-flash` (fallback `z-ai/glm-5.2` if structured output proves unreliable; any switch is logged in `CHANGELOG.md`) |
+| Routing | `provider.only=["deepinfra"]`, `allow_fallbacks=false`, `require_parameters=true` |
+| Auto Exacto | not applicable — provider is pinned |
+| Temperature | 0 |
+
+Routing is pinned to a single provider so the baseline and every lever run on
+identical infrastructure. **Auto Exacto cannot be pinned**: OpenRouter's docs
+state it runs by default on every tool-calling request and is opt-out, and it
+applies only to requests that include tools — so it would never have applied to
+the toolless baseline. Measured live, an unpinned toolless call routed to Z.AI
+(no structured-output support) while an unpinned tool call routed to Together at
+double the price. Pinning removes that confound. Full reasoning in
+`evals/config.py` and `CHANGELOG.md`; the client verifies the resolved provider
+against the pin on every call rather than assuming it.
 
 ## What pre-existed vs. what was built during the event
 
