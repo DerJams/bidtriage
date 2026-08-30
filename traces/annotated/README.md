@@ -11,6 +11,6 @@ This directory is a **readable subset**: four episodes, annotated, showing agent
 | [The loop catching its own error before it corrupted any result](03-the-loop-catching-its-own-error.md) | The agent wrote a self-test for its scorer before trusting the scorer with a paid run. |
 | [Lever 3 reaches 100 percent, and the agent checks whether that is hollow](04-lever-3-verified-not-assumed.md) | Lever 3 took triage from 90. |
 
-Source transcript: `session_fdfe39b4-2363-48df-b2be-a645f0669109.jsonl`, 838 events.
+Source transcript: `session_fdfe39b4-2363-48df-b2be-a645f0669109.jsonl`, 912 events.
 
 Episodes were chosen to show the loop working (episodes 1 and 4), an instruction being checked rather than obeyed (episode 2), and the loop catching its own defect before it corrupted a measurement (episode 3). The bug episode is kept deliberately: a trajectory set that only showed successes would misrepresent how the work actually went.

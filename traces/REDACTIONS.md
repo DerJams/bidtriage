@@ -11,6 +11,6 @@ and the capture script has no copy-all flag by design.
 
 | Trace file | Size (KB) | Redactions |
 |---|---:|---|
-| `session_fdfe39b4-2363-48df-b2be-a645f0669109.jsonl` | 5500.6 | email_address x59 |
+| `session_fdfe39b4-2363-48df-b2be-a645f0669109.jsonl` | 5789.9 | email_address x65 |
 
-Totals: email_address x59
+Totals: email_address x65
