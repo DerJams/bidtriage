@@ -127,7 +127,8 @@ methodology, so it is treated as directional rather than as a constant.
 | 1. Synthetic eval set and gold keys | done |
 | 2. Baseline | done, measured over 8 runs |
 | 3. Eval harness | done |
-| 4. Solution levers | levers 2 and 3 measured at n=8; lever 4 built, wiring in progress; lever 1 built but unmeasured |
+| 4. Solution levers | levers 2, 3 and 4 built; 2 and 3 measured at n=8 on v1; lever 1 wired and now measuring |
+| 5. Corpus v2 | authored and validated: 30 cases, 240 slots. Rerun at n=5 in progress |
 
 ## System design and measured results
 
