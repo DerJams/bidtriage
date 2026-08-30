@@ -21,8 +21,8 @@ from evals.harness import minutes as minutes_mod
 from evals.harness import score as scoring
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-GOLD_DIR = ROOT / "evals" / "gold"
-SRC_DIR = ROOT / "data" / "synthetic" / "source_text"
+GOLD_DIR = ROOT / "evals" / config.GOLD_DIRNAME
+SRC_DIR = ROOT / "data" / "synthetic" / config.SOURCE_DIRNAME
 RESULTS_DIR = ROOT / "evals" / "results"
 
 TARGETS = ("baseline", "solution")

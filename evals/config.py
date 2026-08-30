@@ -71,6 +71,23 @@ BACKOFF_BASE_SECONDS = 2.0
 BACKOFF_MAX_SECONDS = 30.0
 RETRY_STATUS = (408, 429, 500, 502, 503, 504)
 
+
+# --- Corpus version ---------------------------------------------------------
+# v1 is the frozen 12-case set that every recorded result was measured on. v2 is
+# the revised and expanded set. They differ in more than content: v2 splits the
+# general liability limit into per-occurrence and aggregate, which changes the
+# bond field's shape. Switching that shape globally would have silently broken
+# every v1 gold key, so the shape is versioned with the corpus and v1 stays
+# exactly reproducible.
+import os as _os
+
+CORPUS = _os.environ.get("BIDTRIAGE_CORPUS", "v1")
+if CORPUS not in ("v1", "v2"):
+    raise SystemExit("BIDTRIAGE_CORPUS must be v1 or v2, got %r" % CORPUS)
+
+GOLD_DIRNAME = "gold" if CORPUS == "v1" else "gold_v2"
+SOURCE_DIRNAME = "source_text" if CORPUS == "v1" else "source_text_v2"
+
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 API_KEY_ENV = "OPENROUTER_API_KEY"
 
@@ -87,4 +104,5 @@ def run_config(model: str | None = None) -> dict:
         "max_tokens": MAX_TOKENS,
         "max_attempts": MAX_ATTEMPTS,
         "api_base": API_URL,
+        "corpus": CORPUS,
     }

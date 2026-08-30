@@ -23,7 +23,8 @@ COUNTS_AS_ASSERTED = (CORRECT, INCORRECT, HALLUCINATED)
 COUNTS_AS_HALLUCINATION = (INCORRECT, HALLUCINATED)
 
 BOND_SUBKEYS = ("required", "bid_bond_pct", "performance_bond_pct",
-                "payment_bond_pct", "gl_limit_usd")
+                "payment_bond_pct", "gl_limit_usd",
+                "gl_per_occurrence_usd", "gl_aggregate_usd")
 
 
 def _equal(field: str, gold_norm, pred_norm) -> bool:

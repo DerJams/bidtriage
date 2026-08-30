@@ -277,10 +277,25 @@ _BOND_KEYMAP = {
     "performance_bond_percent": "performance_bond_pct",
     "payment_bond_pct": "payment_bond_pct", "payment_bond": "payment_bond_pct",
     "payment_bond_percent": "payment_bond_pct",
+    # v1 single undifferentiated limit
     "gl_limit_usd": "gl_limit_usd", "gl_limit": "gl_limit_usd",
     "general_liability": "gl_limit_usd", "general_liability_limit": "gl_limit_usd",
     "commercial_general_liability": "gl_limit_usd", "gl": "gl_limit_usd",
     "insurance_gl_limit": "gl_limit_usd",
+    # v2 split limits. Both shapes are accepted by the normalizer; which one is
+    # correct for a given case is decided by the gold key, since the key set must
+    # match exactly. That keeps v1 scoring intact while v2 uses the documented
+    # per-occurrence and aggregate convention.
+    "gl_per_occurrence_usd": "gl_per_occurrence_usd",
+    "gl_per_occurrence": "gl_per_occurrence_usd",
+    "per_occurrence": "gl_per_occurrence_usd",
+    "general_liability_per_occurrence": "gl_per_occurrence_usd",
+    "cgl_per_occurrence": "gl_per_occurrence_usd",
+    "gl_aggregate_usd": "gl_aggregate_usd",
+    "gl_aggregate": "gl_aggregate_usd",
+    "aggregate": "gl_aggregate_usd",
+    "general_liability_aggregate": "gl_aggregate_usd",
+    "cgl_aggregate": "gl_aggregate_usd",
 }
 
 _PCT_KEYS = ("bid_bond_pct", "performance_bond_pct", "payment_bond_pct")

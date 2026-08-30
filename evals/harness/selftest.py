@@ -117,6 +117,33 @@ def main() -> int:
           {"required": True, "bid_bond_pct": 5})
     check("bond none", norm_bond(None), None)
 
+    # v2 shape: separate per-occurrence and aggregate liability limits, and bid
+    # bonds that vary by procurement type rather than being a flat 5%.
+    want_v2 = {"required": True, "bid_bond_pct": 10, "performance_bond_pct": 100,
+               "payment_bond_pct": 100, "gl_per_occurrence_usd": 2000000,
+               "gl_aggregate_usd": 4000000}
+    for label, raw in [
+        ("v2 numeric", {"required": True, "bid_bond_pct": 10, "performance_bond_pct": 100,
+                        "payment_bond_pct": 100, "gl_per_occurrence_usd": 2000000,
+                        "gl_aggregate_usd": 4000000}),
+        ("v2 strings", {"required": True, "bid_bond_pct": "10%", "performance_bond_pct": "100%",
+                        "payment_bond_pct": "100%",
+                        "gl_per_occurrence_usd": "$2,000,000",
+                        "gl_aggregate_usd": "$4,000,000"}),
+        ("v2 aliases", {"required": True, "bid_bond_pct": "ten percent",
+                        "performance_bond_pct": 100, "payment_bond_pct": 100,
+                        "cgl_per_occurrence": "2 million", "cgl_aggregate": "4 million"}),
+    ]:
+        check("bond %s" % label, norm_bond(raw), want_v2)
+
+    # Miller Act: 20% bid bond, no liability limit stated. Key-set rule means the
+    # absent GL keys must stay absent rather than being filled with a default.
+    check("bond miller act",
+          norm_bond({"required": True, "bid_bond_pct": "20 percent",
+                     "performance_bond_pct": 100, "payment_bond_pct": 100}),
+          {"required": True, "bid_bond_pct": 20, "performance_bond_pct": 100,
+           "payment_bond_pct": 100})
+
     # --- scorer outcomes ---------------------------------------------------
     gold = {
         "case_id": "t1",

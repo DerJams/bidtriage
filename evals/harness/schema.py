@@ -12,8 +12,16 @@ legitimately absent from their source documents.
 """
 from __future__ import annotations
 
+from evals import config
+
 _NULLABLE_STR = {"type": ["string", "null"]}
 _NULLABLE_NUM = {"type": ["number", "null"]}
+
+# v1 documents state a single undifferentiated liability limit. v2 documents
+# follow the documented convention of separate per-occurrence and aggregate
+# limits. The key set follows the corpus so v1 gold keeps scoring correctly.
+_GL_KEYS = (["gl_limit_usd"] if config.CORPUS == "v1"
+            else ["gl_per_occurrence_usd", "gl_aggregate_usd"])
 
 EXTRACTION_SCHEMA = {
     "type": "object",
@@ -44,16 +52,15 @@ EXTRACTION_SCHEMA = {
             "type": ["object", "null"],
             "additionalProperties": False,
             "required": ["required", "bid_bond_pct", "performance_bond_pct",
-                         "payment_bond_pct", "gl_limit_usd"],
-            "properties": {
+                         "payment_bond_pct"] + _GL_KEYS,
+            "properties": dict({
                 "required": {"type": ["boolean", "null"],
                              "description": "false only if the source explicitly "
                                             "states no bonding is required."},
                 "bid_bond_pct": _NULLABLE_NUM,
                 "performance_bond_pct": _NULLABLE_NUM,
                 "payment_bond_pct": _NULLABLE_NUM,
-                "gl_limit_usd": _NULLABLE_NUM,
-            },
+            }, **{k: _NULLABLE_NUM for k in _GL_KEYS}),
             "description": ("Null only if the source says nothing about bonding or "
                             "insurance. Use null for any individual requirement the "
                             "source does not state -- do not assume a standard value."),

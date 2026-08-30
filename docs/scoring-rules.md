@@ -139,6 +139,13 @@ gold values. Both apply identically to every target.
 | Before first full run | `iso_date` accepts ISO datetimes | The model returned `2026-09-25T14:00:00-06:00`. A `` in the regex meant this **more precise, correct** answer scored as unparseable. A bug that penalised correctness. |
 | Before first full run | `location` uses `us_city_state`, not bare string equality | The model returned `"Cascade Ridge Middle School, Arvada, CO"`. Bare equality called that wrong even though the city is right and is what the radius check consumes. Under-specification, not a metric change. |
 | Before first full run | `co` removed from corporate-suffix stripping | It silently truncated every `City, CO` location. Caught by `selftest.py`. |
+| Corpus v2 | `bond_insurance` gains `gl_per_occurrence_usd` and `gl_aggregate_usd`, replacing the single `gl_limit_usd`, **for the v2 corpus only** | Documented practice for HVAC and plumbing, classified as higher-risk trades, is 2M per occurrence and 4M aggregate rather than a single undifferentiated limit. One number cannot carry both. Bid bonds also stop being a flat 5% and vary across 5, 10 and 20% by procurement type, so the field is no longer guessable from one memorised value. |
+| Corpus v2 | The bond shape is **versioned with the corpus**, not switched globally | Switching it globally would have silently broken every v1 gold key: v1 gold stores `gl_limit_usd`, the model would have begun emitting the new keys, and the exact-key-set rule would have failed all 12 bond fields while looking like a model regression. `BIDTRIAGE_CORPUS` selects the shape along with the gold and source directories, so v1 stays exactly reproducible and its recorded results stand. Verified: v1 gold validates and a v1 case still scores 8/8 after the change. |
+
+The key-set rule is unchanged and still applies to both shapes. A source that
+states only a per-occurrence limit yields a dict without the aggregate key, and
+asserting an aggregate the document never mentions remains a hallucination
+inside the field.
 
 `project_title` was deliberately **left strict**. The model returned a title with
 the bid-package number appended, which strict equality scores wrong. That is
