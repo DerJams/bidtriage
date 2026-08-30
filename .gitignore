@@ -21,3 +21,7 @@ desktop.ini
 # results files in evals/results/ are the authoritative record.
 evals/results/.runlog_*.txt
 evals/results/.v2log_*.txt
+
+# Preparation material, not a submission artifact. Kept on disk,
+# untracked so it does not sit in docs/ alongside the deliverables.
+docs/video-plan.md
