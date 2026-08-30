@@ -155,6 +155,41 @@ def call(messages: list,
         msg = choice.get("message") or {}
         usage = data.get("usage") or {}
 
+        # A structured-output request that comes back as unparseable content is
+        # a malformed RESPONSE, not a wrong answer. Observed on the v2 corpus:
+        # occasional replies where reasoning_tokens exceeded completion_tokens,
+        # meaning content arrived empty or truncated with finish_reason "stop".
+        # Retried at the transport layer, the same way a 429 is, so it applies
+        # identically to every arm and does not become a semantic retry that
+        # would change what the baseline is. The baseline still gets exactly one
+        # attempt at the TASK; this only insists on receiving a well-formed
+        # response to score.
+        if response_format is not None:
+            body_text = msg.get("content")
+            malformed = False
+            if not body_text or not body_text.strip():
+                malformed = True
+            else:
+                try:
+                    json.loads(body_text)
+                except (json.JSONDecodeError, TypeError):
+                    malformed = True
+            if malformed and attempt < config.MAX_ATTEMPTS:
+                delay = min(config.BACKOFF_BASE_SECONDS * (2 ** (attempt - 1)),
+                            config.BACKOFF_MAX_SECONDS)
+                res.retries += 1
+                res.retry_log.append({
+                    "attempt": attempt, "status": "malformed_json",
+                    "sleep_s": delay,
+                    "detail": "finish=%s completion_tk=%s reasoning_tk=%s len=%d"
+                              % (choice.get("finish_reason"),
+                                 usage.get("completion_tokens"),
+                                 (usage.get("completion_tokens_details") or {})
+                                 .get("reasoning_tokens"),
+                                 len(body_text or ""))})
+                time.sleep(delay)
+                continue
+
         res.ok = True
         res.content = msg.get("content")
         res.tool_calls = msg.get("tool_calls") or []
