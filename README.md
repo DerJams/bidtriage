@@ -102,15 +102,6 @@ are exercised.
   warning. Gold citations therefore cannot be things that merely seemed to be in
   the document.
 
-## System design
-
-![BidTriage system design: baseline path vs. verified agent path, sharing one input set and one evaluation harness](docs/system-design.png)
-
-Baseline and solution run over the same 12 cases and are scored by the same
-harness, so the comparison is like-for-like. Source:
-[`docs/system-design.excalidraw`](docs/system-design.excalidraw) (open at
-[excalidraw.com](https://excalidraw.com)).
-
 ## Status
 
 | Step | State |
@@ -119,24 +110,44 @@ harness, so the comparison is like-for-like. Source:
 | 1. Synthetic eval set and gold keys | done |
 | 2. Baseline | done, measured over 8 runs |
 | 3. Eval harness | done |
-| 4. Solution levers | lever 2 built and measured; lever 1 built, not yet measured; levers 3 and 4 not started |
+| 4. Solution levers | lever 2 measured; lever 3 measurement running; lever 1 built but unmeasured; lever 4 not started |
 
-### Lever status detail
+## System design and measured results
 
-| Lever | State |
-|---|---|
-| 1. Document parsing | built (`solution/parse.py`), measurement pending |
-| 2. Verification with span checking | built and measured at n=8 per arm; a revision to fix the case 12 regression is pending separate measurement |
-| 3. Structured triage | not started |
-| 4. Estimator brief | not started |
+![BidTriage system design: baseline path vs. verified agent path, sharing one input set and one evaluation harness](docs/system-design.png)
 
-## Measured results
+> GitHub's image viewer does not zoom, so the diagram's annotations may be
+> unreadable in the browser. Everything needed to follow the design and the
+> results is written out below. Full-resolution source:
+> [`docs/system-design.excalidraw`](docs/system-design.excalidraw), which opens
+> at [excalidraw.com](https://excalidraw.com).
 
-Every figure below comes from a run recorded in `evals/results/`. Nothing is
-estimated. Cost is the amount OpenRouter actually charged, read from the
-response usage block.
+**What the pipeline does.** Twelve synthetic cases, four input shapes (email
+RFPs, RFP PDFs, sparse portal notices, and one deliberately hard PDF), feed two
+paths. The **baseline** pastes the raw document text into a single model call
+with no tools, no retry logic, and no verification. The **solution** runs an
+extraction call, then a verification call, then a triage call, adding one lever
+at a time. Both paths emit the same fixed prediction schema and are scored by
+the same harness over the same 96 slots, so the comparison is like-for-like and
+neither path can win on output formatting.
 
-### Baseline vs. lever 2 (n = 8 runs per arm)
+**How verification works (lever 2).** A second pass re-reads the source and
+returns, for every field, a status and a quote it claims supports that value.
+Reconciliation then searches the actual document for that quote: a model
+asserting it checked is worth nothing, but a quote that must be found
+character-for-character is a checkable claim. A field whose claimed span cannot
+be located drops to a human review queue instead of being believed, and the
+whole reconciliation is deterministic, so no model call decides a final outcome.
+
+**How triage works (lever 3).** The contractor capacity rules are rendered into
+criteria the model can check: self-performed trades, a declared drive-distance
+table, the size band, and the three already-committed projects with a
+three-project concurrency limit. The model evaluates each criterion and says
+why; code applies only the published boolean formula to the model's own answers.
+The gold generator's computation is deliberately not ported into the solution,
+because scoring it against itself would prove nothing.
+
+### Results, n = 8 runs per arm
 
 | Metric | Target | Baseline | Lever 2 | Delta | Noise floor | p | Verdict |
 |---|---|---|---|---|---|---|---|
@@ -149,20 +160,25 @@ response usage block.
 Ranges: baseline field accuracy 93.75 to 95.83, lever 2 field accuracy 95.83 to
 97.92. Baseline hallucination 2.30 to 4.60, lever 2 hallucination 1.15 to 2.33.
 
-**Lever 2 is not reported as an improvement.** The only statistically solid
-result is that verification costs 3.1 times more, because it makes two calls
-instead of one and sends the document twice.
+### Lever verdicts
 
-That verdict deserves an honest caveat, because at n=8 the two headline metrics
-are doing something more interesting than simply failing to move. The
-permutation test now returns p = 0.009 for field accuracy and p = 0.037 for
-hallucination, so the direction is consistent enough that chance is an unlikely
-explanation. The deltas are nevertheless smaller than the run-to-run spread,
-and the rule in force requires a delta to clear that spread before it counts.
-Both things are true at once: the difference is probably real, and it is
-smaller than the noise the system produces between identical runs. The rule is
-deliberately conservative, and it is applied as written rather than relaxed
-once the numbers became suggestive.
+| Lever | State | Verdict |
+|---|---|---|
+| 1. Document parsing | built (`solution/parse.py`), not yet measured | pending. Expected flat: pdfplumber finds tables in cases 06 to 09, which already score near-perfectly, and **zero** tables in case 12, whose quantity block is monospace text. It is measured anyway rather than assumed. |
+| 2. Verification with span checking | measured, n=8 per arm | **not an improvement.** Both headline deltas are smaller than the run-to-run spread. The only statistically solid result is that it costs 3.1 times more. A revision to fix the case 12 regression is pending separate measurement. |
+| 3. Structured triage | measurement running, n=8 | pending. On a three-case probe it fixed case_06, the systematic timeline-conflict failure that neither the baseline nor lever 2 gets right. |
+| 4. Estimator brief | not started | pending |
+
+**Lever 2 is not reported as an improvement.** That verdict deserves an honest
+caveat, because at n=8 the two headline metrics are doing something more
+interesting than simply failing to move. The permutation test returns p = 0.009
+for field accuracy and p = 0.037 for hallucination, so the direction is
+consistent enough that chance is an unlikely explanation. The deltas are
+nevertheless smaller than the run-to-run spread, and the rule in force requires
+a delta to clear that spread before it counts. Both things are true at once: the
+difference is probably real, and it is smaller than the noise the system
+produces between identical runs. The rule is deliberately conservative, and it
+is applied as written rather than relaxed once the numbers became suggestive.
 
 One statement about levels rather than deltas, which the rule does not cover:
 lever 2's mean hallucination rate of 1.88% is under the 2% target frozen before
@@ -173,7 +189,10 @@ arms remains within noise.
 The verdict rule is enforced in code by [`evals/compare.py`](evals/compare.py),
 not by judgement: an exact two-sided permutation test, with an improvement
 requiring the delta to clear the larger observed spread **and** reach p below
-0.05. Anything else prints as within noise regardless of direction.
+0.05. Anything else prints as within noise regardless of direction. Every figure
+above comes from a run recorded in `evals/results/`. Nothing is estimated, and
+cost is the amount OpenRouter actually charged, read from the response usage
+block.
 
 ### Two findings that shape the project
 
