@@ -114,13 +114,19 @@ are exercised.
 
 ## System design and measured results
 
-![BidTriage system design: baseline path vs. verified agent path, sharing one input set and one evaluation harness](docs/system-design.png)
+![BidTriage inputs and the two paths: twelve cases feed a baseline path and a verified solution path](docs/system-design-paths.png)
 
-> GitHub's image viewer does not zoom, so the diagram's annotations may be
-> unreadable in the browser. Everything needed to follow the design and the
-> results is written out below. Full-resolution source:
-> [`docs/system-design.excalidraw`](docs/system-design.excalidraw), which opens
-> at [excalidraw.com](https://excalidraw.com).
+*Inputs and the two paths.* Source:
+[`docs/system-design-paths.excalidraw`](docs/system-design-paths.excalidraw)
+
+![BidTriage evaluation harness: gold keys, deterministic normalizers, scoring, permutation test, and the measured results](docs/system-design-evaluation.png)
+
+*Evaluation harness and results.* Source:
+[`docs/system-design-evaluation.excalidraw`](docs/system-design-evaluation.excalidraw)
+
+> Both diagrams open at [excalidraw.com](https://excalidraw.com) from the
+> sources above. Every figure in the second diagram is also written out as a
+> table below, so the numbers stay readable however the image scales.
 
 **What the pipeline does.** Twelve synthetic cases, four input shapes (email
 RFPs, RFP PDFs, sparse portal notices, and one deliberately hard PDF), feed two
