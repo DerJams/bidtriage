@@ -251,13 +251,22 @@ them, never replacing them, because the corpus changed and a lever effect must
 not be confused with that change. The noise floor below is measured on v2, not
 carried over from v1.
 
-| Metric | Target | Baseline | Lever 1 | Lever 2 | Lever 2b | 2+3+4 | **2b+3+4 (final)** |
+The two headline arms are measured at **n=8**; the intermediate arms at n=5.
+
+| Metric | Target | Baseline (n=8) | Lever 1 | Lever 2 | Lever 2b | 2+3+4 | **2b+3+4 final (n=8)** |
 |---|---|---|---|---|---|---|---|
-| Field accuracy | at least 90% | 96.83% | 96.67% | 95.25% | 97.25% | 95.67% | **97.50%** |
-| Hallucination | at most 2% | 1.07% | 1.04% | 0.89% | 0.89% | 0.89% | **0.88%** |
-| Triage accuracy | n/a | 78.00% | 80.00% | 80.00% | 76.67% | 98.00% | **97.33%** |
+| Field accuracy | at least 90% | 96.98% | 96.67% | 95.25% | 97.25% | 95.67% | **97.45%** |
+| Hallucination | at most 2% | 1.00% | 1.04% | 0.89% | 0.89% | 0.89% | **0.89%** |
+| Triage accuracy | n/a | 77.92% | 80.00% | 80.00% | 76.67% | 98.00% | **97.50%** |
 | Cost per case | n/a | $0.00012 | $0.00012 | $0.00037 | $0.00038 | $0.00058 | **$0.00058** |
 | Hard failures | n/a | 0 | 1 | 0 | 0 | 0 | **0** |
+
+**The headline, at n=8 per arm:** triage 77.92% to **97.50%**, 19.58 points
+higher, against a measured noise floor of 10.00, at **p = 0.000155**. That is
+the minimum p this test can return at n=8, because the two arms do not overlap
+at all: the baseline ranges 73.33 to 83.33 across its eight runs and the final
+configuration ranges 93.33 to 100.00 across its eight. Not a single baseline
+run reaches a single solution run.
 
 Lever 2b is lever 2 with one reconciliation rule revised after measurement. It
 is a separate arm rather than an edit, so the lever 2 numbers above are the
@@ -277,10 +286,10 @@ Verdicts against the baseline:
 | Levers 2+3+4 | triage | **20.00pp higher** | 10.00 | 0.008 | **improvement** |
 | Levers 2+3+4 | field accuracy | 1.17pp lower | 1.25 | 0.024 | within noise |
 | Levers 2+3+4 | cost | 4.8x higher | n/a | 0.008 | regression |
-| **2b+3+4 (final)** | triage | **19.33pp higher** | 10.00 | 0.008 | **improvement** |
-| **2b+3+4 (final)** | field accuracy | 0.67pp higher | 1.25 | 0.175 | within noise |
-| **2b+3+4 (final)** | hallucination | 0.18pp lower | 0.45 | 0.048 | within noise |
-| **2b+3+4 (final)** | cost | 4.8x higher | n/a | 0.008 | regression |
+| **2b+3+4 final, n=8** | triage | **19.58pp higher** | 10.00 | **0.000155** | **improvement** |
+| **2b+3+4 final, n=8** | field accuracy | 0.47pp higher | 1.67 | 0.175 | within noise |
+| **2b+3+4 final, n=8** | hallucination | 0.11pp lower | 0.89 | 0.199 | within noise |
+| **2b+3+4 final, n=8** | cost | 4.8x higher | n/a | 0.000155 | regression |
 | **2b vs 2**, full stack | field accuracy | **1.83pp higher** | 1.25 | 0.008 | **improvement** |
 | **2b vs 2**, full stack | cost | none | n/a | 0.944 | within noise |
 
