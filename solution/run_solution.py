@@ -45,7 +45,8 @@ from solution import verify_schema
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-ALL_LEVERS = ("lever1_parse", "lever2_verify", "lever3_triage", "lever4_brief")
+ALL_LEVERS = ("lever1_parse", "lever2_verify", "lever2b_verify",
+              "lever3_triage", "lever4_brief")
 
 
 def _active_levers() -> tuple:
@@ -58,6 +59,12 @@ def _active_levers() -> tuple:
 
 
 ACTIVE_LEVERS = _active_levers()
+
+# lever2b is lever 2 with one reconciliation rule revised. Kept as a separate
+# lever id rather than an edit to lever2, so the lever2 results already
+# recorded on v1 and v2 stay valid and the two are comparable as arms.
+VERIFY_ACTIVE = bool({"lever2_verify", "lever2b_verify"} & set(ACTIVE_LEVERS))
+VERIFY_REVISED = "lever2b_verify" in ACTIVE_LEVERS
 
 EXTRACT_SYSTEM = """You are helping the operations coordinator at Summit Peak Mechanical, \
 a small commercial mechanical contractor based in Golden, Colorado.
@@ -228,8 +235,20 @@ def _reconcile(verified: dict, evidence: dict, source: str):
             verdict = "flagged_uncertain"
         elif status == "SUPPORTED":
             if value is None:
-                flagged.append(field)
-                verdict = "flagged_supported_but_null"
+                # Measured on v2: 40 of lever 2's 42 flags were SUPPORTED with a
+                # null value, overwhelmingly on fields where the document says
+                # plainly that there is no value ("the Owner has not released a
+                # construction budget"). Treating that as a contradiction cost
+                # 1.58pp of field accuracy, because confident abstention would
+                # have scored correct. When the span is locatable the claim is
+                # coherent: the document addresses the field and the answer is
+                # none. Without a locatable span it is still just a flag.
+                if VERIFY_REVISED and _span_found(span or "", source):
+                    prediction[field] = None
+                    verdict = "abstained_supported_none"
+                else:
+                    flagged.append(field)
+                    verdict = "flagged_supported_but_null"
             elif not _span_found(span or "", source):
                 flagged.append(field)
                 verdict = "flagged_span_not_found"
@@ -332,7 +351,7 @@ def run(case_id: str, gold: dict, document_text: str) -> tuple:
     if draft is None:
         return None, [], res1
 
-    if "lever2_verify" not in ACTIVE_LEVERS:
+    if not VERIFY_ACTIVE:
         combined = res1
         if "lever3_triage" in ACTIVE_LEVERS:
             draft = _apply_triage(draft, case_id, document_text, combined)
