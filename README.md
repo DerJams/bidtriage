@@ -344,8 +344,30 @@ open-source libraries, both listed above.
 
 ## Traces
 
-`traces/` holds Claude Code session transcripts showing tool calls, tool
-responses, retries, and human checkpoints.
+`traces/` holds the complete Claude Code session transcripts as raw JSONL.
+Those are the authoritative record and are kept unmodified.
+
+**[`traces/annotated/`](traces/annotated/) is a readable subset of those same
+transcripts**, not a replacement for them and not a separate record. The raw
+JSONL is roughly 5 MB of session events, which no reader can realistically
+follow from an instruction through to a result, so four episodes are extracted
+and annotated:
+
+| Episode | What it shows |
+|---|---|
+| [Human checkpoint: freezing the scoring rules](traces/annotated/01-human-checkpoint-scoring-rules.md) | The agent stops and asks before any number exists, then folds in four mid-turn refinements |
+| [An instruction overridden by measurement](traces/annotated/02-instruction-overridden-by-measurement.md) | An instruction that could not be followed, checked rather than obeyed, with a live 429 retry visible |
+| [The loop catching its own error](traces/annotated/03-the-loop-catching-its-own-error.md) | A self-test failing and catching a defect that would have failed every location field |
+| [Lever 3 verified, not assumed](traces/annotated/04-lever-3-verified-not-assumed.md) | A 100% result, then the agent testing whether its own rule was carrying the score |
+
+Nothing in an episode is paraphrased. Everything outside a clearly marked
+annotation is verbatim, long tool inputs and outputs are truncated with the
+omitted character count shown, and where events are skipped inside an episode
+the exact number omitted is printed. The bug episode is included deliberately:
+a trajectory set showing only successes would misrepresent how the work went.
+
+Episodes are regenerated from the raw transcript with
+`python scripts/build_trace_episodes.py`, so they cannot drift from it.
 
 Transcripts are copied by [`scripts/capture_traces.py`](scripts/capture_traces.py),
 which requires session ids to be named explicitly and has **no copy-all flag by
