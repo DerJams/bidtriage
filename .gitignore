@@ -20,3 +20,4 @@ desktop.ini
 # Scratch console logs from background runs. The timestamped JSON
 # results files in evals/results/ are the authoritative record.
 evals/results/.runlog_*.txt
+evals/results/.v2log_*.txt
