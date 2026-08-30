@@ -16,9 +16,19 @@ contractor (HVAC/plumbing). The firm runs five or six overlapping projects a
 year. She is the only person who touches inbound work before it reaches an
 estimator.
 
-**What arrives.** Emails with the scope buried in prose. RFP PDFs with spec
-tables and addenda. Bid-portal notifications that are little more than a link
-and a due date.
+**What arrives.** Emails with the scope buried in prose, which is where most of
+the ambiguity lives, because a general contractor writing one by hand includes
+whatever they remember to include. RFP PDFs with spec tables and addenda.
+Platform invitations from bid-management systems, which are the opposite: they
+are generated from structured project fields and are consistently complete, so
+the ambiguity sits in the scope documents attached to them rather than in the
+notification itself.
+
+That distinction is not an assumption. It is drawn from platform documentation
+and corroborated independently, and it is why the v2 corpus models platform
+invitations as structured and complete with the missing information pushed into
+an attachment. The v1 corpus modelled them as sparse notifications, which the
+research overturned. See [`docs/corpus-v2-design.md`](docs/corpus-v2-design.md).
 
 **What she does today.** Reads each one manually. Re-keys client, project
 title, trade scope, location, bid due date, estimated value, bonding and
@@ -94,6 +104,30 @@ criteria. The mix is 6 bid, 4 no-bid, and 2 insufficient-information, and each
 no-bid is driven by a **different** failing criterion, so all four triage rules
 are exercised.
 
+### Corpus v2, 30 cases and 240 scored slots
+
+The set used for the final measurement. **230 slots are present in source; 10
+are legitimately absent.** Composition by channel:
+
+| Channel | Cases | Notes |
+|---|---|---|
+| RFP PDFs, single document | 13 | standard ITBs, a federal Miller Act solicitation, a municipal notice, design-build, multi-phase, negotiated work |
+| Emails, single document | 11 | the omission-prone channel: forwarded threads, GC scope sheets, urgent short-turnaround, owner and GC named separately |
+| Platform invitations plus attachment | 6 | structured invitation, ambiguity in the attached scope document |
+
+Across 18 distinct document formats. **Three cases are adversarial**, which is
+1 in 10, close to v1's 1 in 12 rather than a corpus of traps:
+
+| Case | Trap |
+|---|---|
+| `case_12` | an addendum supersedes the bid date, which is quoted five times against the correct date once, and fire protection sits in an ALT column that is not base scope |
+| `case_14` | an addendum changes a **material term**, raising the bid bond and liability limits, with the superseded figures appearing first |
+| `case_17` | a later reply in an email thread supersedes the date stated in the quoted original below it |
+
+All four triage criteria drive a no-bid somewhere: trade fit 2 cases, service
+radius 2, size band 3, timeline conflict 2. The final configuration solves all
+three adversarial cases 5 times out of 5.
+
 ### Corpus provenance
 
 The corpus is entirely synthetic, but its shape is not invented. The document
@@ -160,8 +194,8 @@ measurement uses the v2 set of thirty. The **baseline** pastes the raw document 
 with no tools, no retry logic, and no verification. The **solution** runs an
 extraction call, then a verification call, then a triage call, adding one lever
 at a time. Both paths emit the same fixed prediction schema and are scored by
-the same harness over the same 96 slots, so the comparison is like-for-like and
-neither path can win on output formatting.
+the same harness over the same slots, 96 on v1 and 240 on v2, so the comparison
+is like-for-like and neither path can win on output formatting.
 
 **How verification works (lever 2).** A second pass re-reads the source and
 returns, for every field, a status and a quote it claims supports that value.
@@ -347,8 +381,9 @@ runs, every trap field scores correct 5 times out of 5, and triage is correct
 
 Exported briefs for all three are in [`docs/sample-briefs/`](docs/sample-briefs/).
 
-**On v2 the baseline already meets both frozen targets**, 96.83% accuracy
-against 90% and 1.07% hallucination against 2%. The remaining headroom is
+**On v2 the baseline already meets both frozen targets**, 96.98% accuracy
+against 90% and 1.00% hallucination against 2%, both at n=8. The remaining
+headroom is
 almost entirely triage, which is where lever 3 delivers.
 
 ### Lever verdicts, across both corpora
@@ -364,21 +399,28 @@ not always give the same answer on both.
 | **3. Structured triage** | v1, n=8; v2, n=8 | **The win, and it replicates.** v1 triage +9.38pp; v2 +19.58pp at p=0.000155 with the two arms completely disjoint. Verified model-driven both times: the model agreed with the boolean rule on 96 of 96 decisions on v1 and 234 of 239 on v2. |
 | **4. Estimator brief** | v2, in the final stack | **No measurable effect on the field metrics by construction**, since it renders already-verified fields and makes no model call. Judged as an artifact instead: see [`docs/sample-briefs/`](docs/sample-briefs/). |
 
-### Two findings that shape the project
+### Two findings from corpus v1 that shaped the project
+
+Both were measured on v1. The second held on v2; the first got stronger.
 
 **The baseline already clears the field-accuracy bar.** The 90% target, frozen
-before measurement, is met by a single untooled call. The primary metric has
-very little headroom. The bar it *misses* is hallucination, so that and triage
-are where the real work is.
+before measurement, is met by a single untooled call. On v1 the bar it *missed*
+was hallucination, at 2.87% against a 2% target, which is what pointed the work
+at abstention discipline and triage. **On v2 the baseline clears that bar too**,
+at 1.00%, so by the final corpus the only bar left unmet is one the frozen
+targets never set: triage.
 
 **Temperature 0 is not deterministic here.** Re-running the identical config
-spreads field accuracy by 2.08 percentage points (2 slots, sd 0.86). Any lever
-delta below roughly 2pp is indistinguishable from noise at n=1. Comparisons
-therefore use n=8 per arm. Triage is noisier still: it held at 91.67% across
-the first five baseline runs, but a sixth returned 83.33%, so the earlier claim
+spread v1 field accuracy by 2.08 percentage points (2 slots, sd 0.86), so any
+lever delta below roughly 2pp is indistinguishable from noise at n=1. That
+2.08pp figure is the **v1** floor and governs nothing on v2, where the floor is
+measured separately per comparison and came out at 1.67pp for field accuracy
+and 10.00pp for triage. Comparisons use n=8 per arm on both corpora's headline
+results. Triage is noisier than accuracy on both: on v1 it held at 91.67%
+across five baseline runs before a sixth returned 83.33%, so the earlier claim
 that baseline triage had zero variance did not survive the larger sample.
 
-### What lever 2 changed
+### What lever 2 changed on corpus v1
 
 Across 752 field verifications: 90.4% were kept with a span found verbatim in
 the source, 6.4% abstained because the source was silent, 2.8% abstained
