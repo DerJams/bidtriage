@@ -1,0 +1,73 @@
+{
+  "_note": "FICTIONAL contractor. Summit Peak Mechanical does not exist. Drive distances below are DECLARED fixed operating parameters used to make triage decisions deterministic and auditable; they are not geocoded measurements and are not claimed to be geographically accurate. Colorado place names are used for realism only.",
+  "company": "Summit Peak Mechanical",
+  "home_base": "Golden, CO",
+  "capacity": {
+    "max_concurrent_projects": 3,
+    "annual_project_target": 6
+  },
+  "trade_fit": {
+    "in_scope": [
+      "hvac",
+      "plumbing",
+      "piping",
+      "sheet_metal",
+      "controls"
+    ],
+    "out_of_scope": [
+      "refrigeration",
+      "fire_protection"
+    ],
+    "_rule": "trade_fit is FALSE if any required trade is in out_of_scope, or is outside the closed vocabulary entirely."
+  },
+  "service_radius_miles": 90,
+  "declared_drive_miles_from_base": {
+    "Golden, CO": 0,
+    "Lakewood, CO": 8,
+    "Arvada, CO": 10,
+    "Denver, CO": 15,
+    "Boulder, CO": 25,
+    "Broomfield, CO": 22,
+    "Castle Rock, CO": 45,
+    "Longmont, CO": 40,
+    "Idaho Springs, CO": 20,
+    "Fort Collins, CO": 70,
+    "Colorado Springs, CO": 85,
+    "Frisco, CO": 70,
+    "Greeley, CO": 75,
+    "Vail, CO": 100,
+    "Grand Junction, CO": 245,
+    "Durango, CO": 340,
+    "Pueblo, CO": 130
+  },
+  "size_band_usd": {
+    "min": 250000,
+    "max": 3000000,
+    "_rule": "size_band_ok is TRUE if the gold interval MIDPOINT falls within [min, max] inclusive. Midpoint is used so a wide range straddling a bound resolves deterministically."
+  },
+  "committed_projects": [
+    {
+      "name": "Ridgeline Charter School HVAC replacement",
+      "start": "2026-09-15",
+      "end": "2027-01-28"
+    },
+    {
+      "name": "Foothills Medical Plaza mechanical fitout",
+      "start": "2026-10-01",
+      "end": "2027-03-20"
+    },
+    {
+      "name": "Clear Creek Wastewater pump station piping",
+      "start": "2026-08-02",
+      "end": "2026-12-10"
+    }
+  ],
+  "timeline_conflict_rule": "timeline_conflict is TRUE if the case's construction window overlaps any date range on which max_concurrent_projects (3) committed projects are already simultaneously active. Construction window comes from gold field extras.construction_window and is NOT one of the eight scored fields.",
+  "triage_decision_rule": "Evaluate four criteria: trade_fit, within_radius, size_band_ok, timeline_conflict. If any criterion CANNOT be evaluated because its input field is absent from the source, the decision is 'insufficient_information' and required_reasons names the missing input(s). Otherwise: 'bid' if trade_fit AND within_radius AND size_band_ok AND NOT timeline_conflict; else 'no_bid' with required_reasons naming every failing criterion.",
+  "_as_of_date": "2026-08-29",
+  "decision_values": [
+    "bid",
+    "no_bid",
+    "insufficient_information"
+  ]
+}
