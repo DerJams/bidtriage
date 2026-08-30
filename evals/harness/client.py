@@ -65,6 +65,16 @@ class CallResult:
         }
 
 
+def require_api_key() -> None:
+    """Fail before spending time or writing a results file.
+
+    Without this, a run with no key still completed, scored every field as
+    missed, exited 0, and wrote a results file that looked like a legitimate
+    0% measurement. Found by a clean-room walkthrough of REPRODUCE.md.
+    """
+    _api_key()
+
+
 def _api_key() -> str:
     key = os.environ.get(config.API_KEY_ENV)
     if not key:

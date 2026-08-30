@@ -24,7 +24,37 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PROJECTS = pathlib.Path.home() / ".claude" / "projects" / "C--Users-James"
+PROJECTS_ROOT = pathlib.Path.home() / ".claude" / "projects"
+
+
+def _resolve_projects_dir(explicit=None):
+    """Locate the Claude Code project directory holding this repo's sessions.
+
+    This path was hardcoded to one developer's username, which made the script
+    unusable on any other machine. Found by a clean-room walkthrough of
+    REPRODUCE.md. Resolution order: an explicit --project name, then the
+    directory whose name encodes this repo's own path, then the single
+    directory containing transcripts if there is exactly one. Anything
+    ambiguous asks rather than guessing.
+    """
+    if explicit:
+        return PROJECTS_ROOT / explicit
+    # Claude Code encodes the working directory into the folder name.
+    encoded = str(ROOT).replace(":", "-").replace(chr(92), "-").replace("/", "-")
+    for cand in (PROJECTS_ROOT / encoded, PROJECTS_ROOT / encoded.rstrip("-")):
+        if cand.is_dir():
+            return cand
+    if PROJECTS_ROOT.is_dir():
+        withlogs = [d for d in PROJECTS_ROOT.iterdir()
+                    if d.is_dir() and any(d.glob("*.jsonl"))]
+        if len(withlogs) == 1:
+            return withlogs[0]
+        if len(withlogs) > 1:
+            names = ", ".join(sorted(d.name for d in withlogs))
+            raise SystemExit(
+                "Multiple Claude Code project directories found. Pass one with "
+                "--project NAME. Available: %s" % names)
+    raise SystemExit("No Claude Code project directory found under %s" % PROJECTS_ROOT)
 TRACES = ROOT / "traces"
 
 # Credential-shaped patterns. Ordered; each maps to a stable placeholder.
@@ -53,6 +83,13 @@ def redact(text: str) -> tuple[str, dict]:
 
 
 def main(argv: list[str]) -> int:
+    explicit = None
+    if "--project" in argv:
+        i = argv.index("--project")
+        explicit = argv[i + 1] if i + 1 < len(argv) else None
+        argv = argv[:i] + argv[i + 2:]
+
+    PROJECTS = _resolve_projects_dir(explicit)
     if not PROJECTS.exists():
         print("project dir not found: %s" % PROJECTS, file=sys.stderr)
         return 1

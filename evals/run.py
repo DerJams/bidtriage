@@ -70,6 +70,15 @@ def main(argv=None) -> int:
     if not cases:
         raise SystemExit("no cases matched")
 
+    # Preflight. A missing key used to produce a full results file of zeroes
+    # that scored like a real run; fail before anything is written instead.
+    from evals.harness import client as _client
+    try:
+        _client.require_api_key()
+    except _client.MissingAPIKey as e:
+        print("%s" % e, file=sys.stderr)
+        return 2
+
     runner, active_levers = get_runner(args.target)
     started = datetime.now(timezone.utc)
 
@@ -207,6 +216,8 @@ def main(argv=None) -> int:
         for f in failures:
             print("  %s: %s %s" % (f["case_id"], f["kind"],
                                    str(f.get("detail"))[:120]), file=sys.stderr)
+        # Non-zero so a shell loop cannot silently accumulate broken runs.
+        return 1
     return 0
 
 

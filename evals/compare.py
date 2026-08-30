@@ -50,18 +50,24 @@ def load_group(name: str) -> list:
     SUPERSEDED files are never loaded.
     """
     want = [t for t in name.split("+") if t]
-    out = []
+    out, skipped = [], []
     for f in sorted(glob.glob(str(RESULTS / "*.json"))):
         if "SUPERSEDED" in pathlib.Path(f).name:
             continue
         r = json.loads(pathlib.Path(f).read_text(encoding="utf-8"))
         if r.get("n_cases") != 12:
             continue  # partial/target-check runs are not measurements
+        if (r.get("reliability") or {}).get("n_failures"):
+            skipped.append(pathlib.Path(f).name)
+            continue  # a run with hard failures is not a measurement either
         levers = set(r.get("active_levers") or [])
         if name == "baseline" and r["target"] == "baseline":
             out.append(r)
         elif name != "baseline" and r["target"] == "solution" and levers == set(want):
             out.append(r)
+    if skipped:
+        print("  note: excluded %d run(s) with hard failures: %s"
+              % (len(skipped), ", ".join(skipped[:3]) + ("..." if len(skipped) > 3 else "")))
     return out
 
 
