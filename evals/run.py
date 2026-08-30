@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import pathlib
 import sys
 from datetime import datetime, timezone
@@ -165,8 +166,16 @@ def main(argv=None) -> int:
     }
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    stamp = started.strftime("%Y%m%dT%H%M%SZ")
-    out = RESULTS_DIR / ("%s_%s.json" % (stamp, args.target))
+    # Second-resolution timestamps collide when arms run concurrently, and the
+    # loser is silently overwritten. Caught when a concurrency test lost one of
+    # two runs. Microseconds plus pid makes the name unique per process, and the
+    # exists() guard is a belt-and-braces backstop.
+    stamp = started.strftime("%Y%m%dT%H%M%S%fZ")
+    out = RESULTS_DIR / ("%s_%s_p%d.json" % (stamp, args.target, os.getpid()))
+    dedup = 0
+    while out.exists():
+        dedup += 1
+        out = RESULTS_DIR / ("%s_%s_p%d_%d.json" % (stamp, args.target, os.getpid(), dedup))
     out.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     print("-" * 92)

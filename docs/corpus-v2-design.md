@@ -167,10 +167,48 @@ About 7.8 hours sequential for four arms at n=8, before lever 4 adds a call.
 
 ---
 
-## 5. Open question: n versus corpus size
+## 5. Sample size and concurrency (measured, decided)
 
-Because a 240-slot corpus cuts per-run variance by roughly 40%, **n=5 on 30
-cases should resolve lever effects better than n=8 on 12 cases did**, while
-costing about 5 hours instead of 8. That is the recommended trade. It is
-recorded here as a proposal rather than applied, because changing n is a
-measurement decision and should be visible.
+**n=5 on 30 cases**, not n=8. A 240-slot corpus should cut per-run variance
+relative to 96 slots, so n=5 on the expanded set should resolve lever effects at
+least as well as n=8 did on the small one, at about 60% of the run time. This is
+a visible measurement decision, recorded here and in `CHANGELOG.md` rather than
+quietly applied.
+
+**The noise floor will be measured on the new corpus, not carried over.** The
+2.08pp figure belongs to the 12-case set and governs nothing here. The predicted
+0.54pp is a prediction and is not used either. `evals/compare.py` derives the
+floor from the observed spreads of the two arms actually being compared, so it
+is empirical on whatever set it is run against.
+
+### Concurrency: measured, not assumed
+
+The 7.8 hour figure assumed arms run one after another. They do not have to.
+These are I/O-bound API calls, so the question is whether parallel streams
+multiply throughput or simply collide with rate limiting.
+
+First, what the slowdown is NOT. Retry rate per call is essentially constant
+across arms: 0.312, 0.318, 0.287 retries per call for baseline, lever 2, and
+lever 2+3. Backoff is not compounding. Latency tracks tokens per call at roughly
+0.010 s/token in every arm, so the per-call cost is throughput-bound. Retries
+account for only about 6 to 7% of wall clock.
+
+Measured with three worker processes on an identical 6-case subset:
+
+| | s/case | retries/case |
+|---|---|---|
+| solo | 12.14 | 0.00 |
+| 3 concurrent | **3.41** | 0.22 |
+
+**3.56x speedup at 3 workers.** Concurrency raises the retry rate slightly and
+nowhere near enough to matter. Revised estimate for the full v2 phase at n=5
+with concurrent arms: roughly **1.5 to 2 hours** rather than 4.9 sequential.
+
+### A bug this test found
+
+The first concurrency attempt silently lost a run. Results filenames were built
+from a second-resolution timestamp, so two processes starting in the same second
+produced the same filename and one overwrote the other. Fixed with microseconds
+plus pid plus an exists() guard. Worth recording because the failure mode is
+silent: the arm would simply have contained fewer runs than the label claimed,
+with nothing in any log to say so.
