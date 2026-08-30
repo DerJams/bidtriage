@@ -96,6 +96,9 @@ def main(argv=None) -> int:
         audit = getattr(res, "verification_audit", None)
         if audit:
             meta["verification_audit"] = audit
+        t_audit = getattr(res, "triage_audit", None)
+        if t_audit:
+            meta["triage_audit"] = t_audit
         if flagged:
             meta["flagged_fields"] = list(flagged)
         call_meta[cid] = meta

@@ -38,6 +38,7 @@ import re
 from evals.harness import client
 from evals.harness.normalize import TRADE_VOCAB, norm_trades
 from evals.harness.schema import response_format as extract_response_format
+from solution import triage as triage_mod
 from solution import verify_schema
 
 ALL_LEVERS = ("lever1_parse", "lever2_verify", "lever3_triage", "lever4_brief")
@@ -166,6 +167,39 @@ def _verify(case_id, draft, document_text):
         return None, res
 
 
+TRIAGE_SYSTEM = """You are deciding whether Summit Peak Mechanical should bid a \
+project, using explicit capacity criteria.
+
+Work through every criterion in order and evaluate it against the extracted \
+fields and the source document. Give a short reason for each, citing the actual \
+figures you used. Do not decide by overall impression: a project that fits the \
+trades and the budget is still a no_bid if the crew is already committed.
+
+Pay particular attention to the timeline criterion. You must find the \
+construction window in the document, then work out whether it overlaps a period \
+during which the contractor is already running its maximum number of concurrent \
+projects. Overlapping by a single day is a conflict."""
+
+
+def _triage(case_id, fields, document_text):
+    messages = [
+        {"role": "system", "content": TRIAGE_SYSTEM},
+        {"role": "user", "content": "%s\n\nEXTRACTED FIELDS for %s:\n\n%s\n\n"
+                                    "SOURCE DOCUMENT:\n\n---\n%s\n---\n\n"
+                                    "Evaluate all four criteria and decide."
+                                    % (triage_mod.render_criteria(), case_id,
+                                       json.dumps(fields, indent=2), document_text)},
+    ]
+    res = client.call(messages, response_format=triage_mod.response_format())
+    if not res.ok:
+        return None, res
+    try:
+        return json.loads(res.content or ""), res
+    except (json.JSONDecodeError, TypeError):
+        res.error = "unparseable JSON content (triage)"
+        return None, res
+
+
 def _reconcile(verified: dict, evidence: dict, source: str):
     """Deterministic. No model call decides the final outcome."""
     prediction = dict(verified or {})
@@ -217,30 +251,81 @@ def _reconcile(verified: dict, evidence: dict, source: str):
     return prediction, sorted(set(flagged)), audit
 
 
+def _merge_accounting(target, *others):
+    """Fold token, cost, retry and latency accounting across multiple calls."""
+    for o in others:
+        if o is None:
+            continue
+        target.prompt_tokens += o.prompt_tokens
+        target.completion_tokens += o.completion_tokens
+        target.cost_usd += o.cost_usd
+        target.retries += o.retries
+        target.attempts += o.attempts
+        target.retry_log = list(target.retry_log) + list(o.retry_log)
+        target.latency_s += o.latency_s
+    return target
+
+
+def _apply_triage(prediction, case_id, document_text, combined):
+    """Lever 3. The model evaluates the criteria; code combines them."""
+    payload, res3 = _triage(case_id, prediction, document_text)
+    _merge_accounting(combined, res3)
+
+    if payload is None:
+        combined.error = (combined.error or "") + " | triage failed, kept prior decision"
+        return prediction
+
+    criteria = payload.get("criteria") or {}
+    rule_decision, rule_reasons = triage_mod.apply_rule(criteria)
+    model_decision = payload.get("decision")
+
+    prediction["triage_decision"] = rule_decision
+    prediction["triage_reasons"] = rule_reasons
+
+    # Recorded so the rule's contribution is visible rather than assumed.
+    combined.triage_audit = {
+        "model_decision": model_decision,
+        "rule_decision": rule_decision,
+        "model_agreed_with_rule": model_decision == rule_decision,
+        "criteria": {c: (criteria.get(c) or {}).get("value") for c in triage_mod.CRITERIA},
+        "criteria_reasons": {c: (criteria.get(c) or {}).get("reason")
+                             for c in triage_mod.CRITERIA},
+        "construction_window": payload.get("construction_window"),
+    }
+    return prediction
+
+
 def run(case_id: str, gold: dict, document_text: str) -> tuple:
     draft, res1 = _extract(case_id, gold, document_text)
     if draft is None:
         return None, [], res1
 
     if "lever2_verify" not in ACTIVE_LEVERS:
+        if "lever3_triage" in ACTIVE_LEVERS:
+            combined = res1
+            draft = _apply_triage(draft, case_id, document_text, combined)
+            return draft, [], combined
         return draft, [], res1
 
     payload, res2 = _verify(case_id, draft, document_text)
 
-    # Merge accounting across both calls so cost and retries stay truthful.
+    # Merge accounting across calls so cost and retries stay truthful.
     combined = res2 if res2 is not None else res1
-    combined.prompt_tokens = res1.prompt_tokens + (res2.prompt_tokens if res2 else 0)
-    combined.completion_tokens = res1.completion_tokens + (res2.completion_tokens if res2 else 0)
-    combined.cost_usd = res1.cost_usd + (res2.cost_usd if res2 else 0.0)
-    combined.retries = res1.retries + (res2.retries if res2 else 0)
-    combined.attempts = res1.attempts + (res2.attempts if res2 else 0)
-    combined.retry_log = list(res1.retry_log) + list(res2.retry_log if res2 else [])
-    combined.latency_s = res1.latency_s + (res2.latency_s if res2 else 0.0)
+    if res2 is not None:
+        combined.prompt_tokens = res1.prompt_tokens + res2.prompt_tokens
+        combined.completion_tokens = res1.completion_tokens + res2.completion_tokens
+        combined.cost_usd = res1.cost_usd + res2.cost_usd
+        combined.retries = res1.retries + res2.retries
+        combined.attempts = res1.attempts + res2.attempts
+        combined.retry_log = list(res1.retry_log) + list(res2.retry_log)
+        combined.latency_s = res1.latency_s + res2.latency_s
 
     if payload is None:
         # Verification failed: fall back to the draft rather than losing the case,
         # and say so loudly in the result rather than silently degrading.
         combined.error = (combined.error or "") + " | verify failed, used draft"
+        if "lever3_triage" in ACTIVE_LEVERS:
+            draft = _apply_triage(draft, case_id, document_text, combined)
         return draft, [], combined
 
     prediction, flagged, audit = _reconcile(
@@ -256,4 +341,8 @@ def run(case_id: str, gold: dict, document_text: str) -> tuple:
     prediction["triage_reasons"] = draft.get("triage_reasons")
 
     combined.verification_audit = audit
+
+    if "lever3_triage" in ACTIVE_LEVERS:
+        prediction = _apply_triage(prediction, case_id, document_text, combined)
+
     return prediction, flagged, combined

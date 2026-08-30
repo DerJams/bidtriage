@@ -42,7 +42,14 @@ ALPHA = 0.05
 
 
 def load_group(name: str) -> list:
-    """A group is 'baseline' or a lever id. SUPERSEDED files are never loaded."""
+    """A group is 'baseline' or a lever spec.
+
+    A lever spec is one lever id, or several joined with '+' for a stacked arm,
+    e.g. 'lever2_verify+lever3_triage'. Matching is on the exact SET of active
+    levers, so a stacked arm never silently absorbs single-lever runs.
+    SUPERSEDED files are never loaded.
+    """
+    want = [t for t in name.split("+") if t]
     out = []
     for f in sorted(glob.glob(str(RESULTS / "*.json"))):
         if "SUPERSEDED" in pathlib.Path(f).name:
@@ -50,10 +57,10 @@ def load_group(name: str) -> list:
         r = json.loads(pathlib.Path(f).read_text(encoding="utf-8"))
         if r.get("n_cases") != 12:
             continue  # partial/target-check runs are not measurements
-        levers = r.get("active_levers") or []
+        levers = set(r.get("active_levers") or [])
         if name == "baseline" and r["target"] == "baseline":
             out.append(r)
-        elif name != "baseline" and r["target"] == "solution" and levers == [name]:
+        elif name != "baseline" and r["target"] == "solution" and levers == set(want):
             out.append(r)
     return out
 
