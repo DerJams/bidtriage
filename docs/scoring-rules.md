@@ -55,6 +55,12 @@ Gold stores a **normalized dict**, not formatted tokens:
   A `null`, an omitted field, or "not found" scores **wrong** — not abstained.
 - Scoring is **all-or-nothing on the full dict**. One wrong GL limit fails the
   field.
+- **Key-set convention.** Keys not stated in the source are **omitted** from the
+  dict, and the prediction's key set must match gold's **exactly**. If a portal
+  notice mentions only a bid bond, gold is `{"required": true, "bid_bond_pct": 5}`
+  and nothing else. Asserting a performance bond that the source never mentions
+  is a hallucination *inside* the field and fails it. This is deliberate: bond
+  requirements are the field an estimator is most likely to assume from habit.
 - **Per-subcomponent match results** (each bond type, GL limit) are written to
   the results JSON as diagnostics. The headline metric stays binary per field.
 
