@@ -127,8 +127,8 @@ methodology, so it is treated as directional rather than as a constant.
 | 1. Synthetic eval set and gold keys | done |
 | 2. Baseline | done, measured over 8 runs |
 | 3. Eval harness | done |
-| 4. Solution levers | levers 2, 3 and 4 built; 2 and 3 measured at n=8 on v1; lever 1 wired and now measuring |
-| 5. Corpus v2 | authored and validated: 30 cases, 240 slots. Rerun at n=5 in progress |
+| 4. Solution levers | all four built and measured. Lever 1 measured flat and is the removed experiment |
+| 5. Corpus v2 | done: 30 cases, 240 slots, measured at n=5 across four arms |
 
 ## System design and measured results
 
@@ -243,6 +243,70 @@ lever 2's mean hallucination of 1.88% is under the 2% target and the baseline's
 | 2. Verification with span checking | measured, n=8 per arm | **not an improvement.** Both headline deltas are smaller than the run-to-run spread. The only statistically solid result is that it costs 3.1 times more. A revision to fix the case 12 regression is pending separate measurement. |
 | 3. Structured triage | measured, n=8 per arm | **improvement, and the only one so far.** Triage 89.58% to 100.00%, zero variance across 8 runs, p=0.000, clearing the 8.33 noise floor. Verified model-driven: the model agreed with the boolean rule on 96 of 96 decisions and the rule corrected it zero times. |
 | 4. Estimator brief | built (`solution/brief.py`), wiring in progress | no measurable effect on the field metrics by construction, since it renders already-verified fields and makes no model call. Judged on whether it is forwardable without edits. |
+
+### Corpus v2 results, n = 5 runs per arm, 30 cases and 240 slots
+
+v1 results above are kept exactly as measured. These are reported alongside
+them, never replacing them, because the corpus changed and a lever effect must
+not be confused with that change. The noise floor below is measured on v2, not
+carried over from v1.
+
+| Metric | Target | Baseline | Lever 1 | Lever 2 | Levers 2+3+4 |
+|---|---|---|---|---|---|
+| Field accuracy | at least 90% | 96.83% | 97.08% | 95.25% | 95.67% |
+| Hallucination | at most 2% | 1.07% | 1.07% | 0.89% | 0.89% |
+| Triage accuracy | n/a | 78.00% | 80.00% | 80.00% | **98.00%** |
+| Cost per case | n/a | $0.00012 | $0.00012 | $0.00037 | $0.00058 |
+| Hard failures | n/a | 0 | 0 | 0 | 0 |
+
+Verdicts against the baseline:
+
+| Arm | Metric | Delta | Floor | p | Verdict |
+|---|---|---|---|---|---|
+| Lever 1 | field accuracy | +0.25pp | 2.50 | 0.770 | within noise |
+| Lever 1 | hallucination | 0.00pp | 0.47 | 0.976 | within noise |
+| Lever 1 | triage | +2.00pp | 10.00 | 0.643 | within noise |
+| Lever 1 | cost | none | n/a | 0.103 | within noise |
+| Lever 2 | field accuracy | **1.58pp lower** | 1.25 | 0.008 | **regression** |
+| Lever 2 | hallucination | 0.18pp lower | 0.45 | 0.063 | within noise |
+| Lever 2 | cost | 3.1x higher | n/a | 0.008 | regression |
+| Levers 2+3+4 | triage | **20.00pp higher** | 10.00 | 0.008 | **improvement** |
+| Levers 2+3+4 | field accuracy | 1.17pp lower | 1.25 | 0.024 | within noise |
+| Levers 2+3+4 | cost | 4.8x higher | n/a | 0.008 | regression |
+
+Lever 3's own incremental contribution, measured against lever 2 so it is not
+credited with lever 2's work: triage 80.00% to 98.00%, **18.00pp higher**,
+floor 6.67, p = 0.008, **improvement**.
+
+**Lever 1 is the removed experiment.** Every metric is within noise, including
+cost, which is what a parser that changes nothing should look like. This was
+predicted from the parser's own behaviour, since pdfplumber finds tables in the
+clean RFPs that already score well and finds zero in the hard case whose
+quantity block is monospace text, but it was built and measured anyway rather
+than dropped on a prediction. The prediction being right is not the same as
+having checked.
+
+**Lever 3 replicates, and larger.** On v1 it moved triage 9.38pp. On v2, where
+the baseline triage is much weaker at 78%, it moves it 20.00pp. The harder
+corpus exposes more of the capacity reasoning the baseline never does. Checked
+for hollowness again: across 148 case-decisions the model agreed with the
+boolean rule 147 times and the rule corrected it once, so the formula is
+contributing almost nothing to the number rather than carrying it.
+
+**Lever 2 regresses field accuracy on v2, and the cause is exactly the designed
+tradeoff.** Counting outcomes across all five runs, the baseline produces 12
+incorrect and 26 missed slots, while lever 2 produces 10 incorrect, 5 missed
+and 42 flagged. It converts misses into flags, and a flag counts as not correct
+by the rule frozen before any measurement. The hallucination rate falls in
+exchange. On v2 that trade is a bad one, because the flags cluster on fields
+that are genuinely absent, where confident abstention would have scored as
+correct: `case_13`, `case_25` and `case_26` estimated value account for most of
+them. The verifier is reaching for "uncertain" where the honest answer is
+"the document does not say".
+
+**On v2 the baseline already meets both frozen targets**, 96.83% accuracy
+against 90% and 1.07% hallucination against 2%. The remaining headroom is
+almost entirely triage, which is where lever 3 delivers.
 
 ### Two findings that shape the project
 

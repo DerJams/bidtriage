@@ -1,0 +1,4385 @@
+{
+  "target": "solution",
+  "label": "v2b-lever1-6",
+  "active_levers": [
+    "lever1_parse"
+  ],
+  "started_utc": "2026-08-30T17:05:35.823452+00:00",
+  "finished_utc": "2026-08-30T17:09:32.248122+00:00",
+  "wall_clock_s": 236.42,
+  "run_config": {
+    "model": "z-ai/glm-5.3-flash",
+    "routing_mode": "pinned_single_provider",
+    "pinned_provider": "deepinfra",
+    "provider_routing": {
+      "only": [
+        "deepinfra"
+      ],
+      "allow_fallbacks": false,
+      "require_parameters": true
+    },
+    "auto_exacto": "not_applicable_provider_pinned",
+    "temperature": 0.0,
+    "max_tokens": 4096,
+    "max_attempts": 6,
+    "api_base": "https://openrouter.ai/api/v1/chat/completions",
+    "corpus": "v2"
+  },
+  "resolved_providers": [
+    "DeepInfra"
+  ],
+  "n_cases": 30,
+  "metrics": {
+    "total_slots": 240,
+    "outcomes": {
+      "correct": 219,
+      "correct_abstention": 10,
+      "incorrect": 3,
+      "missed": 8,
+      "hallucinated": 0,
+      "flagged_for_review": 0
+    },
+    "field_accuracy": 0.9541666666666667,
+    "correct_slots": 229,
+    "asserted_fields": 222,
+    "hallucination_count": 3,
+    "hallucination_rate_asserted": 0.013513513513513514,
+    "hallucination_rate_all_slots": 0.0125,
+    "per_field": {
+      "bid_due_date": {
+        "correct": 29,
+        "correct_abstention": 1,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "bond_insurance": {
+        "correct": 28,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 2,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 0.9333333333333333
+      },
+      "client_name": {
+        "correct": 29,
+        "correct_abstention": 0,
+        "incorrect": 1,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 0.9666666666666667
+      },
+      "estimated_project_value": {
+        "correct": 21,
+        "correct_abstention": 3,
+        "incorrect": 0,
+        "missed": 6,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 0.8
+      },
+      "location": {
+        "correct": 30,
+        "correct_abstention": 0,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      },
+      "project_title": {
+        "correct": 29,
+        "correct_abstention": 0,
+        "incorrect": 1,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 0.9666666666666667
+      },
+      "trade_scope": {
+        "correct": 29,
+        "correct_abstention": 0,
+        "incorrect": 1,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 0.9666666666666667
+      },
+      "walkthrough_date": {
+        "correct": 24,
+        "correct_abstention": 6,
+        "incorrect": 0,
+        "missed": 0,
+        "hallucinated": 0,
+        "flagged_for_review": 0,
+        "accuracy": 1.0
+      }
+    }
+  },
+  "triage": {
+    "decision_accuracy": 0.7666666666666667,
+    "n_correct": 23,
+    "per_case": [
+      {
+        "case_id": "case_01",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "all_required_trades_(hvac,_sheet_metal,_controls)_are_self-performed_by_summit_peak",
+          "arvada_site_is_within_the_~90-mile_service_radius_of_golden",
+          "budget_of_$850,000_falls_within_the_firm's_$250k-$3m_project_range",
+          "construction_window_(feb_15_-_jul_30,_2027)_begins_after_current_commitments_end_in_march_2027,_with_only_minor_overlap",
+          "only_3_trades_and_one_site_suggest_manageable_project_load_within_the_3-project_concurrent_limit"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_02",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "boulder,_co_is_within_the_~90-mile_service_radius_of_golden,_co",
+          "no_bonding_required,_reducing_cost_and_qualification_barriers",
+          "project_value_($310,000)_falls_within_summit_peak's_$250,000-$3,000,000_range",
+          "scope_is_plumbing_and_piping_only,_which_summit_peak_self-performs",
+          "start_date_(march_1,_2027)_is_after_current_commitments_end_(march_2027),_so_capacity_is_likely_available"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_03",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "package_is_refrigeration-led_(low-temperature_ammonia_refrigeration_system,_process_piping,_evaporator_coils),_and_summit_peak_does_not_self-perform_refrigeration",
+          "refrigeration_is_the_dominant_scope;_remaining_piping/hvac_work_is_not_sufficient_to_carry_the_package_without_a_refrigeration_partner,_and_the_client_is_specifically_seeking_shops_because_their_usual_refrigeration_sub_is_unavailable"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_04",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "within_radius"
+        ],
+        "pred_reasons": [
+          "construction_window_(jan_11_-_may_28,_2027)_overlaps_existing_commitments_running_into_march_2027,_and_the_project_would_be_a_fourth_concurrent_job_if_other_work_is_still_active",
+          "site_is_in_grand_junction,_co,_roughly_250_miles_from_golden,_well_outside_summit_peak's_~90-mile_service_radius"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_05",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok"
+        ],
+        "pred_reasons": [
+          "engineer's_estimate_of_$4,500,000_exceeds_summit_peak's_typical_project_range_of_$250,000_to_$3,000,000"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_06",
+        "gold_decision": "no_bid",
+        "pred_decision": "insufficient_information",
+        "decision_correct": false,
+        "gold_reasons": [
+          "timeline_conflict"
+        ],
+        "pred_reasons": [
+          "construction_window_(nov_2026_\u2013_feb_2027)_overlaps_existing_commitments_running_sept_2026_\u2013_mar_2027;_the_request_does_not_state_how_many_projects_summit_peak_currently_has_in_progress,_so_capacity_against_the_3-project_concurrent_limit_cannot_be_confirmed.",
+          "engineer's_estimate_of_$1,200,000_falls_within_the_$250,000\u2013$3,000,000_target_range.",
+          "no_bid_form,_contract_terms,_or_addenda_details_are_included,_but_these_are_not_disqualifying_at_triage.",
+          "scope_(hvac,_controls,_hydronic_piping)_and_location_(denver,_~15_miles_from_golden)_fit_summit_peak's_self-performed_trades_and_service_radius."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_07",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "construction_start_(april_12,_2027)_follows_current_commitments_ending_march_2027,_so_capacity_is_available",
+          "engineer's_estimate_of_$1,400,000_falls_within_the_$250k\u2013$3m_target_range",
+          "excluded_trades_(refrigeration,_fire_protection)_are_not_required;_lab_process_piping_is_by_others",
+          "fort_collins_is_within_the_~90-mile_service_radius_of_golden",
+          "trades_required_(hvac,_sheet_metal,_controls)_are_all_self-performed_by_summit_peak"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_08",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "colorado_springs_is_within_the_~90-mile_service_radius_of_golden.",
+          "construction_start_(february_8,_2027)_falls_after_the_current_commitments_running_into_march_2027,_though_capacity_should_be_confirmed_against_the_3-project_concurrent_limit.",
+          "engineer's_estimate_of_$600,000_falls_within_the_firm's_$250,000\u2013$3,000,000_project_range.",
+          "no_bonding_required_(privately_funded),_reducing_cost_and_qualification_burden.",
+          "scope_(plumbing_and_process_piping)_matches_summit_peak's_self-performed_trades;_dehumidification_equipment_is_existing_to_remain,_so_no_refrigeration_work_is_required."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_09",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "construction_start_of_may_3,_2027_falls_after_the_current_commitments_ending_march_2027,_so_capacity_is_likely_available.",
+          "engineer's_estimate_of_$2,200,000_falls_within_the_$250,000\u2013$3,000,000_project_range.",
+          "project_location_(longmont)_is_within_the_~90-mile_service_radius_of_golden.",
+          "trades_required_(sheet_metal_and_hvac)_are_both_self-performed_by_summit_peak;_controls_are_excluded_and_handled_by_the_owner's_vendor."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_10",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "base_bid_trades_(hvac,_plumbing,_sheet_metal)_are_all_self-performed",
+          "construction_start_(april_5,_2027)_begins_after_current_commitments_end_in_march_2027,_so_capacity_is_available",
+          "location_(denver,_co)_is_within_the_~90-mile_service_radius_of_golden",
+          "project_value_($1,050,000)_falls_within_summit_peak's_$250k-$3m_range"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_11",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "bonding_and_insurance_requirements_are_within_typical_capabilities_for_a_project_of_this_size",
+          "construction_start_(march_8,_2027)_begins_after_current_commitments_end_in_march_2027,_so_capacity_is_likely_available",
+          "location_(idaho_springs)_is_within_the_~90-mile_service_radius_of_golden",
+          "project_value_(~$420k)_falls_within_summit_peak's_$250k\u2013$3m_range",
+          "scope_(plumbing_and_process_piping)_matches_self-performed_trades"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_12",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "base_bid_scope_(boilers,_hydronic_piping,_pumps,_ddc_controls)_matches_summit_peak's_self-performed_trades;_fire_protection_work_is_confined_to_alternate_no._1,_which_can_be_declined_without_prejudice_since_summit_peak_does_not_self-perform_fire_protection.",
+          "bid_date_was_extended_to_november_6,_2026_by_addendum_no._2,_which_supersedes_the_october_16_cover-sheet_date;_the_september_30_pre-bid_walk_was_not_rescheduled,_so_attendance_at_the_original_walk_is_required_to_remain_eligible.",
+          "castle_rock,_co_is_within_the_~90-mile_service_radius_of_golden.",
+          "construction_start_of_march_15,_2027_follows_the_current_commitments_running_through_march_2027,_so_the_project_should_fit_capacity_(max_3_concurrent_projects).",
+          "estimated_value_$1.8m-$2.1m_falls_within_the_firm's_$250k-$3m_project_range."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_13",
+        "gold_decision": "insufficient_information",
+        "pred_decision": "bid",
+        "decision_correct": false,
+        "gold_reasons": [
+          "estimated_project_value"
+        ],
+        "pred_reasons": [
+          "bonding_and_insurance_requirements_are_standard_and_likely_within_capability",
+          "construction_start_may_17,_2027_falls_after_current_commitments_end_in_march_2027,_so_capacity_is_available",
+          "lakewood,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "scope_(hvac,_plumbing,_controls)_matches_summit_peak's_self-performed_trades;_medical_gas_is_only_coordination_with_a_certified_installer,_not_self-performance"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_14",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "addendum_no._1_increases_bonding/insurance_requirements,_but_the_increased_limits_(10%_bid_security,_$2m/$4m_gl)_are_within_typical_bonding_capacity_for_a_project_of_this_size",
+          "all_required_trades_(hvac,_sheet_metal,_process_piping)_are_self-performed_by_summit_peak",
+          "construction_start_(april_26,_2027)_begins_after_current_commitments_end_in_march_2027,_so_capacity_is_available",
+          "engineer's_estimate_of_$1,650,000_falls_within_the_$250k-$3m_project_range",
+          "location_(greeley,_co)_is_within_the_~90-mile_service_radius_of_golden"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_15",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "all_required_trades_(hvac,_piping,_controls)_are_self-performed",
+          "federal_work_requires_miller_act_performance/payment_bonds_and_20%_bid_guarantee,_which_summit_peak_must_be_able_to_provide",
+          "lakewood,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "period_of_performance_(june-december_2027)_starts_after_current_commitments_end_in_march_2027,_so_capacity_is_available",
+          "project_value_($2.4m_government_estimate)_falls_within_summit_peak's_$250k-$3m_range"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_16",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "broomfield_is_within_the_~90-mile_service_radius_of_golden",
+          "construction_start_of_march_1,_2027_follows_the_current_commitments_ending_march_2027,_so_capacity_is_likely_available",
+          "engineer's_estimate_of_$780,000_falls_within_the_firm's_$250k\u2013$3m_project_range",
+          "scope_(boiler_replacement,_piping,_flue/combustion_air)_aligns_with_summit_peak's_self-performed_hvac_and_piping_trades"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_17",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "construction_start_(feb_1,_2027)_allows_the_current_commitments_running_into_march_2027_to_wind_down_before_mobilization",
+          "deadline_correction_to_october_12,_2026_supersedes_the_earlier_september_28_date",
+          "location_in_golden,_co_is_within_the_~90-mile_service_radius",
+          "owner's_mechanical_budget_of_$1,150,000_falls_within_the_$250k-$3m_project_range",
+          "scope_(hvac,_plumbing,_sheet_metal)_is_fully_self-performed_by_summit_peak"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_18",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "construction_window_(jan_18_-_may_7,_2027)_begins_after_current_commitments_end_in_march_2027,_with_only_partial_overlap",
+          "denver,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "exclusions_(controls,_plumbing,_fire_protection,_roofing_patch)_align_with_trades_summit_peak_does_not_self-perform_or_wishes_to_exclude",
+          "project_value_of_$960,000_falls_within_the_$250,000-$3,000,000_target_range",
+          "scope_(hvac_and_sheet_metal)_is_fully_self-performed_by_summit_peak"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_19",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok"
+        ],
+        "pred_reasons": [
+          "construction_start_(july_12,_2027)_falls_after_current_commitments_ending_march_2027,_so_capacity_is_not_the_limiting_factor;_the_budget_and_design_responsibility_are_the_primary_concerns.",
+          "design-build_delivery_carries_full_design_responsibility_from_schematic_through_construction_documents,_which_is_a_significant_risk_and_capability_consideration_for_a_self-perform_mechanical_contractor.",
+          "owner's_not-to-exceed_budget_of_$5,500,000_exceeds_summit_peak's_typical_project_range_of_roughly_$250,000_to_$3,000,000."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_20",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "construction_window_(may_24_-_august_20,_2027)_begins_after_current_commitments_end_in_march_2027,_so_capacity_is_available",
+          "engineer's_estimate_of_$890,000_falls_within_the_$250,000-$3,000,000_project_range",
+          "frisco,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "scope_(hvac_dehumidification_units,_ductwork,_controls_integration)_matches_summit_peak's_self-performed_trades;_refrigeration_is_explicitly_excluded_from_scope"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_21",
+        "gold_decision": "no_bid",
+        "pred_decision": "bid",
+        "decision_correct": false,
+        "gold_reasons": [
+          "within_radius"
+        ],
+        "pred_reasons": [
+          "adequate_lead_time_before_the_november_19,_2026_bid_deadline,_with_a_job_walk_scheduled_october_28,_2026.",
+          "construction_start_of_april_19,_2027_begins_after_current_commitments_end_in_march_2027,_so_the_project_fits_capacity_(max_3_concurrent_projects).",
+          "owner's_construction_budget_of_$1,320,000_falls_within_summit_peak's_typical_$250,000\u2013$3,000,000_project_range.",
+          "scope_(boiler_plant,_heat_exchangers,_distribution_piping)_matches_summit_peak's_self-performed_hvac_and_piping_trades;_no_refrigeration_or_fire_protection_required.",
+          "vail,_co_is_within_the_~90-mile_service_radius_of_golden,_co."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_22",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "all_required_trades_(hvac,_plumbing,_controls)_are_self-performed",
+          "bonding_and_insurance_requirements_are_standard_and_appear_achievable",
+          "construction_start_(march_15,_2027)_is_after_current_commitments_end_(march_2027),_so_no_schedule_conflict_is_apparent",
+          "lakewood,_co_is_well_within_the_~90-mile_radius_of_golden",
+          "project_value_($740,000)_falls_within_summit_peak's_$250k-$3m_range"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_23",
+        "gold_decision": "no_bid",
+        "pred_decision": "bid",
+        "decision_correct": false,
+        "gold_reasons": [
+          "timeline_conflict"
+        ],
+        "pred_reasons": [
+          "all_required_trades_(hvac,_plumbing,_controls)_are_self-performed_by_summit_peak",
+          "boulder,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "engineer's_estimate_of_$1,980,000_falls_within_the_$250,000-$3,000,000_project_range",
+          "phase_1_(oct_2026_-_feb_2027)_overlaps_existing_commitments,_but_phase_2_(mar_-_aug_2027)_begins_after_current_commitments_end_in_march_2027,_so_capacity_constraints_are_manageable",
+          "single_bid/contract_covers_both_phases,_simplifying_pursuit"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_24",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "arvada_is_within_the_~90-mile_service_radius_of_golden",
+          "budget_of_$395,000_falls_within_the_firm's_$250,000\u2013$3,000,000_project_range",
+          "construction_window_(june_14_\u2013_august_20,_2027)_falls_after_current_commitments_ending_march_2027,_so_capacity_is_available",
+          "scope_(hvac_and_sheet_metal)_matches_summit_peak's_self-performed_trades",
+          "site_visits_available_by_appointment_even_though_no_scheduled_walk-through"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_25",
+        "gold_decision": "insufficient_information",
+        "pred_decision": "bid",
+        "decision_correct": false,
+        "gold_reasons": [
+          "construction_window",
+          "estimated_project_value"
+        ],
+        "pred_reasons": [
+          "alternates-only_pricing_(rooftop_unit_upsizing_and_economizer_controls_retrofit)_is_a_low-risk,_well-defined_scope",
+          "broomfield,_co_is_within_the_~90-mile_service_radius_of_golden",
+          "pricing_deadline_of_october_20,_2026_falls_within_the_current_commitment_window,_so_capacity_can_be_assessed",
+          "scope_(hvac_and_controls)_matches_summit_peak's_self-performed_trades"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_26",
+        "gold_decision": "insufficient_information",
+        "pred_decision": "bid",
+        "decision_correct": false,
+        "gold_reasons": [
+          "construction_window",
+          "estimated_project_value"
+        ],
+        "pred_reasons": [
+          "acoustic_performance_requirement_is_a_manageable_design/coordination_consideration,_not_a_disqualifier",
+          "location_in_golden,_co_is_within_the_~90-mile_service_radius",
+          "negotiated_procurement_with_no_sealed_bid_deadline_fits_the_firm's_capacity_to_take_on_work_alongside_existing_commitments_through_march_2027",
+          "scope_(hvac_and_hydronic_piping)_matches_summit_peak's_self-performed_trades"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_27",
+        "gold_decision": "bid",
+        "pred_decision": "no_bid",
+        "decision_correct": false,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "budget_of_$265,000_is_at_the_very_bottom_of_summit_peak's_typical_project_range,_limiting_margin_for_a_rushed_estimate",
+          "construction_window_(feb_22_-_apr_9,_2027)_overlaps_summit_peak's_existing_commitments_running_through_march_2027,_and_the_company_can_run_at_most_3_projects_at_once",
+          "no_walk-through_offered_and_no_plans/specs_referenced,_only_roof_access_photos,_making_pricing_a_full_rtu_swap_on_short_notice_high-risk"
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_28",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok"
+        ],
+        "pred_reasons": [
+          "not-to-exceed_ceiling_of_$180,000_is_below_summit_peak's_$250,000_minimum_project_size."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_29",
+        "gold_decision": "bid",
+        "pred_decision": "bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "size_band_ok",
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "bonding_and_insurance_requirements_are_stated_and_appear_standard.",
+          "construction_start_may_10,_2027_is_after_current_commitments_ending_march_2027,_so_capacity_is_available.",
+          "location_(longmont,_co)_is_within_the_~90-mile_radius_of_golden.",
+          "owner's_budget_of_$1,470,000_falls_within_the_$250k\u2013$3m_project_range.",
+          "scope_(hvac,_sheet_metal,_controls)_matches_summit_peak's_self-performed_trades;_refrigeration_is_excluded_and_handled_by_the_owner's_vendor."
+        ],
+        "reasons_recall": 0.0
+      },
+      {
+        "case_id": "case_30",
+        "gold_decision": "no_bid",
+        "pred_decision": "no_bid",
+        "decision_correct": true,
+        "gold_reasons": [
+          "trade_fit"
+        ],
+        "pred_reasons": [
+          "fire_protection_is_included_in_the_base_bid,_but_summit_peak_mechanical_does_not_self-perform_fire_protection."
+        ],
+        "reasons_recall": 0.0
+      }
+    ]
+  },
+  "minutes_proxy": {
+    "_disclaimer": "PROXY, not measured human time. Constants frozen in evals/harness/minutes.py before any measurement.",
+    "constants": {
+      "wpm_careful": 200.0,
+      "wpm_skim": 350.0,
+      "re_key_min_per_field": 1.5,
+      "decision_min": 4.0,
+      "brief_words": 250.0,
+      "fix_min_per_field": 3.0,
+      "review_min_per_flag": 1.5,
+      "decision_review_min": 1.0
+    },
+    "manual_minutes_mean": 16.87,
+    "assisted_minutes_mean": 2.81,
+    "minutes_saved_mean": 14.06,
+    "per_case": {
+      "case_01": {
+        "manual": 16.95,
+        "assisted": 1.71
+      },
+      "case_02": {
+        "manual": 16.75,
+        "assisted": 4.71
+      },
+      "case_03": {
+        "manual": 16.87,
+        "assisted": 1.71
+      },
+      "case_04": {
+        "manual": 16.66,
+        "assisted": 4.71
+      },
+      "case_05": {
+        "manual": 16.71,
+        "assisted": 1.71
+      },
+      "case_06": {
+        "manual": 16.73,
+        "assisted": 1.71
+      },
+      "case_07": {
+        "manual": 16.73,
+        "assisted": 1.71
+      },
+      "case_08": {
+        "manual": 16.75,
+        "assisted": 1.71
+      },
+      "case_09": {
+        "manual": 16.69,
+        "assisted": 1.71
+      },
+      "case_10": {
+        "manual": 16.98,
+        "assisted": 1.71
+      },
+      "case_11": {
+        "manual": 16.96,
+        "assisted": 1.71
+      },
+      "case_12": {
+        "manual": 18.46,
+        "assisted": 1.71
+      },
+      "case_13": {
+        "manual": 16.93,
+        "assisted": 4.71
+      },
+      "case_14": {
+        "manual": 17.09,
+        "assisted": 1.71
+      },
+      "case_15": {
+        "manual": 16.74,
+        "assisted": 1.71
+      },
+      "case_16": {
+        "manual": 16.69,
+        "assisted": 1.71
+      },
+      "case_17": {
+        "manual": 16.96,
+        "assisted": 4.71
+      },
+      "case_18": {
+        "manual": 16.63,
+        "assisted": 1.71
+      },
+      "case_19": {
+        "manual": 16.87,
+        "assisted": 4.71
+      },
+      "case_20": {
+        "manual": 16.84,
+        "assisted": 1.71
+      },
+      "case_21": {
+        "manual": 16.93,
+        "assisted": 4.71
+      },
+      "case_22": {
+        "manual": 16.95,
+        "assisted": 1.71
+      },
+      "case_23": {
+        "manual": 16.82,
+        "assisted": 7.71
+      },
+      "case_24": {
+        "manual": 16.77,
+        "assisted": 1.71
+      },
+      "case_25": {
+        "manual": 16.76,
+        "assisted": 1.71
+      },
+      "case_26": {
+        "manual": 16.8,
+        "assisted": 1.71
+      },
+      "case_27": {
+        "manual": 16.48,
+        "assisted": 1.71
+      },
+      "case_28": {
+        "manual": 16.69,
+        "assisted": 1.71
+      },
+      "case_29": {
+        "manual": 17.05,
+        "assisted": 4.71
+      },
+      "case_30": {
+        "manual": 16.85,
+        "assisted": 7.71
+      }
+    }
+  },
+  "cost": {
+    "total_usd": 0.00366,
+    "per_case_usd": 0.000122,
+    "_source": "OpenRouter usage.cost, actual charged amount"
+  },
+  "reliability": {
+    "total_retries": 1,
+    "failures": [],
+    "n_failures": 0
+  },
+  "case_scores": [
+    {
+      "case_id": "case_01",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cascade ridge school district 12",
+          "pred_raw": "Cascade Ridge School District 12",
+          "pred_normalized": "cascade ridge school district 12"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cascade ridge middle school rtu replacement",
+          "pred_raw": "Cascade Ridge Middle School RTU Replacement",
+          "pred_normalized": "cascade ridge middle school rtu replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "arvada, co",
+          "pred_raw": "Cascade Ridge Middle School, Arvada, CO",
+          "pred_normalized": "arvada, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-25",
+          "pred_raw": "2026-09-25T14:00:00-06:00",
+          "pred_normalized": "2026-09-25"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 850000,
+            "high": 850000,
+            "currency": "USD"
+          },
+          "pred_raw": "$850,000",
+          "pred_normalized": {
+            "low": 850000,
+            "high": 850000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-11",
+          "pred_raw": "2026-09-11T09:00:00-06:00",
+          "pred_normalized": "2026-09-11"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_02",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "bright mesa property group",
+          "pred_raw": "Bright Mesa Property Group",
+          "pred_normalized": "bright mesa property group"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "bright mesa commons domestic water piping retrofit",
+          "pred_raw": "Bright Mesa Commons Domestic Water Piping Retrofit",
+          "pred_normalized": "bright mesa commons domestic water piping retrofit"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "plumbing",
+            "piping"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "boulder, co",
+          "pred_raw": "Boulder, CO",
+          "pred_normalized": "boulder, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-18",
+          "pred_raw": "2026-09-18",
+          "pred_normalized": "2026-09-18"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 310000,
+            "high": 310000,
+            "currency": "USD"
+          },
+          "pred_raw": "$310,000",
+          "pred_normalized": {
+            "low": 310000,
+            "high": 310000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": false
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "missing"
+      }
+    },
+    {
+      "case_id": "case_03",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "verge cold chain holdings",
+          "pred_raw": "Verge Cold Chain Holdings",
+          "pred_normalized": "verge cold chain holdings"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larimer street cold storage buildout",
+          "pred_raw": "Larimer Street Cold Storage Buildout",
+          "pred_normalized": "larimer street cold storage buildout"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "piping",
+            "refrigeration"
+          ],
+          "pred_raw": [
+            "refrigeration",
+            "piping",
+            "HVAC"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "piping",
+            "refrigeration"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-30",
+          "pred_raw": "2026-09-30",
+          "pred_normalized": "2026-09-30"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 700000,
+            "high": 700000,
+            "currency": "USD"
+          },
+          "pred_raw": "$700,000",
+          "pred_normalized": {
+            "low": 700000,
+            "high": 700000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-14",
+          "pred_raw": "2026-09-14",
+          "pred_normalized": "2026-09-14"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_04",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "mesa verdana industrial partners",
+          "pred_raw": "Mesa Verdana Industrial Partners",
+          "pred_normalized": "mesa verdana industrial partners"
+        },
+        "project_title": {
+          "outcome": "incorrect",
+          "gold_present": true,
+          "gold_normalized": "mesa verdana industrial park building c",
+          "pred_raw": "Mesa Verdana Industrial Park Building C - HVAC",
+          "pred_normalized": "mesa verdana industrial park building c - hvac"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "grand junction, co",
+          "pred_raw": "Grand Junction, CO",
+          "pred_normalized": "grand junction, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-22",
+          "pred_raw": "2026-09-22",
+          "pred_normalized": "2026-09-22"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 480000,
+            "high": 480000,
+            "currency": "USD"
+          },
+          "pred_raw": "$480,000",
+          "pred_normalized": {
+            "low": 480000,
+            "high": 480000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-08",
+          "pred_raw": "2026-09-08",
+          "pred_normalized": "2026-09-08"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_05",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "helioptix data infrastructure",
+          "pred_raw": "Helioptix Data Infrastructure",
+          "pred_normalized": "helioptix data infrastructure"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "helioptix data campus phase ii",
+          "pred_raw": "Helioptix Data Campus Phase II",
+          "pred_normalized": "helioptix data campus phase ii"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping",
+            "sheet metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-09",
+          "pred_raw": "2026-10-09",
+          "pred_normalized": "2026-10-09"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 4500000,
+            "high": 4500000,
+            "currency": "USD"
+          },
+          "pred_raw": "$4,500,000",
+          "pred_normalized": {
+            "low": 4500000,
+            "high": 4500000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-17",
+          "pred_raw": "2026-09-17",
+          "pred_normalized": "2026-09-17"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_06",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur civic development authority",
+          "pred_raw": "Larkspur Civic Development Authority",
+          "pred_normalized": "larkspur civic development authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur civic center annex mechanical package",
+          "pred_raw": "Larkspur Civic Center Annex Mechanical Package",
+          "pred_normalized": "larkspur civic center annex mechanical package"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-29",
+          "pred_raw": "2026-09-29",
+          "pred_normalized": "2026-09-29"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1200000,
+            "high": 1200000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,200,000 (engineer's estimate)",
+          "pred_normalized": {
+            "low": 1200000,
+            "high": 1200000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-15",
+          "pred_raw": "2026-09-15",
+          "pred_normalized": "2026-09-15"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_07",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cache la poudre community college district",
+          "pred_raw": "Cache La Poudre Community College District",
+          "pred_normalized": "cache la poudre community college district"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "science building hvac modernization",
+          "pred_raw": "Science Building HVAC Modernization",
+          "pred_normalized": "science building hvac modernization"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "fort collins, co",
+          "pred_raw": "Fort Collins, CO",
+          "pred_normalized": "fort collins, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-20",
+          "pred_raw": "2026-10-20",
+          "pred_normalized": "2026-10-20"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1400000,
+            "high": 1400000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,400,000 (engineer's estimate)",
+          "pred_normalized": {
+            "low": 1400000,
+            "high": 1400000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-02",
+          "pred_raw": "2026-10-02",
+          "pred_normalized": "2026-10-02"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_08",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "pikes hollow athletic club",
+          "pred_raw": "Pikes Hollow Athletic Club",
+          "pred_normalized": "pikes hollow athletic club"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "natatorium pool mechanical replacement",
+          "pred_raw": "Natatorium Pool Mechanical Replacement",
+          "pred_normalized": "natatorium pool mechanical replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "plumbing",
+            "process piping"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "colorado springs, co",
+          "pred_raw": "Colorado Springs, CO",
+          "pred_normalized": "colorado springs, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-14",
+          "pred_raw": "2026-10-14",
+          "pred_normalized": "2026-10-14"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 600000,
+            "high": 600000,
+            "currency": "USD"
+          },
+          "pred_raw": "$600,000",
+          "pred_normalized": {
+            "low": 600000,
+            "high": 600000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": false
+          },
+          "pred_raw": {
+            "required": false,
+            "bid_bond_pct": null,
+            "performance_bond_pct": null,
+            "payment_bond_pct": null,
+            "gl_per_occurrence_usd": null,
+            "gl_aggregate_usd": null
+          },
+          "pred_normalized": {
+            "required": false
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match"
+      }
+    },
+    {
+      "case_id": "case_09",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "vantage point logistics",
+          "pred_raw": "Vantage Point Logistics",
+          "pred_normalized": "vantage point logistics"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "distribution center ventilation upgrade",
+          "pred_raw": "Distribution Center Ventilation Upgrade",
+          "pred_normalized": "distribution center ventilation upgrade"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "sheet metal",
+            "HVAC"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "longmont, co",
+          "pred_raw": "Longmont, CO",
+          "pred_normalized": "longmont, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-10",
+          "pred_raw": "2026-11-10",
+          "pred_normalized": "2026-11-10"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 2200000,
+            "high": 2200000,
+            "currency": "USD"
+          },
+          "pred_raw": "$2,200,000",
+          "pred_normalized": {
+            "low": 2200000,
+            "high": 2200000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-22",
+          "pred_raw": "2026-10-22",
+          "pred_normalized": "2026-10-22"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_10",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "front range regional transit authority",
+          "pred_raw": "Front Range Regional Transit Authority",
+          "pred_normalized": "front range regional transit authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "maintenance facility bay 4 mechanical upgrades",
+          "pred_raw": "Maintenance Facility Bay 4 Mechanical Upgrades",
+          "pred_normalized": "maintenance facility bay 4 mechanical upgrades"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "plumbing",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "plumbing",
+            "sheet metal"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "plumbing",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-06",
+          "pred_raw": "2026-10-06",
+          "pred_normalized": "2026-10-06"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1050000,
+            "high": 1050000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,050,000 (owner's construction budget)",
+          "pred_normalized": {
+            "low": 1050000,
+            "high": 1050000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-24",
+          "pred_raw": "2026-09-24",
+          "pred_normalized": "2026-09-24"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_11",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "idaho springs municipal utilities district",
+          "pred_raw": "Idaho Springs Municipal Utilities District",
+          "pred_normalized": "idaho springs municipal utilities district"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "water treatment plant no. 2 chemical feed piping replacement",
+          "pred_raw": "Water Treatment Plant No. 2 Chemical Feed Piping Replacement",
+          "pred_normalized": "water treatment plant no. 2 chemical feed piping replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "plumbing",
+            "process piping"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "idaho springs, co",
+          "pred_raw": "Idaho Springs, CO",
+          "pred_normalized": "idaho springs, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-03",
+          "pred_raw": "2026-11-03",
+          "pred_normalized": "2026-11-03"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 420000,
+            "high": 420000,
+            "currency": "USD"
+          },
+          "pred_raw": "$420,000",
+          "pred_normalized": {
+            "low": 420000,
+            "high": 420000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_12",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "silver aspen regional medical campus",
+          "pred_raw": "Silver Aspen Regional Medical Campus",
+          "pred_normalized": "silver aspen regional medical campus"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "central plant upgrade",
+          "pred_raw": "Central Plant Upgrade",
+          "pred_normalized": "central plant upgrade"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "piping"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "piping"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "castle rock, co",
+          "pred_raw": "Castle Rock, CO",
+          "pred_normalized": "castle rock, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-06",
+          "pred_raw": "2026-11-06",
+          "pred_normalized": "2026-11-06"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1800000,
+            "high": 2100000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,800,000 - $2,100,000",
+          "pred_normalized": {
+            "low": 1800000,
+            "high": 2100000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-30",
+          "pred_raw": "2026-09-30",
+          "pred_normalized": "2026-09-30"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_13",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "trailhead medical partners",
+          "pred_raw": "Trailhead Medical Partners",
+          "pred_normalized": "trailhead medical partners"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "trailhead surgery center mechanical fitout",
+          "pred_raw": "Trailhead Surgery Center Mechanical Fitout",
+          "pred_normalized": "trailhead surgery center mechanical fitout"
+        },
+        "trade_scope": {
+          "outcome": "incorrect",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "plumbing",
+            "building automation controls",
+            "medical gas rough-in coordination"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "medical_gas_rough-in_coordination",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "lakewood, co",
+          "pred_raw": "Lakewood, CO",
+          "pred_normalized": "lakewood, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-27",
+          "pred_raw": "2026-10-27",
+          "pred_normalized": "2026-10-27"
+        },
+        "estimated_project_value": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-08",
+          "pred_raw": "2026-10-08",
+          "pred_normalized": "2026-10-08"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_14",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "prairie junction water reclamation authority",
+          "pred_raw": "Prairie Junction Water Reclamation Authority",
+          "pred_normalized": "prairie junction water reclamation authority"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "headworks odour control mechanical package",
+          "pred_raw": "Headworks Odour Control Mechanical Package",
+          "pred_normalized": "headworks odour control mechanical package"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal",
+            "process piping"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "greeley, co",
+          "pred_raw": "Greeley, CO",
+          "pred_normalized": "greeley, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-17",
+          "pred_raw": "2026-11-17",
+          "pred_normalized": "2026-11-17"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1650000,
+            "high": 1650000,
+            "currency": "USD"
+          },
+          "pred_raw": "$1,650,000 (engineer's estimate)",
+          "pred_normalized": {
+            "low": 1650000,
+            "high": 1650000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-29",
+          "pred_raw": "2026-10-29",
+          "pred_normalized": "2026-10-29"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_15",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "rocky flats federal center facilities office",
+          "pred_raw": "Rocky Flats Federal Center Facilities Office",
+          "pred_normalized": "rocky flats federal center facilities office"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "building 27 chilled water plant replacement",
+          "pred_raw": "Building 27 Chilled Water Plant Replacement",
+          "pred_normalized": "building 27 chilled water plant replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "piping"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "piping"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "lakewood, co",
+          "pred_raw": "Lakewood, CO",
+          "pred_normalized": "lakewood, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-12-01",
+          "pred_raw": "2026-12-01",
+          "pred_normalized": "2026-12-01"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 2400000,
+            "high": 2400000,
+            "currency": "USD"
+          },
+          "pred_raw": "$2,400,000",
+          "pred_normalized": {
+            "low": 2400000,
+            "high": 2400000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 20,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 20,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 20,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-05",
+          "pred_raw": "2026-11-05",
+          "pred_normalized": "2026-11-05"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_16",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "city of broomfield public works department",
+          "pred_raw": "City of Broomfield Public Works Department",
+          "pred_normalized": "city of broomfield public works department"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "municipal service center boiler replacement",
+          "pred_raw": "Municipal Service Center Boiler Replacement",
+          "pred_normalized": "municipal service center boiler replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "piping"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "piping"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "broomfield, co",
+          "pred_raw": "Broomfield, CO",
+          "pred_normalized": "broomfield, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-30",
+          "pred_raw": "2026-10-30",
+          "pred_normalized": "2026-10-30"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 780000,
+            "high": 780000,
+            "currency": "USD"
+          },
+          "pred_raw": "$780,000",
+          "pred_normalized": {
+            "low": 780000,
+            "high": 780000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-13",
+          "pred_raw": "2026-10-13",
+          "pred_normalized": "2026-10-13"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_17",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "keystone ridge builders",
+          "pred_raw": "Keystone Ridge Builders",
+          "pred_normalized": "keystone ridge builders"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "golden foundry lofts adaptive reuse",
+          "pred_raw": "Golden Foundry Lofts Adaptive Reuse",
+          "pred_normalized": "golden foundry lofts adaptive reuse"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "plumbing",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "plumbing",
+            "sheet metal"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "plumbing",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "golden, co",
+          "pred_raw": "Golden, CO",
+          "pred_normalized": "golden, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-12",
+          "pred_raw": "2026-10-12",
+          "pred_normalized": "2026-10-12"
+        },
+        "estimated_project_value": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1150000,
+            "high": 1150000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-16",
+          "pred_raw": "2026-09-16",
+          "pred_normalized": "2026-09-16"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_18",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "antler creek construction",
+          "pred_raw": "Antler Creek Construction",
+          "pred_normalized": "antler creek construction"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "antler creek commons phase 1",
+          "pred_raw": "Antler Creek Commons Phase 1",
+          "pred_normalized": "antler creek commons phase 1"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-05",
+          "pred_raw": "2026-10-05",
+          "pred_normalized": "2026-10-05"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 960000,
+            "high": 960000,
+            "currency": "USD"
+          },
+          "pred_raw": "$960,000",
+          "pred_normalized": {
+            "low": 960000,
+            "high": 960000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-21",
+          "pred_raw": "2026-09-21",
+          "pred_normalized": "2026-09-21"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_19",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "meridian hollow hospitality group",
+          "pred_raw": "Meridian Hollow Hospitality Group",
+          "pred_normalized": "meridian hollow hospitality group"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "meridian hollow conference centre mechanical design build",
+          "pred_raw": "Meridian Hollow Conference Centre Mechanical Design Build",
+          "pred_normalized": "meridian hollow conference centre mechanical design build"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping",
+            "sheet metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "piping",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-24",
+          "pred_raw": "2026-11-24",
+          "pred_normalized": "2026-11-24"
+        },
+        "estimated_project_value": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 5500000,
+            "high": 5500000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-02",
+          "pred_raw": "2026-11-02",
+          "pred_normalized": "2026-11-02"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_20",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "tenmile basin recreation district",
+          "pred_raw": "Tenmile Basin Recreation District",
+          "pred_normalized": "tenmile basin recreation district"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "tenmile basin ice arena dehumidification upgrade",
+          "pred_raw": "Tenmile Basin Ice Arena Dehumidification Upgrade",
+          "pred_normalized": "tenmile basin ice arena dehumidification upgrade"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "frisco, co",
+          "pred_raw": "Frisco, CO",
+          "pred_normalized": "frisco, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-12",
+          "pred_raw": "2026-11-12",
+          "pred_normalized": "2026-11-12"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 890000,
+            "high": 890000,
+            "currency": "USD"
+          },
+          "pred_raw": "$890,000",
+          "pred_normalized": {
+            "low": 890000,
+            "high": 890000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 10,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-03",
+          "pred_raw": "2026-11-03",
+          "pred_normalized": "2026-11-03"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_21",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "alpenglow resort holdings",
+          "pred_raw": "Alpenglow Resort Holdings",
+          "pred_normalized": "alpenglow resort holdings"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "alpenglow village lodge mechanical replacement",
+          "pred_raw": "Alpenglow Village Lodge Mechanical Replacement",
+          "pred_normalized": "alpenglow village lodge mechanical replacement"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "piping"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "piping"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "vail, co",
+          "pred_raw": "Vail, CO",
+          "pred_normalized": "vail, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-19",
+          "pred_raw": "2026-11-19",
+          "pred_normalized": "2026-11-19"
+        },
+        "estimated_project_value": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1320000,
+            "high": 1320000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-28",
+          "pred_raw": "2026-10-28",
+          "pred_normalized": "2026-10-28"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_22",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "quarry view partners",
+          "pred_raw": "Quarry View Partners",
+          "pred_normalized": "quarry view partners"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "quarry view commerce park building 2 fitout",
+          "pred_raw": "Quarry View Commerce Park Building 2 Fitout",
+          "pred_normalized": "quarry view commerce park building 2 fitout"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "plumbing",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "lakewood, co",
+          "pred_raw": "Lakewood, CO",
+          "pred_normalized": "lakewood, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-22",
+          "pred_raw": "2026-10-22",
+          "pred_normalized": "2026-10-22"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 740000,
+            "high": 740000,
+            "currency": "USD"
+          },
+          "pred_raw": "$740,000",
+          "pred_normalized": {
+            "low": 740000,
+            "high": 740000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-06",
+          "pred_raw": "2026-10-06",
+          "pred_normalized": "2026-10-06"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_23",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "bramblewood senior living trust",
+          "pred_raw": "Bramblewood Senior Living Trust",
+          "pred_normalized": "bramblewood senior living trust"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "bramblewood campus mechanical renewal",
+          "pred_raw": "Bramblewood Campus Mechanical Renewal",
+          "pred_normalized": "bramblewood campus mechanical renewal"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "plumbing",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "boulder, co",
+          "pred_raw": "Boulder, CO",
+          "pred_normalized": "boulder, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-08",
+          "pred_raw": "2026-10-08",
+          "pred_normalized": "2026-10-08"
+        },
+        "estimated_project_value": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1980000,
+            "high": 1980000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-23",
+          "pred_raw": "2026-09-23",
+          "pred_normalized": "2026-09-23"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "missing",
+        "bid_bond_pct": "missing",
+        "performance_bond_pct": "missing",
+        "payment_bond_pct": "missing",
+        "gl_per_occurrence_usd": "missing",
+        "gl_aggregate_usd": "missing"
+      }
+    },
+    {
+      "case_id": "case_24",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "northgate learning centre",
+          "pred_raw": "Northgate Learning Centre",
+          "pred_normalized": "northgate learning centre"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "northgate learning centre ventilation improvements",
+          "pred_raw": "Northgate Learning Centre Ventilation Improvements",
+          "pred_normalized": "northgate learning centre ventilation improvements"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "arvada, co",
+          "pred_raw": "Arvada, CO",
+          "pred_normalized": "arvada, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-16",
+          "pred_raw": "2026-10-16",
+          "pred_normalized": "2026-10-16"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 395000,
+            "high": 395000,
+            "currency": "USD"
+          },
+          "pred_raw": "$395,000 (board-approved budget)",
+          "pred_normalized": {
+            "low": 395000,
+            "high": 395000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_25",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cottonwood bend developments",
+          "pred_raw": "Cottonwood Bend Developments",
+          "pred_normalized": "cottonwood bend developments"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "cottonwood bend retail alternates pricing",
+          "pred_raw": "Cottonwood Bend Retail Alternates Pricing",
+          "pred_normalized": "cottonwood bend retail alternates pricing"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "broomfield, co",
+          "pred_raw": "Broomfield, CO",
+          "pred_normalized": "broomfield, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-20",
+          "pred_raw": "2026-10-20",
+          "pred_normalized": "2026-10-20"
+        },
+        "estimated_project_value": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_26",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "chapel rock congregational trust",
+          "pred_raw": "Chapel Rock Congregational Trust",
+          "pred_normalized": "chapel rock congregational trust"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "chapel rock sanctuary mechanical renewal",
+          "pred_raw": "Chapel Rock Sanctuary Mechanical Renewal",
+          "pred_normalized": "chapel rock sanctuary mechanical renewal"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "piping"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "piping"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "piping"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "golden, co",
+          "pred_raw": "Golden, CO",
+          "pred_normalized": "golden, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "estimated_project_value": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-14",
+          "pred_raw": "2026-10-14",
+          "pred_normalized": "2026-10-14"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_27",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "ridgeline mechanical gc",
+          "pred_raw": "Ridgeline Mechanical GC",
+          "pred_normalized": "ridgeline mechanical gc"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "vista marketplace rtu swap",
+          "pred_raw": "Vista Marketplace RTU Swap",
+          "pred_normalized": "vista marketplace rtu swap"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal"
+          ],
+          "pred_normalized": [
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "denver, co",
+          "pred_raw": "Denver, CO",
+          "pred_normalized": "denver, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-09-18",
+          "pred_raw": "2026-09-18",
+          "pred_normalized": "2026-09-18"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 265000,
+            "high": 265000,
+            "currency": "USD"
+          },
+          "pred_raw": "$265,000",
+          "pred_normalized": {
+            "low": 265000,
+            "high": 265000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": false
+          },
+          "pred_raw": {
+            "required": false,
+            "bid_bond_pct": null,
+            "performance_bond_pct": null,
+            "payment_bond_pct": null,
+            "gl_per_occurrence_usd": null,
+            "gl_aggregate_usd": null
+          },
+          "pred_normalized": {
+            "required": false
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct_abstention",
+          "gold_present": false,
+          "gold_normalized": null,
+          "pred_raw": null,
+          "pred_normalized": null
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match"
+      }
+    },
+    {
+      "case_id": "case_28",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur lane housing cooperative",
+          "pred_raw": "Larkspur Lane Housing Cooperative",
+          "pred_normalized": "larkspur lane housing cooperative"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "larkspur lane boiler room repiping",
+          "pred_raw": "Larkspur Lane Boiler Room Repiping",
+          "pred_normalized": "larkspur lane boiler room repiping"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_raw": [
+            "piping",
+            "plumbing"
+          ],
+          "pred_normalized": [
+            "piping",
+            "plumbing"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "boulder, co",
+          "pred_raw": "Boulder, CO",
+          "pred_normalized": "boulder, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-26",
+          "pred_raw": "2026-10-26",
+          "pred_normalized": "2026-10-26"
+        },
+        "estimated_project_value": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 180000,
+            "high": 180000,
+            "currency": "USD"
+          },
+          "pred_raw": "$180,000",
+          "pred_normalized": {
+            "low": 180000,
+            "high": 180000,
+            "currency": "USD"
+          }
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-12",
+          "pred_raw": "2026-10-12",
+          "pred_normalized": "2026-10-12"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_29",
+      "fields": {
+        "client_name": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "sable creek industrial properties",
+          "pred_raw": "Sable Creek Industrial Properties",
+          "pred_normalized": "sable creek industrial properties"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "sable creek cold box ventilation",
+          "pred_raw": "Sable Creek Cold Box Ventilation",
+          "pred_normalized": "sable creek cold box ventilation"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal",
+            "controls"
+          ],
+          "pred_normalized": [
+            "controls",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "longmont, co",
+          "pred_raw": "Longmont, CO",
+          "pred_normalized": "longmont, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-06",
+          "pred_raw": "2026-11-06",
+          "pred_normalized": "2026-11-06"
+        },
+        "estimated_project_value": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1470000,
+            "high": 1470000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-20",
+          "pred_raw": "2026-10-20",
+          "pred_normalized": "2026-10-20"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    },
+    {
+      "case_id": "case_30",
+      "fields": {
+        "client_name": {
+          "outcome": "incorrect",
+          "gold_present": true,
+          "gold_normalized": "harborlight logistics trust",
+          "pred_raw": "Stonehaven Builders (on behalf of Owner Harborlight Logistics Trust)",
+          "pred_normalized": "stonehaven builders (on behalf of owner harborlight logistics trust)"
+        },
+        "project_title": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "harborlight distribution centre mechanical package",
+          "pred_raw": "Harborlight Distribution Centre Mechanical Package",
+          "pred_normalized": "harborlight distribution centre mechanical package"
+        },
+        "trade_scope": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": [
+            "fire_protection",
+            "hvac",
+            "sheet_metal"
+          ],
+          "pred_raw": [
+            "HVAC",
+            "sheet metal",
+            "fire protection"
+          ],
+          "pred_normalized": [
+            "fire_protection",
+            "hvac",
+            "sheet_metal"
+          ]
+        },
+        "location": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "broomfield, co",
+          "pred_raw": "Broomfield, CO",
+          "pred_normalized": "broomfield, co"
+        },
+        "bid_due_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-11-02",
+          "pred_raw": "2026-11-02",
+          "pred_normalized": "2026-11-02"
+        },
+        "estimated_project_value": {
+          "outcome": "missed",
+          "gold_present": true,
+          "gold_normalized": {
+            "low": 1540000,
+            "high": 1540000,
+            "currency": "USD"
+          },
+          "pred_raw": null,
+          "pred_normalized": null
+        },
+        "bond_insurance": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_raw": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          },
+          "pred_normalized": {
+            "required": true,
+            "bid_bond_pct": 5,
+            "performance_bond_pct": 100,
+            "payment_bond_pct": 100,
+            "gl_per_occurrence_usd": 2000000,
+            "gl_aggregate_usd": 4000000
+          }
+        },
+        "walkthrough_date": {
+          "outcome": "correct",
+          "gold_present": true,
+          "gold_normalized": "2026-10-15",
+          "pred_raw": "2026-10-15",
+          "pred_normalized": "2026-10-15"
+        }
+      },
+      "bond_diagnostics": {
+        "required": "match",
+        "bid_bond_pct": "match",
+        "performance_bond_pct": "match",
+        "payment_bond_pct": "match",
+        "gl_per_occurrence_usd": "match",
+        "gl_aggregate_usd": "match"
+      }
+    }
+  ],
+  "call_meta": {
+    "case_01": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 528,
+      "completion_tokens": 354,
+      "reasoning_tokens": 21,
+      "cost_usd": 0.0001281,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 7.245,
+      "error": null
+    },
+    "case_02": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 442,
+      "completion_tokens": 246,
+      "reasoning_tokens": 26,
+      "cost_usd": 9.465e-05,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 5.031,
+      "error": null
+    },
+    "case_03": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 527,
+      "completion_tokens": 284,
+      "reasoning_tokens": 13,
+      "cost_usd": 0.000110525,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.879,
+      "error": null
+    },
+    "case_04": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 450,
+      "completion_tokens": 279,
+      "reasoning_tokens": 21,
+      "cost_usd": 0.0001035,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 5.852,
+      "error": null
+    },
+    "case_05": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 499,
+      "completion_tokens": 263,
+      "reasoning_tokens": 27,
+      "cost_usd": 0.000103175,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 9.511,
+      "error": null
+    },
+    "case_06": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 463,
+      "completion_tokens": 410,
+      "reasoning_tokens": 71,
+      "cost_usd": 0.000137225,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 8.024,
+      "error": null
+    },
+    "case_07": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 469,
+      "completion_tokens": 375,
+      "reasoning_tokens": 62,
+      "cost_usd": 0.000128925,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.5,
+      "error": null
+    },
+    "case_08": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 450,
+      "completion_tokens": 375,
+      "reasoning_tokens": 67,
+      "cost_usd": 0.0001275,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 5.734,
+      "error": null
+    },
+    "case_09": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 462,
+      "completion_tokens": 352,
+      "reasoning_tokens": 53,
+      "cost_usd": 0.00012265,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 5.639,
+      "error": null
+    },
+    "case_10": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 593,
+      "completion_tokens": 330,
+      "reasoning_tokens": 37,
+      "cost_usd": 0.000126975,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 5.163,
+      "error": null
+    },
+    "case_11": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 577,
+      "completion_tokens": 335,
+      "reasoning_tokens": 43,
+      "cost_usd": 0.000127025,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.724,
+      "error": null
+    },
+    "case_12": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 1111,
+      "completion_tokens": 441,
+      "reasoning_tokens": 42,
+      "cost_usd": 0.000193575,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.682,
+      "error": null
+    },
+    "case_13": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 561,
+      "completion_tokens": 372,
+      "reasoning_tokens": 87,
+      "cost_usd": 0.000135075,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 10.201,
+      "error": null
+    },
+    "case_14": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 634,
+      "completion_tokens": 392,
+      "reasoning_tokens": 50,
+      "cost_usd": 0.00014555,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 10.934,
+      "error": null
+    },
+    "case_15": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 458,
+      "completion_tokens": 355,
+      "reasoning_tokens": 43,
+      "cost_usd": 0.0001231,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 7.011,
+      "error": null
+    },
+    "case_16": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 453,
+      "completion_tokens": 303,
+      "reasoning_tokens": 4,
+      "cost_usd": 0.000109725,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 7.315,
+      "error": null
+    },
+    "case_17": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 551,
+      "completion_tokens": 347,
+      "reasoning_tokens": 51,
+      "cost_usd": 0.000128075,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 7.882,
+      "error": null
+    },
+    "case_18": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 477,
+      "completion_tokens": 361,
+      "reasoning_tokens": 53,
+      "cost_usd": 0.000126025,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 8.238,
+      "error": null
+    },
+    "case_19": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 503,
+      "completion_tokens": 327,
+      "reasoning_tokens": 24,
+      "cost_usd": 0.000119475,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 8.761,
+      "error": null
+    },
+    "case_20": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 487,
+      "completion_tokens": 348,
+      "reasoning_tokens": 39,
+      "cost_usd": 0.000123525,
+      "attempts": 2,
+      "retries": 1,
+      "retry_log": [
+        {
+          "attempt": 1,
+          "status": "malformed_json",
+          "sleep_s": 2.0,
+          "detail": "finish=stop completion_tk=20 reasoning_tk=18 len=0"
+        }
+      ],
+      "latency_s": 14.957,
+      "error": null
+    },
+    "case_21": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 564,
+      "completion_tokens": 397,
+      "reasoning_tokens": 49,
+      "cost_usd": 0.00014155,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.294,
+      "error": null
+    },
+    "case_22": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 565,
+      "completion_tokens": 350,
+      "reasoning_tokens": 61,
+      "cost_usd": 0.000129875,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 15.519,
+      "error": null
+    },
+    "case_23": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 501,
+      "completion_tokens": 323,
+      "reasoning_tokens": 59,
+      "cost_usd": 0.000118325,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 13.286,
+      "error": null
+    },
+    "case_24": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 471,
+      "completion_tokens": 303,
+      "reasoning_tokens": 4,
+      "cost_usd": 0.000111075,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.999,
+      "error": null
+    },
+    "case_25": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 465,
+      "completion_tokens": 327,
+      "reasoning_tokens": 66,
+      "cost_usd": 0.000116625,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 8.23,
+      "error": null
+    },
+    "case_26": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 447,
+      "completion_tokens": 290,
+      "reasoning_tokens": 24,
+      "cost_usd": 0.000106025,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 7.72,
+      "error": null
+    },
+    "case_27": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 392,
+      "completion_tokens": 337,
+      "reasoning_tokens": 72,
+      "cost_usd": 0.00011365,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 8.294,
+      "error": null
+    },
+    "case_28": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 452,
+      "completion_tokens": 232,
+      "reasoning_tokens": 11,
+      "cost_usd": 9.19e-05,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 4.271,
+      "error": null
+    },
+    "case_29": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 587,
+      "completion_tokens": 308,
+      "reasoning_tokens": 4,
+      "cost_usd": 0.000121025,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 6.511,
+      "error": null
+    },
+    "case_30": {
+      "ok": true,
+      "provider": "DeepInfra",
+      "model": "z-ai/glm-5.3-flash",
+      "finish_reason": "stop",
+      "prompt_tokens": 500,
+      "completion_tokens": 232,
+      "reasoning_tokens": 12,
+      "cost_usd": 9.55e-05,
+      "attempts": 1,
+      "retries": 0,
+      "retry_log": [],
+      "latency_s": 4.187,
+      "error": null
+    }
+  }
+}

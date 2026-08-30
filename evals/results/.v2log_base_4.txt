@@ -1,0 +1,45 @@
+target=baseline  model=z-ai/glm-5.3-flash  routing=pinned_single_provider(deepinfra)  cases=30
+--------------------------------------------------------------------------------------------
+  case_01   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_02   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00012
+  case_03   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_04   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_05   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00010
+  case_06   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_07   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00012
+  case_08   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_09   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00012
+  case_10   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00014
+  case_11   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_12   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00017
+  case_13   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_14   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_15   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_16   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_17   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00012
+  case_18   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_19   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00015
+  case_20   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00012
+  case_21   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00014
+  case_22   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_23   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00017
+  case_24   8/8 correct  provider=DeepInfra   retries=1  cost=$0.00012
+  case_25   8/8 correct  provider=DeepInfra   retries=2  cost=$0.00013
+  case_26   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_27   6/8 correct  provider=DeepInfra   retries=0  cost=$0.00011
+  case_28   8/8 correct  provider=DeepInfra   retries=0  cost=$0.00009
+  case_29   7/8 correct  provider=DeepInfra   retries=0  cost=$0.00013
+  case_30   6/8 correct  provider=DeepInfra   retries=0  cost=$0.00010
+--------------------------------------------------------------------------------------------
+field accuracy ..............   96.2%   (231/240 slots)
+hallucination rate (judged) .    0.9%   (2 of 223 asserted fields)
+hallucination rate (/240) .....    0.8%   [diagnostic only]
+triage decision accuracy ....   76.7%   (23/30)
+minutes/intake (PROXY) ......    2.6    vs 16.9 manual
+cost per case ............... $0.00012  (total $0.00367)
+retries / failures .......... 3 / 0
+resolved provider(s) ........ DeepInfra
+
+outcome breakdown: correct=221  correct_abstention=10  incorrect=2  missed=7
+
+wrote evals\results\20260830T161951328425Z_baseline_p8276.json
