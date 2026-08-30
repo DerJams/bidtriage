@@ -120,7 +120,7 @@ and are marked as such there rather than filled in from memory.
 | 1. Synthetic eval set and gold keys | done |
 | 2. Baseline | done, measured over 8 runs |
 | 3. Eval harness | done |
-| 4. Solution levers | lever 2 measured; lever 3 measurement running; lever 1 built but unmeasured; lever 4 not started |
+| 4. Solution levers | levers 2 and 3 measured at n=8; lever 4 built, wiring in progress; lever 1 built but unmeasured |
 
 ## System design and measured results
 
@@ -226,6 +226,15 @@ is applied as written rather than relaxed once the numbers became suggestive.
 One statement about levels rather than deltas, which the rule does not cover:
 lever 2's mean hallucination of 1.88% is under the 2% target and the baseline's
 2.87% is not, at 3 of 8 runs versus 0 of 8.
+
+### Lever verdicts
+
+| Lever | State | Verdict |
+|---|---|---|
+| 1. Document parsing | built (`solution/parse.py`), not yet measured | pending. Expected flat: pdfplumber finds tables in cases 06 to 09, which already score near-perfectly, and **zero** tables in case 12, whose quantity block is monospace text. It is measured anyway rather than assumed. |
+| 2. Verification with span checking | measured, n=8 per arm | **not an improvement.** Both headline deltas are smaller than the run-to-run spread. The only statistically solid result is that it costs 3.1 times more. A revision to fix the case 12 regression is pending separate measurement. |
+| 3. Structured triage | measured, n=8 per arm | **improvement, and the only one so far.** Triage 89.58% to 100.00%, zero variance across 8 runs, p=0.000, clearing the 8.33 noise floor. Verified model-driven: the model agreed with the boolean rule on 96 of 96 decisions and the rule corrected it zero times. |
+| 4. Estimator brief | built (`solution/brief.py`), wiring in progress | no measurable effect on the field metrics by construction, since it renders already-verified fields and makes no model call. Judged on whether it is forwardable without edits. |
 
 ### Two findings that shape the project
 
