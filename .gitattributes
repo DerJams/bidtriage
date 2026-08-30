@@ -1,0 +1,5 @@
+# Text files: normalize to LF in the repo
+* text=auto eol=lf
+
+# Binary: never touch. CRLF conversion corrupts PDFs on checkout.
+*.pdf binary
