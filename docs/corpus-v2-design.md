@@ -15,34 +15,139 @@ set changed" with "the lever worked".
 
 ## 0. Provenance
 
-Three parts of this design come from **researched industry sources**, not from
-assumption or from what seemed plausible while writing synthetic data:
+Three parts of this design come from researched industry sources rather than
+from assumption. Source quality varies a great deal between them, and that is
+recorded here rather than flattened, because a corpus built on a vendor blog
+post and one built on a peer-reviewed study should not be presented as equally
+grounded.
 
-1. **Platform invitation structure.** That BuildingConnected-style invitations
-   are system-generated from structured project fields, with a fixed sender, a
-   templated subject, and a body carrying project name, bid package, due date,
-   location, and lead contact, and that the ambiguity in platform-sourced work
-   lives in the attached scope documents rather than in the notification email.
-2. **Bonding and insurance conventions.** Bid bonds of 5 to 10% on private and
-   municipal work and up to 20% on federal Miller Act work; performance and
-   payment bonds at 100% of contract price; and commercial general liability at
-   2M per occurrence and 4M aggregate for HVAC and plumbing, those being
-   classified as higher-risk trades, rather than the 1M/2M baseline.
-3. **Decline-reason criteria.** That project size, workload, and geography are
-   the dominant real drivers when a contractor declines to bid, and that 80% of
-   accepted bids fall within 55 miles. This is peer-reviewed work, and it is why
-   the four capacity criteria are being kept unchanged rather than revised.
+### 0.1 Platform invitation structure
 
-This matters for reading the eval set. The corpus is entirely synthetic, but its
-*shape* is not invented: the document structures, the commercial terms, and the
-triage criteria follow documented practice. A corpus whose conventions were
-guessed would measure how well a model handles my guesses.
+**Well documented.** BuildingConnected's own support documentation specifies
+that every invitation is sent from the single fixed address
+`team@buildingconnected.com` with only the display name varying, that the
+subject follows a fixed template (`Bid Invite: [Project Name] Project`), and
+that the body is generated from structured project-setup fields: GC logo,
+project lead name, GC company, project name, the specific bid package, a View
+RFP link, accept/decline buttons, location, bid due date, description, and a
+client-details block with the lead contact's name, title and phone.[^bc-invite]
+[^bc-notify][^bc-gc] A GC-side outreach guide corroborates this independently,
+including that a separate invitation arrives per bid package.[^southpoint]
 
-> **Citations pending.** The specific sources are to be added here verbatim. They
-> are deliberately not paraphrased or named from memory in the meantime, because
-> a plausible-looking citation that turns out to be wrong is worse than an
-> acknowledged gap. Until this block is filled in, treat the three items above as
-> sourced but uncited.
+The contrast with human-authored email is the load-bearing point. A GC-facing
+estimating guide lists the fields a GC *should* remember to include in a
+freehand invitation.[^meltplan] A checklist of that kind would be unnecessary
+if the fields were guaranteed. BuildingConnected also ships a manual
+"type an email" fallback that requires a subcontractor to re-key a freehand
+invite into structured fields, a workaround that exists precisely because
+direct email does not carry that structure natively.[^bc-forward]
+
+This is why v2 rewrites the platform cases as structured and complete and
+pushes the ambiguity into the attachment.
+
+### 0.2 Bonding and insurance conventions
+
+**Well documented, with one correction to the corpus.** Federal work under the
+Miller Act requires performance and payment bonds above $150,000, with the bid
+guarantee at a minimum of 20% of the bid price capped at $3M.[^far28] State and
+local equivalents commonly set the bid bond at a flat 5%, with performance and
+payment bonds each at 100% of contract price.[^mrsc][^scose] Surety-industry
+sources converge on 5% to 10% as typical for private and municipal commercial
+work.[^scalabid][^trucordia]
+
+On liability, the widely applied **baseline is $1M per occurrence / $2M
+aggregate**. The $2M/$4M figure is not a universal floor: it is what GC-facing
+insurance guides specifically recommend or require for HVAC and plumbing,
+because those are classified as moderate-to-higher-risk trades alongside
+roofing, electrical and excavation.[^grit][^grit26][^docutrax] That distinction
+is worth keeping straight, since v2 uses $2M/$4M *because the corpus is
+mechanical and plumbing work*, not because it is the general standard.
+
+### 0.3 Decline-reason criteria
+
+**Mixed quality, and the two halves should not be cited as one thing.**
+
+The strong half is peer-reviewed: a study of bid/no-bid decision factors finds
+that small contractors rank **project size, availability of capital, client
+payment timeliness, current workload, and general overhead** as the five most
+critical factors.[^bidnobid] That directly supports keeping size-band and
+timeline-conflict as criteria.
+
+The geographic half is weaker. The frequently quoted figures that 80% of
+accepted bids fall within 55 miles and 87.1% within 100 miles come from a
+vendor bid-response toolkit citing "research on 60,000 live construction bids",
+with no published methodology and no independent replication.[^itbkit] It is
+directional support for geography mattering, not a measured constant, and it is
+**not** peer-reviewed. The service radius in this corpus is a declared
+operating parameter regardless, so nothing depends on that number being exact.
+
+Industry bid/no-bid checklists converge on the same four filters used here:
+trade or scope mismatch, geography, capacity or schedule conflict, and project
+size.[^bidintell][^quantify] The four capacity criteria are therefore kept
+unchanged.
+
+### 0.4 Addenda as a failure mode
+
+The one quantified figure available attributes roughly **20% of significant
+scope gaps and pricing errors to unincorporated or partially incorporated
+addenda, RFI responses, or drawing revisions**, from an internal analysis of
+over 12,000 estimate QA reviews.[^mepusa] This is a single vendor's proprietary
+dataset rather than an independently replicated study, so it is treated as a
+directional prior. It is enough to justify a second addendum case; it is not
+enough to justify making addenda a majority of the corpus, which is why the
+adversarial proportion stays near 1 in 10.
+
+Bid-date extension by addendum is separately documented as a routine
+procedural event rather than an edge case.[^lacity][^pelles] The alternates
+mistaken-for-base-scope failure is documented through case law showing the
+mechanism and its consequences, though no source quantifies its incidence.[^cc]
+[^gao]
+
+### 0.5 What is not sourced
+
+Deliberately recorded so the corpus is not read as more grounded than it is:
+
+- **Channel mix** (platform vs direct email vs phone) for small mechanical
+  subcontractors specifically was not found. Available figures are vendor-cited
+  and do not isolate this segment.
+- **Base rate for how often addenda change bid dates** was not quantified
+  anywhere reviewed. The evidence is qualitative only.
+- **Frequency of the alternates error** is undocumented; only the mechanism is.
+- **Private-sector engineer's-estimate disclosure practice** is essentially
+  absent from the literature, so how often a private GC shares a budget with
+  mechanical bidders is unknown. The corpus varies this rather than asserting a
+  rate.
+
+The practical consequence: structural and qualitative findings (template
+consistency, CSI division scoping, bond and insurance percentage ranges) are
+weighted heavily in the corpus design, and the thinner quantitative claims
+about failure-mode frequency are treated as directional priors only.
+
+### References
+
+[^meltplan]: [How to Send Bid Invitations to Subcontractors, a GC's Step-by-Step ITB Guide](https://www.meltplan.com/blogs/how-to-send-bid-invitations-to-subcontractors-a-gc-s-step-by-step-itb-guide)
+[^bc-invite]: [I received an invitation to bid. What should I do?](https://support.buildingconnected.com/hc/en-us/articles/360021597733-I-received-an-invitation-to-bid-What-should-I-do)
+[^bc-notify]: [What do bid invitations look like when sent from BuildingConnected?](https://support.buildingconnected.com/hc/en-us/articles/360022100314-What-do-bid-invitations-look-when-they-are-sent-from-BuildingConnected)
+[^bc-gc]: [What emails will my bidders receive? (General Contractor)](https://support.buildingconnected.com/hc/en-us/articles/360014617594-What-emails-will-my-bidders-receive-General-Contractor)
+[^bc-forward]: [How to write an email to forward a bid into BuildingConnected](https://support.buildingconnected.com/hc/en-us/articles/360047668673-How-to-write-an-email-to-forward-a-bid-into-BuildingConnected-Bid-Board-Pro)
+[^southpoint]: [Diverse Subcontractor and Supplier Outreach, Navigating BuildingConnected](https://southpointconstructors.com/wp-content/uploads/2022/11/SPC_SE-Connector-Navigating-BuildingConnected_221117.pdf)
+[^far28]: [FAR Part 28, Bonds and Insurance](https://www.acquisition.gov/far/part-28)
+[^mrsc]: [Guarantees, Bonds, and Retainage, MRSC](https://mrsc.org/explore-topics/procurement/contract-administration/guarantees-bonds-retainage)
+[^scose]: [Guide to Bid, Payment, and Performance Bonds, SC Procurement](https://procurement.sc.gov/files/ose/Guide_to_Bid,_Payment,_and_Performance_Bonds_0.pdf)
+[^scalabid]: [Bid Bond vs Performance Bond: When Each Is Required](https://www.scalabid.com/resources/bid-bond-vs-performance-bond-when)
+[^trucordia]: [Understanding Bid, Performance, and Payment Bonds for Contractors](https://www.trucordia.com/blog/understanding-bid-performance-and-payment-bonds-for-contractors)
+[^grit]: [Subcontractor Insurance Requirements (What GCs Must Verify)](https://gritinsurance.com/blog/subcontractor-insurance-requirements-what-general-contractors-gcs-and-subcontractors-must-know)
+[^grit26]: [Subcontractor Insurance Requirements, What GCs Are Demanding](https://gritinsurance.com/blog/subcontractor-insurance-requirements-2026?hs_amp=true)
+[^docutrax]: [Subcontractor Insurance Requirements: A GC's Guide](https://www.docutrax.com/resources/guides/subcontractor-insurance-requirements)
+[^bidnobid]: [Critical Factors Influencing the Bid/no-Bid Decisions of Contractors](https://www.tandfonline.com/doi/abs/10.1080/15578771.2024.2332237) (peer-reviewed)
+[^itbkit]: [ITB Response Kit 2026](https://constructionbids.ai/kits/itb-response-scope-letter) (vendor toolkit, methodology not published)
+[^bidintell]: [Bid No Bid Checklist for Specialty Subcontractors](https://bidintell.ai/bid-no-bid-checklist)
+[^quantify]: [Bid No-Bid Decision Criteria: A Contractor's Framework](https://quantifyna.com/bid-no-bid-decision-criteria/)
+[^mepusa]: [How Estimators Handle Drawing Revisions, Addenda, RFIs](https://mepestimationusa.com/guides/drawing-revisions/) (single vendor's proprietary dataset)
+[^lacity]: [Responding to Inquiries and Issuing Addenda, LA Project Delivery Manual](https://projectdeliverymanual.engineering.lacity.gov/chapter-13-advertising-project-bids/135-responding-inquiries-and-issuing-addend)
+[^pelles]: [Estimating from Addenda, MEP Bid Process](https://www.pelles.ai/university/articles/estimating-from-addenda)
+[^cc]: [Mistake in bid price renders bid non-compliant](https://canada.constructconnect.com/joc/news/others/2008/01/mistake-in-bid-price-although-compliant-renders-bid-non-compliant)
+[^gao]: [Herman Construction Group, Inc., GAO B-415480](https://www.gao.gov/products/b-415480)
 
 ## 1. What the research changes
 
