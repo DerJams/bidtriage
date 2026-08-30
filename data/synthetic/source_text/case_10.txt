@@ -1,0 +1,28 @@
+From: no-reply@frontrangebidnet.example
+To: estimating@summitpeakmech.example
+Subject: [FrontRangeBidNet] New solicitation matching your saved search "Mechanical - Front Range"
+Date: Thu, 27 Aug 2026 04:02:11 -0600
+Message-ID: <frbn-notify-88214-2026@frontrangebidnet.example>
+Content-Type: text/plain; charset="utf-8"
+
+FrontRangeBidNet Solicitation Alert
+
+A new solicitation matching your saved search has been posted.
+
+  Solicitation #:  FRRTA-26-0431
+  Agency:          Front Range Regional Transit Authority
+  Title:           Maintenance Facility Bay 4 Mechanical Upgrades
+  Category:        Mechanical
+  Place of perf.:  Denver, CO
+  Response due:    2026-10-06 15:00 MT
+
+  Full solicitation documents, drawings, specifications, and any addenda are
+  available to registered plan holders only.
+
+  >> View solicitation: https://frontrangebidnet.example/sol/FRRTA-26-0431
+  >> Register as plan holder: https://frontrangebidnet.example/sol/FRRTA-26-0431/register
+
+You are receiving this because you subscribed to alerts for "Mechanical -
+Front Range". Manage your alert preferences in your account settings.
+
+FrontRangeBidNet | Automated notification, do not reply

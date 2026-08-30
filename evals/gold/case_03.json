@@ -1,0 +1,98 @@
+{
+  "format": "email_rfp_forwarded",
+  "source": "data/synthetic/emails/case_03.eml",
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Verge Cold Chain Holdings",
+      "normalized": "verge cold chain holdings",
+      "source_span": "Verge Cold Chain Holdings is issuing an invitation to bid",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Larimer Street Cold Storage Buildout",
+      "normalized": "larimer street cold storage buildout",
+      "source_span": "the Larimer Street Cold Storage Buildout at our Denver, CO facility",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "refrigeration",
+        "piping",
+        "hvac"
+      ],
+      "normalized": [
+        "hvac",
+        "piping",
+        "refrigeration"
+      ],
+      "source_span": "Trades required: refrigeration, piping, HVAC.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "at our Denver, CO facility",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "September 30, 2026",
+      "normalized": "2026-09-30",
+      "source_span": "Bids close September 30, 2026.",
+      "extra": {}
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$700,000",
+      "normalized": {
+        "low": 700000,
+        "high": 700000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate is $700,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment bonds; $1M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_limit_usd": 1000000
+      },
+      "source_span": "Bonding: bid bond at 5%, performance and payment bonds at 100% each. GL limit $1,000,000.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 14, 2026",
+      "normalized": "2026-09-14",
+      "source_span": "Site walk is set for September 14, 2026.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-04-05",
+    "2027-08-20"
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": false,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit"
+    ],
+    "_derivation": "Failing criteria: trade_fit"
+  },
+  "case_id": "case_03"
+}

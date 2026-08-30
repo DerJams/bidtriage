@@ -1,0 +1,96 @@
+{
+  "format": "email_rfp",
+  "source": "data/synthetic/emails/case_04.eml",
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Mesa Verdana Industrial Partners",
+      "normalized": "mesa verdana industrial partners",
+      "source_span": "Aurelio Nakashima-Prather\nMesa Verdana Industrial Partners",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Mesa Verdana Industrial Park Building C",
+      "normalized": "mesa verdana industrial park building c",
+      "source_span": "the mechanical package for Mesa Verdana Industrial Park\nBuilding C",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac"
+      ],
+      "source_span": "Scope: HVAC and controls.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Grand Junction, CO",
+      "normalized": "grand junction, co",
+      "source_span": "Building C in Grand Junction, CO.",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "September 22, 2026",
+      "normalized": "2026-09-22",
+      "source_span": "Bids due: September 22, 2026.",
+      "extra": {}
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$480,000",
+      "normalized": {
+        "low": 480000,
+        "high": 480000,
+        "currency": "USD"
+      },
+      "source_span": "Estimated value: $480,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment bonds; $2M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_limit_usd": 2000000
+      },
+      "source_span": "Bonding requirements are bid bond 5%, performance bond 100%, payment bond 100%.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 8, 2026",
+      "normalized": "2026-09-08",
+      "source_span": "Walk-through: September 8, 2026, 10:00 AM.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-01-11",
+    "2027-05-28"
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": false,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "within_radius"
+    ],
+    "_derivation": "Failing criteria: within_radius"
+  },
+  "case_id": "case_04"
+}

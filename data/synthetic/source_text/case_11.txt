@@ -1,0 +1,25 @@
+From: alerts@mountainstatesprocure.example
+To: estimating@summitpeakmech.example
+Subject: MSP Alert: Bid opportunity posted - Clear Creek Corridor
+Date: Fri, 28 Aug 2026 06:17:33 -0600
+Message-ID: <msp-alert-2026-1174@mountainstatesprocure.example>
+Content-Type: text/plain; charset="utf-8"
+
+MountainStates Procure -- Opportunity Alert
+
+  Owner:        Idaho Springs Municipal Utilities District
+  Project:      Water Treatment Plant No. 2 Chemical Feed Piping Replacement
+  Location:     Idaho Springs, CO
+  Trades:       Plumbing, process piping
+  Bids close:   November 3, 2026
+  Bid security: 5% bid bond required with submission
+
+  Plans and specifications are available for download to registered users.
+  Additional terms, insurance requirements, and any engineer's estimate are
+  contained in the bid documents.
+
+  Login to view: https://mountainstatesprocure.example/opp/2026-1174
+
+--
+This is an automated alert from MountainStates Procure.
+Unsubscribe: https://mountainstatesprocure.example/prefs

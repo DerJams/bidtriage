@@ -1,0 +1,103 @@
+{
+  "format": "email_rfp_tabular",
+  "source": "data/synthetic/emails/case_05.eml",
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Helioptix Data Infrastructure",
+      "normalized": "helioptix data infrastructure",
+      "source_span": "Issuing entity ......... Helioptix Data Infrastructure",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Helioptix Data Campus Phase II",
+      "normalized": "helioptix data campus phase ii",
+      "source_span": "Project ................ Helioptix Data Campus Phase II",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "piping",
+        "sheet_metal",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "piping",
+        "sheet_metal"
+      ],
+      "source_span": "Trades required ...... HVAC, piping, sheet metal, controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "Site ................... Denver, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 9, 2026",
+      "normalized": "2026-10-09",
+      "source_span": "Bid due date ......... October 9, 2026, 4:00 PM MT",
+      "extra": {
+        "time_local": "16:00",
+        "tz": "America/Denver"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$4,500,000",
+      "normalized": {
+        "low": 4500000,
+        "high": 4500000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate .. $4,500,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment bonds; $5M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_limit_usd": 5000000
+      },
+      "source_span": "Bid bond ............. 5% of base bid",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 17, 2026",
+      "normalized": "2026-09-17",
+      "source_span": "Pre-bid walk-through . September 17, 2026",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-03-22",
+    "2027-12-18"
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": false,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "size_band_ok"
+    ],
+    "_derivation": "Failing criteria: size_band_ok"
+  },
+  "case_id": "case_05"
+}

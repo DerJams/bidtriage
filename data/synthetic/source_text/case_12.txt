@@ -1,0 +1,85 @@
+[PAGE 1]
+SILVER ASPEN REGIONAL MEDICAL CAMPUS
+CENTRAL PLANT UPGRADE
+PROJECT MANUAL - VOLUME 1 OF 3
+SOLICITATION SARMC-CP-2026-03
+OWNER Silver Aspen Regional Medical Campus
+SITE Castle Rock, CO
+ISSUED August 14, 2026
+BID DATE October 16, 2026 at 2:00 PM MT
+PRE-BID WALK September 30, 2026 at 7:30 AM
+NOTICE TO BIDDERS: This project manual is issued subject to addenda. Bidders are responsible for confirming
+they have received and incorporated all addenda prior to submission. Dates appearing on this cover sheet and in
+page footers are as-issued and may be superseded by addendum. Refer to Volume 1, Part 4 for all issued
+addenda.
+The Owner reserves the right to reject any and all bids and to waive informalities in the bidding.
+SARMC-CP-2026-03 | CENTRAL PLANT UPGRADE | BID DATE: OCTOBER 16, 2026 | UNCONTROLLED IF PRINTED Page 1
+
+[PAGE 2]
+PART 1 - SUMMARY OF WORK
+The Project consists of the replacement and expansion of the central utility plant serving the Silver Aspen
+Regional Medical Campus. Base Bid work includes demolition of two existing steam-to-hot-water converters,
+installation of three new condensing hot water boilers, replacement of the primary chilled water pumping
+assembly, new underground and above-grade hydronic distribution piping between the plant and Buildings A and
+C, and complete replacement of the plant control system including graphics and integration to the campus building
+automation network.
+Base Bid trades are mechanical (HVAC), process and hydronic piping, and automatic temperature controls. The
+Contractor shall self-perform not less than thirty percent (30%) of the Base Bid work.
+ALTERNATE NO. 1 is a separately priced add alternate covering modifications to the standpipe and fire
+suppression risers in the plant penthouse. Alternate No. 1 is NOT part of the Base Bid and shall be priced
+separately on the bid form. The Owner may elect not to award Alternate No. 1. Bidders who do not hold a fire
+protection license may bid the Base Bid and decline Alternate No. 1 without prejudice.
+PART 2 - COMMERCIAL TERMS
+ENGINEER ESTIMATE $1,800,000 to $2,100,000
+CONSTRUCTION START March 15, 2027
+SUBSTANTIAL COMPLETION November 30, 2027
+BID BOND 5% of base bid
+PERFORMANCE BOND 100% of contract sum
+PAYMENT BOND 100% of contract sum
+GENERAL LIABILITY $5,000,000 per occurrence
+SARMC-CP-2026-03 | CENTRAL PLANT UPGRADE | BID DATE: OCTOBER 16, 2026 | UNCONTROLLED IF PRINTED Page 2
+
+[PAGE 3]
+PART 3 - SCHEDULE OF QUANTITIES
+BASE BID ALT 1
+SPEC DESCRIPTION UNIT QTY QTY
+-------- ------------------------------ ---- ---------- ----------
+23 52 16 Condensing hot water boiler, EA 3 0
+4,000 MBH
+23 21 23 Primary CHW pump, 60 HP, EA 4 0
+base mounted
+23 21 13 Hydronic piping, welded, LF 2,180 0
+8 in. and larger
+23 21 13 Hydronic piping, welded, LF 3,640 0
+6 in. and smaller
+23 09 23 DDC plant controller and LS 1 0
+graphics package
+23 05 93 TAB, complete plant LS 1 0
+21 12 00 Standpipe riser modification, EA 0 6
+penthouse <-- ALT 1 ONLY
+21 13 16 Wet pipe sprinkler head EA 0 altered
+relocation, plant penthouse under ALT 1
+-------- ------------------------------ ---- ---------- ----------
+NOTE: The ALT 1 QTY column applies to Alternate No. 1 only. Items showing
+a BASE BID QTY of 0 are excluded from the Base Bid scope. Spec sections
+21 12 00 and 21 13 16 are fire protection and are carried under Alternate
+No. 1 exclusively.
+SARMC-CP-2026-03 | CENTRAL PLANT UPGRADE | BID DATE: OCTOBER 16, 2026 | UNCONTROLLED IF PRINTED Page 3
+
+[PAGE 4]
+PART 4 - ADDENDA ISSUED
+ADDENDUM NO. 1 - Issued September 4, 2026
+Item 1.1: Specification Section 23 52 16, boiler manufacturer list is amended to add one additional approved
+manufacturer. Item 1.2: Drawing M-201, revise pipe routing at column line D-4 as shown on attached sketch
+SK-M-01. No change to the bid date results from this addendum.
+ADDENDUM NO. 2 - Issued September 25, 2026
+Item 2.1: THE BID DATE IS EXTENDED. Bids are now due November 6, 2026 at 2:00 PM MT. The bid date of
+October 16, 2026 shown on the cover sheet and in the page footers of this project manual is superseded and shall
+not be relied upon.
+Item 2.2: The pre-bid walk-through held September 30, 2026 is not rescheduled. Firms that attended the
+September 30 walk-through remain eligible to bid. No additional walk-through will be held.
+Item 2.3: Alternate No. 1 remains a separately priced add alternate. Several bidders inquired whether the
+standpipe work is included in the Base Bid. It is not.
+END OF ADDENDA. Bidders shall acknowledge receipt of Addenda 1 and 2 on the bid form. Failure to
+acknowledge may render the bid non-responsive.
+SARMC-CP-2026-03 | CENTRAL PLANT UPGRADE | BID DATE: OCTOBER 16, 2026 | UNCONTROLLED IF PRINTED Page 4

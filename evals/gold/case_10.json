@@ -1,0 +1,87 @@
+{
+  "format": "portal_notification",
+  "source": "data/synthetic/emails/case_10.eml",
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Front Range Regional Transit Authority",
+      "normalized": "front range regional transit authority",
+      "source_span": "Agency:          Front Range Regional Transit Authority",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Maintenance Facility Bay 4 Mechanical Upgrades",
+      "normalized": "maintenance facility bay 4 mechanical upgrades",
+      "source_span": "Title:           Maintenance Facility Bay 4 Mechanical Upgrades",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Only 'Category: Mechanical' is given, which does not resolve to any specific trade in the closed vocabulary."
+      }
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "Place of perf.:  Denver, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "2026-10-06",
+      "normalized": "2026-10-06",
+      "source_span": "Response due:    2026-10-06 15:00 MT",
+      "extra": {
+        "time_local": "15:00",
+        "tz": "America/Denver"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Documents are plan-holder gated; no value in the notice."
+      }
+    },
+    "bond_insurance": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Documents are plan-holder gated; no bonding terms in the notice."
+      }
+    },
+    "walkthrough_date": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "No walk-through mentioned in the notice."
+      }
+    }
+  },
+  "construction_window": null,
+  "triage": {
+    "decision": "insufficient_information",
+    "criteria": {
+      "within_radius": true
+    },
+    "required_reasons": [
+      "construction_window",
+      "estimated_project_value",
+      "trade_scope"
+    ],
+    "_derivation": "Missing input field(s) prevent evaluation: construction_window, estimated_project_value, trade_scope"
+  },
+  "case_id": "case_10"
+}

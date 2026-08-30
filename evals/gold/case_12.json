@@ -1,0 +1,132 @@
+{
+  "format": "pdf_hard",
+  "source": "data/synthetic/pdfs/case_12.pdf",
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Silver Aspen Regional Medical Campus",
+      "normalized": "silver aspen regional medical campus",
+      "source_span": "OWNER Silver Aspen Regional Medical Campus",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Central Plant Upgrade",
+      "normalized": "central plant upgrade",
+      "source_span": "CENTRAL PLANT UPGRADE",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "piping",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "piping"
+      ],
+      "source_span": "Base Bid trades are mechanical (HVAC), process and hydronic piping, and automatic temperature controls.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Castle Rock, CO",
+      "normalized": "castle rock, co",
+      "source_span": "SITE Castle Rock, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 6, 2026",
+      "normalized": "2026-11-06",
+      "source_span": "Bids are now due November 6, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00",
+        "tz": "America/Denver"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,800,000 to $2,100,000",
+      "normalized": {
+        "low": 1800000,
+        "high": 2100000,
+        "currency": "USD"
+      },
+      "source_span": "ENGINEER ESTIMATE $1,800,000 to $2,100,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment bonds; $5M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_limit_usd": 5000000
+      },
+      "source_span": "GENERAL LIABILITY $5,000,000 per occurrence",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 30, 2026",
+      "normalized": "2026-09-30",
+      "source_span": "PRE-BID WALK September 30, 2026 at 7:30 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-03-15",
+    "2027-11-30"
+  ],
+  "traps": [
+    {
+      "kind": "addendum_supersedes",
+      "field": "bid_due_date",
+      "naive_value": "2026-10-16",
+      "correct_value": "2026-11-06",
+      "note": "Superseded date appears 5x (cover + 4 page footers); controlling Addendum No. 2 date appears once on page 4."
+    },
+    {
+      "kind": "alternate_read_as_base",
+      "field": "trade_scope",
+      "naive_value": [
+        "hvac",
+        "piping",
+        "controls",
+        "fire_protection"
+      ],
+      "correct_value": [
+        "controls",
+        "hvac",
+        "piping"
+      ],
+      "note": "Spec 21 12 00 / 21 13 16 have BASE BID QTY of 0 and sit under ALT 1. Including fire_protection also flips triage to no_bid."
+    },
+    {
+      "kind": "range_not_point",
+      "field": "estimated_project_value",
+      "note": "Estimate is a range; a point value is wrong."
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ],
+    "_derivation": "All four criteria pass."
+  },
+  "case_id": "case_12"
+}
