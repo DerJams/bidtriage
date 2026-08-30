@@ -1,0 +1,125 @@
+{
+  "case_id": "case_13",
+  "format": "platform_invitation_with_attachment",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_13.eml",
+      "role": "platform invitation",
+      "kind": "email"
+    },
+    {
+      "path": "data/synthetic/pdfs_v2/case_13_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Trailhead Medical Partners",
+      "normalized": "trailhead medical partners",
+      "source_span": "Client: Trailhead Medical Partners",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Trailhead Surgery Center Mechanical Fitout",
+      "normalized": "trailhead surgery center mechanical fitout",
+      "source_span": "Project: Trailhead Surgery Center Mechanical Fitout",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "plumbing",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "plumbing"
+      ],
+      "source_span": "Base bid trades: HVAC, plumbing, and building automation controls.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Lakewood, CO",
+      "normalized": "lakewood, co",
+      "source_span": "Location: Lakewood, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 27, 2026",
+      "normalized": "2026-10-27",
+      "source_span": "Bids due: October 27, 2026 at 4:00 PM MT",
+      "extra": {
+        "time_local": "16:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Attachment states the Owner has not released a budget."
+      }
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 8, 2026",
+      "normalized": "2026-10-08",
+      "source_span": "Job walk: October 8, 2026 at 8:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-05-17",
+    "2027-11-12"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_13.eml",
+      "role": "platform invitation",
+      "kind": "email",
+      "chars": 630
+    },
+    {
+      "index": 2,
+      "path": "data/synthetic/pdfs_v2/case_13_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf",
+      "chars": 618
+    }
+  ],
+  "triage": {
+    "decision": "insufficient_information",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "estimated_project_value"
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "case_id": "case_27",
+  "format": "email_urgent",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_27.eml",
+      "role": "document",
+      "kind": "email"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Ridgeline Mechanical GC",
+      "normalized": "ridgeline mechanical gc",
+      "source_span": "Ridgeline Mechanical GC lost a sub and needs coverage.",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Vista Marketplace RTU Swap",
+      "normalized": "vista marketplace rtu swap",
+      "source_span": "Job is the Vista Marketplace RTU Swap.",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "sheet_metal"
+      ],
+      "normalized": [
+        "hvac",
+        "sheet_metal"
+      ],
+      "source_span": "HVAC and sheet metal.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "Denver, CO.",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "September 18, 2026",
+      "normalized": "2026-09-18",
+      "source_span": "I need numbers by September 18, 2026 at 5:00 PM MT.",
+      "extra": {
+        "time_local": "17:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$265,000",
+      "normalized": {
+        "low": 265000,
+        "high": 265000,
+        "currency": "USD"
+      },
+      "source_span": "Budget is $265,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "No bonding required",
+      "normalized": {
+        "required": false
+      },
+      "source_span": "No bonding on this one. Certificate of insurance only.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Source states there is no walk-through."
+      }
+    }
+  },
+  "construction_window": [
+    "2027-02-22",
+    "2027-04-09"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_27.eml",
+      "role": "document",
+      "kind": "email",
+      "chars": 694
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

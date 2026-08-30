@@ -1,0 +1,114 @@
+{
+  "case_id": "case_28",
+  "format": "pdf_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_28.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Larkspur Lane Housing Cooperative",
+      "normalized": "larkspur lane housing cooperative",
+      "source_span": "Owner: Larkspur Lane Housing Cooperative",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Larkspur Lane Boiler Room Repiping",
+      "normalized": "larkspur lane boiler room repiping",
+      "source_span": "Project: Larkspur Lane Boiler Room Repiping",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "piping",
+        "plumbing"
+      ],
+      "normalized": [
+        "piping",
+        "plumbing"
+      ],
+      "source_span": "Trades Required: piping and plumbing",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Boulder, CO",
+      "normalized": "boulder, co",
+      "source_span": "Project Location: Boulder, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 26, 2026",
+      "normalized": "2026-10-26",
+      "source_span": "Bid due: October 26, 2026 at 1:00 PM MT",
+      "extra": {
+        "time_local": "13:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$180,000",
+      "normalized": {
+        "low": 180000,
+        "high": 180000,
+        "currency": "USD"
+      },
+      "source_span": "The Cooperative has set a not-to-exceed ceiling of $180,000 for this work. Bids above the ceiling will be rejected.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 12, 2026",
+      "normalized": "2026-10-12",
+      "source_span": "Pre-bid walk-through: October 12, 2026 at 4:00 PM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-03-22",
+    "2027-05-14"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_28.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 874
+    }
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": false,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "size_band_ok"
+    ]
+  }
+}

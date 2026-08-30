@@ -1,0 +1,126 @@
+{
+  "case_id": "case_21",
+  "format": "platform_invitation_with_attachment",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_21.eml",
+      "role": "platform invitation",
+      "kind": "email"
+    },
+    {
+      "path": "data/synthetic/pdfs_v2/case_21_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Alpenglow Resort Holdings",
+      "normalized": "alpenglow resort holdings",
+      "source_span": "Client: Alpenglow Resort Holdings",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Alpenglow Village Lodge Mechanical Replacement",
+      "normalized": "alpenglow village lodge mechanical replacement",
+      "source_span": "Project: Alpenglow Village Lodge Mechanical Replacement",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "piping"
+      ],
+      "normalized": [
+        "hvac",
+        "piping"
+      ],
+      "source_span": "Base bid trades: HVAC and piping.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Vail, CO",
+      "normalized": "vail, co",
+      "source_span": "Place of performance: Vail, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 19, 2026",
+      "normalized": "2026-11-19",
+      "source_span": "Bids due: November 19, 2026 at 4:00 PM MT",
+      "extra": {
+        "time_local": "16:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,320,000",
+      "normalized": {
+        "low": 1320000,
+        "high": 1320000,
+        "currency": "USD"
+      },
+      "source_span": "Owner's construction budget is $1,320,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 28, 2026",
+      "normalized": "2026-10-28",
+      "source_span": "Job walk: October 28, 2026 at 9:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-04-19",
+    "2027-09-30"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_21.eml",
+      "role": "platform invitation",
+      "kind": "email",
+      "chars": 757
+    },
+    {
+      "index": 2,
+      "path": "data/synthetic/pdfs_v2/case_21_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf",
+      "chars": 512
+    }
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": false,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "within_radius"
+    ]
+  }
+}

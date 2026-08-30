@@ -1,0 +1,115 @@
+{
+  "case_id": "case_09",
+  "format": "pdf_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_09.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Vantage Point Logistics",
+      "normalized": "vantage point logistics",
+      "source_span": "Owner: Vantage Point Logistics",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Distribution Center Ventilation Upgrade",
+      "normalized": "distribution center ventilation upgrade",
+      "source_span": "Project: Distribution Center Ventilation Upgrade",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "sheet_metal",
+        "hvac"
+      ],
+      "normalized": [
+        "hvac",
+        "sheet_metal"
+      ],
+      "source_span": "Trades Required: sheet metal and HVAC",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Longmont, CO",
+      "normalized": "longmont, co",
+      "source_span": "Project Location: Longmont, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 10, 2026",
+      "normalized": "2026-11-10",
+      "source_span": "Bid due: November 10, 2026 at 4:00 PM MT",
+      "extra": {
+        "time_local": "16:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$2,200,000",
+      "normalized": {
+        "low": 2200000,
+        "high": 2200000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $2,200,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 22, 2026",
+      "normalized": "2026-10-22",
+      "source_span": "Pre-bid walk-through: October 22, 2026 at 9:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-05-03",
+    "2027-10-15"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_09.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 931
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

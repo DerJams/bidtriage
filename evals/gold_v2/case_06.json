@@ -1,0 +1,114 @@
+{
+  "case_id": "case_06",
+  "format": "pdf_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_06.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Larkspur Civic Development Authority",
+      "normalized": "larkspur civic development authority",
+      "source_span": "Owner: Larkspur Civic Development Authority",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Larkspur Civic Center Annex Mechanical Package",
+      "normalized": "larkspur civic center annex mechanical package",
+      "source_span": "Project: Larkspur Civic Center Annex Mechanical Package",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac"
+      ],
+      "source_span": "Trades Required: HVAC and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "Project Location: Denver, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "September 29, 2026",
+      "normalized": "2026-09-29",
+      "source_span": "Bid due: September 29, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,200,000",
+      "normalized": {
+        "low": 1200000,
+        "high": 1200000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $1,200,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bid security shall be 10% of the bid amount. Performance and payment bonds are each 100% of the contract price. Contractor shall carry commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 15, 2026",
+      "normalized": "2026-09-15",
+      "source_span": "Pre-bid walk-through: September 15, 2026 at 8:30 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2026-11-01",
+    "2027-02-28"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_06.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 969
+    }
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": true
+    },
+    "required_reasons": [
+      "timeline_conflict"
+    ]
+  }
+}

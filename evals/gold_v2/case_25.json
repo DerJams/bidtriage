@@ -1,0 +1,110 @@
+{
+  "case_id": "case_25",
+  "format": "platform_invitation",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_25.eml",
+      "role": "document",
+      "kind": "email"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Cottonwood Bend Developments",
+      "normalized": "cottonwood bend developments",
+      "source_span": "Client: Cottonwood Bend Developments",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Cottonwood Bend Retail Alternates Pricing",
+      "normalized": "cottonwood bend retail alternates pricing",
+      "source_span": "Project: Cottonwood Bend Retail Alternates Pricing",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac"
+      ],
+      "source_span": "Trades: HVAC and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Broomfield, CO",
+      "normalized": "broomfield, co",
+      "source_span": "Location: Broomfield, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 20, 2026",
+      "normalized": "2026-10-20",
+      "source_span": "Pricing due: October 20, 2026 at 5:00 PM MT",
+      "extra": {
+        "time_local": "17:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Alternates-only request; no value released."
+      }
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Invitation states no job walk is scheduled."
+      }
+    }
+  },
+  "construction_window": null,
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_25.eml",
+      "role": "document",
+      "kind": "email",
+      "chars": 1123
+    }
+  ],
+  "triage": {
+    "decision": "insufficient_information",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true
+    },
+    "required_reasons": [
+      "construction_window",
+      "estimated_project_value"
+    ]
+  }
+}

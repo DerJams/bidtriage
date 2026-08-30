@@ -1,0 +1,116 @@
+{
+  "case_id": "case_23",
+  "format": "pdf_multiphase",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_23.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Bramblewood Senior Living Trust",
+      "normalized": "bramblewood senior living trust",
+      "source_span": "Owner: Bramblewood Senior Living Trust",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Bramblewood Campus Mechanical Renewal",
+      "normalized": "bramblewood campus mechanical renewal",
+      "source_span": "Project: Bramblewood Campus Mechanical Renewal",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "plumbing",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "plumbing"
+      ],
+      "source_span": "Trades Required: HVAC, plumbing, and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Boulder, CO",
+      "normalized": "boulder, co",
+      "source_span": "Project Location: Boulder, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 8, 2026",
+      "normalized": "2026-10-08",
+      "source_span": "Bid due: October 8, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,980,000",
+      "normalized": {
+        "low": 1980000,
+        "high": 1980000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $1,980,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 23, 2026",
+      "normalized": "2026-09-23",
+      "source_span": "Pre-bid walk-through: September 23, 2026 at 9:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2026-10-26",
+    "2027-08-06"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_23.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 1034
+    }
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": true
+    },
+    "required_reasons": [
+      "timeline_conflict"
+    ]
+  }
+}

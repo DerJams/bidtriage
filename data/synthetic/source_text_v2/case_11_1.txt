@@ -1,0 +1,25 @@
+From: Idaho Springs Utilities via BidBoard <team@bidboardconnect.example>
+To: estimating@summitpeakmech.example
+Subject: Bid Invite: Water Treatment Plant No. 2 Chemical Feed Piping Replacement Project
+Date: Fri, 28 Aug 2026 06:17:33 -0600
+Content-Type: text/plain; charset="utf-8"
+
+You have been invited to bid.
+
+Client: Idaho Springs Municipal Utilities District
+
+Project: Water Treatment Plant No. 2 Chemical Feed Piping Replacement
+
+Bid package: Process piping
+
+Location: Idaho Springs, CO
+
+Bids due: November 3, 2026 at 2:00 PM MT
+
+Project lead: Constance Abernathy-Ruiz, District Engineer. Phone 555-0188.
+
+View this RFP: https://bidboardconnect.example/rfp/ISMUD-2026-1174
+
+No job walk has been scheduled for this package.
+
+Attached: scope narrative and commercial terms.

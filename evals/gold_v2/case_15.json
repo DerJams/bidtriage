@@ -1,0 +1,117 @@
+{
+  "case_id": "case_15",
+  "format": "pdf_federal",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_15.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Rocky Flats Federal Center Facilities Office",
+      "normalized": "rocky flats federal center facilities office",
+      "source_span": "Contracting Activity: Rocky Flats Federal Center Facilities Office",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Building 27 Chilled Water Plant Replacement",
+      "normalized": "building 27 chilled water plant replacement",
+      "source_span": "Project: Building 27 Chilled Water Plant Replacement",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "piping",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "piping"
+      ],
+      "source_span": "Trades Required: HVAC, piping, and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Lakewood, CO",
+      "normalized": "lakewood, co",
+      "source_span": "Place of Performance: Lakewood, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "December 1, 2026",
+      "normalized": "2026-12-01",
+      "source_span": "Offers are due December 1, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$2,400,000",
+      "normalized": {
+        "low": 2400000,
+        "high": 2400000,
+        "currency": "USD"
+      },
+      "source_span": "Government estimate: $2,400,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "20% Miller Act bid guarantee; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 20,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Pursuant to the Miller Act, a bid guarantee of 20% of the bid price is required with the offer. Performance and payment bonds shall each be 100% of the contract price. The Contractor shall maintain commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "November 5, 2026",
+      "normalized": "2026-11-05",
+      "source_span": "Site visit: November 5, 2026 at 9:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-06-07",
+    "2027-12-17"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_15.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 983
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

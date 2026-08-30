@@ -1,0 +1,115 @@
+{
+  "case_id": "case_16",
+  "format": "pdf_municipal",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_16.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "City of Broomfield Public Works Department",
+      "normalized": "city of broomfield public works department",
+      "source_span": "Owner: City of Broomfield Public Works Department",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Municipal Service Center Boiler Replacement",
+      "normalized": "municipal service center boiler replacement",
+      "source_span": "Project: Municipal Service Center Boiler Replacement",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "piping"
+      ],
+      "normalized": [
+        "hvac",
+        "piping"
+      ],
+      "source_span": "Trades Required: HVAC and piping",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Broomfield, CO",
+      "normalized": "broomfield, co",
+      "source_span": "Project Location: Broomfield, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 30, 2026",
+      "normalized": "2026-10-30",
+      "source_span": "Bids due: October 30, 2026 at 10:00 AM MT",
+      "extra": {
+        "time_local": "10:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$780,000",
+      "normalized": {
+        "low": 780000,
+        "high": 780000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $780,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bid security shall be 10% of the bid amount. Performance and payment bonds are each 100% of the contract price. Contractor shall carry commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 13, 2026",
+      "normalized": "2026-10-13",
+      "source_span": "Mandatory pre-bid conference: October 13, 2026 at 10:00 AM. Attendance is mandatory.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-03-01",
+    "2027-06-25"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_16.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 938
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

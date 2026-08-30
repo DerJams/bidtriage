@@ -1,0 +1,23 @@
+From: Sable Creek Industrial via BidBoard <team@bidboardconnect.example>
+To: estimating@summitpeakmech.example
+Subject: Bid Invite: Sable Creek Cold Box Ventilation Project
+Date: Wed, 09 Sep 2026 06:55:00 -0600
+Content-Type: text/plain; charset="utf-8"
+
+You have been invited to bid.
+
+Client: Sable Creek Industrial Properties
+
+Project: Sable Creek Cold Box Ventilation
+
+Bid package: Mechanical ventilation
+
+Location: Longmont, CO
+
+Bids due: November 6, 2026 at 11:00 AM MT
+
+Job walk: October 20, 2026 at 7:30 AM
+
+This invitation covers the ventilation and ductwork scope. The attachment lists the full trade breakdown including the controls scope carried under this package.
+
+Project lead: Nikolaj Ferreira-Stout.

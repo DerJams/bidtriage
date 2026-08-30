@@ -1,0 +1,126 @@
+{
+  "case_id": "case_17",
+  "format": "email_thread_superseded",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_17.eml",
+      "role": "document",
+      "kind": "email"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Keystone Ridge Builders",
+      "normalized": "keystone ridge builders",
+      "source_span": "Keystone Ridge Builders is soliciting subcontractor proposals as general contractor for the owner.",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Golden Foundry Lofts Adaptive Reuse",
+      "normalized": "golden foundry lofts adaptive reuse",
+      "source_span": "The project is the Golden Foundry Lofts Adaptive Reuse.",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "plumbing",
+        "sheet_metal"
+      ],
+      "normalized": [
+        "hvac",
+        "plumbing",
+        "sheet_metal"
+      ],
+      "source_span": "Mechanical scope for this package is HVAC, plumbing, and sheet metal.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Golden, CO",
+      "normalized": "golden, co",
+      "source_span": "The building is in Golden, CO.",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 12, 2026",
+      "normalized": "2026-10-12",
+      "source_span": "Correction to my earlier note: our client moved the deadline. Please disregard the September 28 date I gave you below. Proposals are now due October 12, 2026 at 5:00 PM MT.",
+      "extra": {
+        "time_local": "17:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,150,000",
+      "normalized": {
+        "low": 1150000,
+        "high": 1150000,
+        "currency": "USD"
+      },
+      "source_span": "Our internal budget for the mechanical package is $1,150,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 16, 2026",
+      "normalized": "2026-09-16",
+      "source_span": "Site walk: September 16, 2026 at 1:00 PM.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-02-01",
+    "2027-08-13"
+  ],
+  "traps": [
+    {
+      "kind": "thread_reply_supersedes",
+      "field": "bid_due_date",
+      "naive_value": "2026-09-28",
+      "correct_value": "2026-10-12",
+      "note": "The superseded date sits in the quoted original below the correction, which is the larger and more detailed part of the message."
+    }
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_17.eml",
+      "role": "document",
+      "kind": "email",
+      "chars": 1333
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

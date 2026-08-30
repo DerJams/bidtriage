@@ -1,0 +1,117 @@
+{
+  "case_id": "case_07",
+  "format": "pdf_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_07.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Cache La Poudre Community College District",
+      "normalized": "cache la poudre community college district",
+      "source_span": "Owner: Cache La Poudre Community College District",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Science Building HVAC Modernization",
+      "normalized": "science building hvac modernization",
+      "source_span": "Project: Science Building HVAC Modernization",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "sheet_metal",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "sheet_metal"
+      ],
+      "source_span": "Trades Required: HVAC, sheet metal, and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Fort Collins, CO",
+      "normalized": "fort collins, co",
+      "source_span": "Project Location: Fort Collins, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 20, 2026",
+      "normalized": "2026-10-20",
+      "source_span": "Bid due: October 20, 2026 at 3:00 PM MT",
+      "extra": {
+        "time_local": "15:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,400,000",
+      "normalized": {
+        "low": 1400000,
+        "high": 1400000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $1,400,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bid security shall be 10% of the bid amount. Performance and payment bonds are each 100% of the contract price. Contractor shall carry commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 2, 2026",
+      "normalized": "2026-10-02",
+      "source_span": "Pre-bid walk-through: October 2, 2026 at 1:00 PM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-04-12",
+    "2027-09-24"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_07.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 1013
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

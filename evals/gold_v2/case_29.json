@@ -1,0 +1,129 @@
+{
+  "case_id": "case_29",
+  "format": "platform_invitation_with_attachment",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_29.eml",
+      "role": "platform invitation",
+      "kind": "email"
+    },
+    {
+      "path": "data/synthetic/pdfs_v2/case_29_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Sable Creek Industrial Properties",
+      "normalized": "sable creek industrial properties",
+      "source_span": "Client: Sable Creek Industrial Properties",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Sable Creek Cold Box Ventilation",
+      "normalized": "sable creek cold box ventilation",
+      "source_span": "Project: Sable Creek Cold Box Ventilation",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "sheet_metal",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "sheet_metal"
+      ],
+      "source_span": "Full trade breakdown for this package: HVAC, sheet metal, and controls. Refrigeration for the cold box itself is by the Owner's specialty vendor and is excluded from this package.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Longmont, CO",
+      "normalized": "longmont, co",
+      "source_span": "Location: Longmont, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 6, 2026",
+      "normalized": "2026-11-06",
+      "source_span": "Bids due: November 6, 2026 at 11:00 AM MT",
+      "extra": {
+        "time_local": "11:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,470,000",
+      "normalized": {
+        "low": 1470000,
+        "high": 1470000,
+        "currency": "USD"
+      },
+      "source_span": "Owner's construction budget is $1,470,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 20, 2026",
+      "normalized": "2026-10-20",
+      "source_span": "Job walk: October 20, 2026 at 7:30 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-05-10",
+    "2027-09-03"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_29.eml",
+      "role": "platform invitation",
+      "kind": "email",
+      "chars": 715
+    },
+    {
+      "index": 2,
+      "path": "data/synthetic/pdfs_v2/case_29_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf",
+      "chars": 681
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "case_id": "case_19",
+  "format": "pdf_design_build",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_19.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Meridian Hollow Hospitality Group",
+      "normalized": "meridian hollow hospitality group",
+      "source_span": "Owner: Meridian Hollow Hospitality Group",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Meridian Hollow Conference Centre Mechanical Design Build",
+      "normalized": "meridian hollow conference centre mechanical design build",
+      "source_span": "Project: Meridian Hollow Conference Centre Mechanical Design Build",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "piping",
+        "sheet_metal",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "piping",
+        "sheet_metal"
+      ],
+      "source_span": "Trades Required: HVAC, piping, sheet metal, and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "Project Location: Denver, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 24, 2026",
+      "normalized": "2026-11-24",
+      "source_span": "Proposals due: November 24, 2026 at 3:00 PM MT",
+      "extra": {
+        "time_local": "15:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$5,500,000",
+      "normalized": {
+        "low": 5500000,
+        "high": 5500000,
+        "currency": "USD"
+      },
+      "source_span": "Owner's not-to-exceed budget for this package is $5,500,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "November 2, 2026",
+      "normalized": "2026-11-02",
+      "source_span": "Pre-proposal site visit: November 2, 2026 at 10:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-07-12",
+    "2028-04-28"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_19.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 1184
+    }
+  ],
+  "triage": {
+    "decision": "no_bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": false,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "size_band_ok"
+    ]
+  }
+}

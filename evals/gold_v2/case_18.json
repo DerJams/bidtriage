@@ -1,0 +1,115 @@
+{
+  "case_id": "case_18",
+  "format": "email_gc_scope_sheet",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_18.eml",
+      "role": "document",
+      "kind": "email"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Antler Creek Construction",
+      "normalized": "antler creek construction",
+      "source_span": "GC: Antler Creek Construction",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Antler Creek Commons Phase 1",
+      "normalized": "antler creek commons phase 1",
+      "source_span": "PROJECT ............ Antler Creek Commons Phase 1",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "sheet_metal"
+      ],
+      "normalized": [
+        "hvac",
+        "sheet_metal"
+      ],
+      "source_span": "TRADES ............. HVAC, sheet metal",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Denver, CO",
+      "normalized": "denver, co",
+      "source_span": "LOCATION ........... Denver, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 5, 2026",
+      "normalized": "2026-10-05",
+      "source_span": "BIDS DUE ........... October 5, 2026, 12:00 PM MT",
+      "extra": {
+        "time_local": "12:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$960,000",
+      "normalized": {
+        "low": 960000,
+        "high": 960000,
+        "currency": "USD"
+      },
+      "source_span": "BUDGET ............. $960,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "September 21, 2026",
+      "normalized": "2026-09-21",
+      "source_span": "JOB WALK ........... September 21, 2026",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-01-18",
+    "2027-05-07"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_18.eml",
+      "role": "document",
+      "kind": "email",
+      "chars": 1013
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "case_id": "case_14",
+  "format": "pdf_rfp_with_addendum",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_14.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Prairie Junction Water Reclamation Authority",
+      "normalized": "prairie junction water reclamation authority",
+      "source_span": "Owner: Prairie Junction Water Reclamation Authority",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Headworks Odour Control Mechanical Package",
+      "normalized": "headworks odour control mechanical package",
+      "source_span": "Project: Headworks Odour Control Mechanical Package",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "sheet_metal",
+        "piping"
+      ],
+      "normalized": [
+        "hvac",
+        "piping",
+        "sheet_metal"
+      ],
+      "source_span": "Trades Required: HVAC, sheet metal, and process piping",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Greeley, CO",
+      "normalized": "greeley, co",
+      "source_span": "Project Location: Greeley, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 17, 2026",
+      "normalized": "2026-11-17",
+      "source_span": "Bid due: November 17, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$1,650,000",
+      "normalized": {
+        "low": 1650000,
+        "high": 1650000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $1,650,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond after Addendum 1; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Item 1.2: SECTION 3 IS AMENDED. Bid security is increased to 10% of the bid amount. Commercial general liability limits are increased to $2,000,000 per occurrence and $4,000,000 aggregate. Performance and payment bonds remain 100% of the contract price. The limits shown in Section 3 are superseded.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 29, 2026",
+      "normalized": "2026-10-29",
+      "source_span": "Pre-bid walk-through: October 29, 2026 at 9:00 AM",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-04-26",
+    "2027-10-08"
+  ],
+  "traps": [
+    {
+      "kind": "addendum_changes_material_term",
+      "field": "bond_insurance",
+      "naive_value": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 1000000,
+        "gl_aggregate_usd": 2000000
+      },
+      "correct_value": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "note": "Addendum 1 raises the bid bond and the liability limits. The superseded figures appear first and read as the answer."
+    }
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_14.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 1399
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

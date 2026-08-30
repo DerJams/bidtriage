@@ -1,0 +1,112 @@
+{
+  "case_id": "case_08",
+  "format": "pdf_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_08.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Pikes Hollow Athletic Club",
+      "normalized": "pikes hollow athletic club",
+      "source_span": "Owner: Pikes Hollow Athletic Club",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Natatorium Pool Mechanical Replacement",
+      "normalized": "natatorium pool mechanical replacement",
+      "source_span": "Project: Natatorium Pool Mechanical Replacement",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "plumbing",
+        "piping"
+      ],
+      "normalized": [
+        "piping",
+        "plumbing"
+      ],
+      "source_span": "Trades Required: plumbing and process piping",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Colorado Springs, CO",
+      "normalized": "colorado springs, co",
+      "source_span": "Project Location: Colorado Springs, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 14, 2026",
+      "normalized": "2026-10-14",
+      "source_span": "Bid due: October 14, 2026 at 5:00 PM MT",
+      "extra": {
+        "time_local": "17:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$600,000",
+      "normalized": {
+        "low": 600000,
+        "high": 600000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $600,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "No bonding required",
+      "normalized": {
+        "required": false
+      },
+      "source_span": "This is a privately funded project. No bid bond, performance bond, or payment bond is required for this solicitation. Bidders shall provide a current certificate of insurance upon award.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Source states a walk-through will not be held."
+      }
+    }
+  },
+  "construction_window": [
+    "2027-02-08",
+    "2027-05-29"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_08.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 1019
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

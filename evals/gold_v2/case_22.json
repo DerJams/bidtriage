@@ -1,0 +1,129 @@
+{
+  "case_id": "case_22",
+  "format": "email_with_bid_form",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_22.eml",
+      "role": "cover email",
+      "kind": "email"
+    },
+    {
+      "path": "data/synthetic/pdfs_v2/case_22_bidform.pdf",
+      "role": "bid form attachment",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Quarry View Partners",
+      "normalized": "quarry view partners",
+      "source_span": "Quarry View Partners is inviting bids for the mechanical package.",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Quarry View Commerce Park Building 2 Fitout",
+      "normalized": "quarry view commerce park building 2 fitout",
+      "source_span": "The project is the Quarry View Commerce Park Building 2 Fitout.",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "plumbing",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac",
+        "plumbing"
+      ],
+      "source_span": "Trades: HVAC, plumbing, and controls.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Lakewood, CO",
+      "normalized": "lakewood, co",
+      "source_span": "Site is in Lakewood, CO.",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "October 22, 2026",
+      "normalized": "2026-10-22",
+      "source_span": "Bids are due October 22, 2026 at 3:00 PM MT.",
+      "extra": {
+        "time_local": "15:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$740,000",
+      "normalized": {
+        "low": 740000,
+        "high": 740000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate for this package: $740,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "5% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 5,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price. Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "October 6, 2026",
+      "normalized": "2026-10-06",
+      "source_span": "Walk-through: October 6, 2026 at 8:30 AM.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-03-15",
+    "2027-07-30"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_22.eml",
+      "role": "cover email",
+      "kind": "email",
+      "chars": 769
+    },
+    {
+      "index": 2,
+      "path": "data/synthetic/pdfs_v2/case_22_bidform.pdf",
+      "role": "bid form attachment",
+      "kind": "pdf",
+      "chars": 471
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

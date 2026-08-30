@@ -1,0 +1,52 @@
+[PAGE 1]
+SILVER ASPEN REGIONAL MEDICAL CAMPUS
+OWNER: Silver Aspen Regional Medical Campus
+PROJECT MANUAL - VOLUME 1 OF 3. Solicitation SARMC-CP-2026-03.
+PROJECT: Central Plant Upgrade
+SITE: Castle Rock, CO
+BID DATE: October 16, 2026 at 2:00 PM MT
+PRE-BID WALK: September 30, 2026 at 7:30 AM
+NOTICE TO BIDDERS: This project manual is issued subject to addenda. Dates appearing on this cover sheet
+are as-issued and may be superseded by addendum. Refer to Part 4 for all issued addenda.
+
+[PAGE 2]
+PART 1 - SUMMARY OF WORK
+Replacement and expansion of the central utility plant: demolition of two steam-to-hot-water converters, three new
+condensing hot water boilers, replacement of the primary chilled water pumping assembly, new hydronic
+distribution piping, and complete replacement of the plant control system.
+Base Bid trades are mechanical (HVAC), process and hydronic piping, and automatic temperature controls.
+ALTERNATE NO. 1 is a separately priced add alternate covering standpipe and fire suppression riser
+modifications in the plant penthouse. Alternate No. 1 is NOT part of the Base Bid. Bidders who do not hold a fire
+protection license may bid the Base Bid and decline Alternate No. 1 without prejudice.
+PART 2 - COMMERCIAL TERMS
+ENGINEER ESTIMATE: $1,800,000 to $2,100,000
+CONSTRUCTION START: March 15, 2027. SUBSTANTIAL COMPLETION: November 30, 2027.
+Bonding: bid bond 5% of the total bid; performance bond and payment bond each 100% of the contract price.
+Commercial general liability $2,000,000 per occurrence and $4,000,000 aggregate.
+
+[PAGE 3]
+PART 3 - SCHEDULE OF QUANTITIES
+BASE BID ALT 1
+SPEC DESCRIPTION UNIT QTY QTY
+-------- ------------------------ ---- ------- -------
+23 52 16 Condensing hot water boiler EA 3 0
+23 21 23 Primary CHW pump, 60 HP EA 4 0
+23 21 13 Hydronic piping, welded LF 5,820 0
+23 09 23 DDC plant controller LS 1 0
+21 12 00 Standpipe riser modification EA 0 6
+21 13 16 Wet pipe sprinkler relocation EA 0 4
+NOTE: The ALT 1 QTY column applies to Alternate No. 1 only. Items showing a BASE BID QTY of 0 are excluded
+from the Base Bid scope. Spec sections 21 12 00 and 21 13 16 are fire protection and are carried under Alternate
+No. 1 exclusively.
+
+[PAGE 4]
+PART 4 - ADDENDA ISSUED
+ADDENDUM NO. 1, issued September 4, 2026. Item 1.1: boiler manufacturer list amended to add one approved
+manufacturer. No change to the bid date results from this addendum.
+ADDENDUM NO. 2, issued September 25, 2026.
+Item 2.1: THE BID DATE IS EXTENDED. Bids are now due November 6, 2026 at 2:00 PM MT. The bid date of
+October 16, 2026 shown on the cover sheet is superseded and shall not be relied upon.
+Item 2.2: The pre-bid walk-through held September 30, 2026 is not rescheduled. Firms that attended remain
+eligible to bid.
+Item 2.3: Alternate No. 1 remains a separately priced add alternate. Several bidders asked whether the standpipe
+work is included in the Base Bid. It is not.

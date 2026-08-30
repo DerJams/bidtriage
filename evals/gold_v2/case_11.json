@@ -1,0 +1,129 @@
+{
+  "case_id": "case_11",
+  "format": "platform_invitation_with_attachment",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/emails_v2/case_11.eml",
+      "role": "platform invitation",
+      "kind": "email"
+    },
+    {
+      "path": "data/synthetic/pdfs_v2/case_11_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Idaho Springs Municipal Utilities District",
+      "normalized": "idaho springs municipal utilities district",
+      "source_span": "Client: Idaho Springs Municipal Utilities District",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Water Treatment Plant No. 2 Chemical Feed Piping Replacement",
+      "normalized": "water treatment plant no. 2 chemical feed piping replacement",
+      "source_span": "Project: Water Treatment Plant No. 2 Chemical Feed Piping Replacement",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "plumbing",
+        "piping"
+      ],
+      "normalized": [
+        "piping",
+        "plumbing"
+      ],
+      "source_span": "Base bid trades: plumbing and process piping.",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Idaho Springs, CO",
+      "normalized": "idaho springs, co",
+      "source_span": "Location: Idaho Springs, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 3, 2026",
+      "normalized": "2026-11-03",
+      "source_span": "Bids due: November 3, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$420,000",
+      "normalized": {
+        "low": 420000,
+        "high": 420000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate is $420,000.",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bid security shall be 10% of the bid amount. Performance and payment bonds are each 100% of the contract price. Contractor shall carry commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": false,
+      "value": null,
+      "normalized": null,
+      "source_span": null,
+      "extra": {
+        "why_absent": "Invitation states no job walk has been scheduled."
+      }
+    }
+  },
+  "construction_window": [
+    "2027-03-08",
+    "2027-07-16"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/emails_v2/case_11.eml",
+      "role": "platform invitation",
+      "kind": "email",
+      "chars": 779
+    },
+    {
+      "index": 2,
+      "path": "data/synthetic/pdfs_v2/case_11_scope.pdf",
+      "role": "scope attachment",
+      "kind": "pdf",
+      "chars": 573
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}

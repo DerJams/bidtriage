@@ -1,0 +1,115 @@
+{
+  "case_id": "case_20",
+  "format": "pdf_rfp",
+  "corpus": "v2",
+  "sources": [
+    {
+      "path": "data/synthetic/pdfs_v2/case_20.pdf",
+      "role": "document",
+      "kind": "pdf"
+    }
+  ],
+  "fields": {
+    "client_name": {
+      "present_in_source": true,
+      "value": "Tenmile Basin Recreation District",
+      "normalized": "tenmile basin recreation district",
+      "source_span": "Owner: Tenmile Basin Recreation District",
+      "extra": {}
+    },
+    "project_title": {
+      "present_in_source": true,
+      "value": "Tenmile Basin Ice Arena Dehumidification Upgrade",
+      "normalized": "tenmile basin ice arena dehumidification upgrade",
+      "source_span": "Project: Tenmile Basin Ice Arena Dehumidification Upgrade",
+      "extra": {}
+    },
+    "trade_scope": {
+      "present_in_source": true,
+      "value": [
+        "hvac",
+        "controls"
+      ],
+      "normalized": [
+        "controls",
+        "hvac"
+      ],
+      "source_span": "Trades Required: HVAC and controls",
+      "extra": {}
+    },
+    "location": {
+      "present_in_source": true,
+      "value": "Frisco, CO",
+      "normalized": "frisco, co",
+      "source_span": "Project Location: Frisco, CO",
+      "extra": {}
+    },
+    "bid_due_date": {
+      "present_in_source": true,
+      "value": "November 12, 2026",
+      "normalized": "2026-11-12",
+      "source_span": "Bid due: November 12, 2026 at 2:00 PM MT",
+      "extra": {
+        "time_local": "14:00"
+      }
+    },
+    "estimated_project_value": {
+      "present_in_source": true,
+      "value": "$890,000",
+      "normalized": {
+        "low": 890000,
+        "high": 890000,
+        "currency": "USD"
+      },
+      "source_span": "Engineer's estimate: $890,000",
+      "extra": {}
+    },
+    "bond_insurance": {
+      "present_in_source": true,
+      "value": "10% bid bond; 100% performance and payment; $2M/$4M GL",
+      "normalized": {
+        "required": true,
+        "bid_bond_pct": 10,
+        "performance_bond_pct": 100,
+        "payment_bond_pct": 100,
+        "gl_per_occurrence_usd": 2000000,
+        "gl_aggregate_usd": 4000000
+      },
+      "source_span": "Bid security shall be 10% of the bid amount. Performance and payment bonds are each 100% of the contract price. Contractor shall carry commercial general liability of $2,000,000 per occurrence and $4,000,000 aggregate.",
+      "extra": {}
+    },
+    "walkthrough_date": {
+      "present_in_source": true,
+      "value": "November 3, 2026",
+      "normalized": "2026-11-03",
+      "source_span": "An optional pre-bid walk-through will be held November 3, 2026 at 11:00 AM. Attendance is not mandatory and bids from firms that do not attend will be accepted.",
+      "extra": {}
+    }
+  },
+  "construction_window": [
+    "2027-05-24",
+    "2027-08-20"
+  ],
+  "source_manifest": [
+    {
+      "index": 1,
+      "path": "data/synthetic/pdfs_v2/case_20.pdf",
+      "role": "document",
+      "kind": "pdf",
+      "chars": 1064
+    }
+  ],
+  "triage": {
+    "decision": "bid",
+    "criteria": {
+      "trade_fit": true,
+      "within_radius": true,
+      "size_band_ok": true,
+      "timeline_conflict": false
+    },
+    "required_reasons": [
+      "trade_fit",
+      "size_band_ok"
+    ]
+  }
+}
