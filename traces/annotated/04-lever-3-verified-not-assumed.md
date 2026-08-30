@@ -131,4 +131,4 @@ Decisive: **the model agreed with the rule on all 96 decisions, and the rule cor
 
 ---
 
-Episode covers transcript events 570-576 of 714 total. Raw transcript: [`traces/`](../).
+Episode covers transcript events 570-576 of 838 total. Raw transcript: [`traces/`](../).

@@ -198,4 +198,4 @@ EXIT: 0
 
 ---
 
-Episode covers transcript events 195-206 of 714 total. Raw transcript: [`traces/`](../).
+Episode covers transcript events 195-206 of 838 total. Raw transcript: [`traces/`](../).

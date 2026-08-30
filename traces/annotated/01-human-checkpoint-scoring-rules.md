@@ -166,4 +166,4 @@ Refinements noted and folded in — all four. Let me verify the venv first (uv r
 
 ---
 
-Episode covers transcript events 16-23 of 714 total. Raw transcript: [`traces/`](../).
+Episode covers transcript events 16-23 of 838 total. Raw transcript: [`traces/`](../).
