@@ -368,6 +368,16 @@ correct: `case_13`, `case_25` and `case_26` estimated value account for most of
 them. The verifier is reaching for "uncertain" where the honest answer is
 "the document does not say".
 
+**What the queue looks like once 2b is in.** Across the final arm's eight runs
+the human review queue fires **3 times in 1,920 scored slots, 0.156%**, on
+**2 distinct slots**: `case_04.trade_scope` twice and `case_06.trade_scope`
+once. Lever 2 on its own flagged **42 times in 1,200 slots, 3.50%**, spread over
+13 distinct slots, 30 of which were `estimated_project_value`. That is the
+contrast: 2b removed the over-flagging on supported nulls, so the queue is rare
+by design rather than decorative, and what reaches a human is genuine
+uncertainty on one field in two cases rather than a pile of absent values the
+document had already accounted for.
+
 **The final configuration solves all three adversarial cases.** Across five
 runs, every trap field scores correct 5 times out of 5, and triage is correct
 5/5 on each:
