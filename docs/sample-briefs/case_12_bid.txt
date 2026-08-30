@@ -1,0 +1,74 @@
+Exported from 20260830T171343231431Z_solution_p10600.json
+Run label: v2-full2b-1   levers: lever2b_verify, lever3_triage, lever4_brief
+Model: z-ai/glm-5.3-flash via DeepInfra
+This file is generated output from a recorded run, not written by hand.
+------------------------------------------------------------------------
+
+========================================================================
+BID TRIAGE BRIEF
+Central Plant Upgrade
+========================================================================
+
+RECOMMENDATION: BID
+
+  Trade fit        PASS      Base Bid requires HVAC, hydronic/process
+                             piping, and ATC controls, all
+                             self-performed. Fire protection (specs 21
+                             12 00, 21 13 16) is confined to Alternate
+                             No. 1, which is not part of the Base Bid
+                             and may be declined without prejudice.
+  Service radius   PASS      Project is in Castle Rock, CO, listed at 45
+                             miles from Golden, within the 90-mile
+                             radius.
+  Size band        PASS      Engineer estimate $1,800,000 to $2,100,000;
+                             midpoint = $1,950,000, inside the $250,000
+                             to $3,000,000 band.
+  Timeline         CLEAR     All three committed projects run
+                             concurrently from 2026-10-01 (Foothills
+                             start) until 2026-12-10 (Clear Creek end),
+                             which is the only period at max capacity of
+                             3. The new window (2027-03-15 to
+                             2027-11-30) starts after Foothills ends
+                             2027-03-20? No, Foothills ends 2027-03-20,
+                             but the new start 2027-03-15 falls before
+                             that; however at that point only Foothills
+                             (and Ridgeline, ending 2027-01-28, already
+                             ended) is running, so only 1 project is
+                             active. No period of 3 concurrent projects
+                             overlaps the new window.
+
+NEEDS YOUR REVIEW
+  Nothing was flagged as uncertain.
+  Every field below was confirmed against the source document.
+
+KEY DATES
+  Bid due              2026-11-06 at 2:00 PM MT
+  Walk-through         2026-09-30 at 7:30 AM
+
+PROJECT
+  Client               Silver Aspen Regional Medical Campus
+  Location             Castle Rock, CO
+  Trade scope          HVAC, piping, controls
+  Estimated value      $1,800,000 - $2,100,000
+
+BONDING AND INSURANCE
+  Bid bond             5%
+  Performance bond     100%
+  Payment bond         100%
+  General liability    $2,000,000 per occurrence / $4,000,000 aggregate
+
+------------------------------------------------------------------------
+SOURCE CITATIONS
+  Every figure above is quoted from the document below.
+
+  Client               "OWNER: Silver Aspen Regional Medical Campus"
+  Project              "PROJECT: Central Plant Upgrade"
+  Trade scope          "Base Bid trades are mechanical (HVAC), process and hydronic piping, and aut..."
+  Location             "SITE: Castle Rock, CO"
+  Bid due              "Item 2.1: THE BID DATE IS EXTENDED. Bids are now due November 6, 2026 at 2:..."
+  Walk-through         "PRE-BID WALK: September 30, 2026 at 7:30 AM"
+  Estimated value      "ENGINEER ESTIMATE: $1,800,000 to $2,100,000"
+  Bonding              "Bonding: bid bond 5% of the total bid; performance bond and payment bond ea..."
+
+------------------------------------------------------------------------
+Prepared by BidTriage from the source document for case_12.

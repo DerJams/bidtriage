@@ -199,6 +199,10 @@ Prints `model agreed with the boolean rule on 96 of 96 decisions`.
   the whole thing.
 - If shot 4 runs long because of a rate-limit retry, keep it. A visible retry
   is honest and the client counts them.
-- The lever 1 line in the narration must stay in the past tense as a measured
-  result, not a prediction. Check the CHANGELOG for the final measured number
-  before recording and use it.
+- The lever 1 numbers are now measured and can be stated directly: flat on
+  every metric, field accuracy p = 0.770, hallucination p = 0.976, triage
+  p = 0.643, cost unchanged.
+- If there is room, the strongest extra beat is lever 2b: the one regression
+  the project found in its own work, diagnosed to a single reconciliation rule
+  and fixed for a measured 1.83 point gain at no extra cost. It shows the loop
+  closing rather than just running.

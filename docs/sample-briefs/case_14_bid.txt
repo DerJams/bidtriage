@@ -1,0 +1,66 @@
+Exported from 20260830T171343231431Z_solution_p10600.json
+Run label: v2-full2b-1   levers: lever2b_verify, lever3_triage, lever4_brief
+Model: z-ai/glm-5.3-flash via DeepInfra
+This file is generated output from a recorded run, not written by hand.
+------------------------------------------------------------------------
+
+========================================================================
+BID TRIAGE BRIEF
+Headworks Odour Control Mechanical Package
+========================================================================
+
+RECOMMENDATION: BID
+
+  Trade fit        PASS      Required trades are HVAC, sheet metal, and
+                             process piping; all three are on the
+                             self-performed list (hvac, sheet_metal,
+                             piping).
+  Service radius   PASS      Project is in Greeley, CO, listed at 75
+                             miles, under the 90-mile radius from
+                             Golden.
+  Size band        PASS      Engineer's estimate is a single value of
+                             $1,650,000 (midpoint = $1,650,000), inside
+                             the $250,000 to $3,000,000 band.
+  Timeline         CLEAR     All three committed projects run
+                             concurrently only from 2026-10-01
+                             (Foothills start) to 2026-12-10 (Clear
+                             Creek end). The new window (2027-04-26 to
+                             2027-10-08) begins after the last
+                             commitment ends (2027-03-20), so there is
+                             no overlap.
+
+NEEDS YOUR REVIEW
+  Nothing was flagged as uncertain.
+  Every field below was confirmed against the source document.
+
+KEY DATES
+  Bid due              2026-11-17 at 2:00 PM MT
+  Walk-through         2026-10-29 at 9:00 AM
+
+PROJECT
+  Client               Prairie Junction Water Reclamation Authority
+  Location             Greeley, CO
+  Trade scope          HVAC, sheet metal, piping
+  Estimated value      $1,650,000 (engineer's estimate)
+
+BONDING AND INSURANCE
+  Bid bond             10%
+  Performance bond     100%
+  Payment bond         100%
+  General liability    $2,000,000 per occurrence / $4,000,000 aggregate
+
+------------------------------------------------------------------------
+SOURCE CITATIONS
+  Every figure above is quoted from the document below.
+
+  Client               "Owner: Prairie Junction Water Reclamation Authority"
+  Project              "Project: Headworks Odour Control Mechanical Package"
+  Trade scope          "Trades Required: HVAC, sheet metal, and process piping"
+  Location             "Project Location: Greeley, CO"
+  Bid due              "Bid due: November 17, 2026 at 2:00 PM MT"
+  Walk-through         "Pre-bid walk-through: October 29, 2026 at 9:00 AM"
+  Estimated value      "Engineer's estimate: $1,650,000"
+  Bonding              "Bid security is increased to 10% of the bid amount. Commercial general liab..."
+
+------------------------------------------------------------------------
+Prepared by BidTriage from the source document for case_14.

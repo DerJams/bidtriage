@@ -251,13 +251,17 @@ them, never replacing them, because the corpus changed and a lever effect must
 not be confused with that change. The noise floor below is measured on v2, not
 carried over from v1.
 
-| Metric | Target | Baseline | Lever 1 | Lever 2 | Levers 2+3+4 |
-|---|---|---|---|---|---|
-| Field accuracy | at least 90% | 96.83% | 97.08% | 95.25% | 95.67% |
-| Hallucination | at most 2% | 1.07% | 1.07% | 0.89% | 0.89% |
-| Triage accuracy | n/a | 78.00% | 80.00% | 80.00% | **98.00%** |
-| Cost per case | n/a | $0.00012 | $0.00012 | $0.00037 | $0.00058 |
-| Hard failures | n/a | 0 | 0 | 0 | 0 |
+| Metric | Target | Baseline | Lever 1 | Lever 2 | Lever 2b | 2+3+4 | **2b+3+4 (final)** |
+|---|---|---|---|---|---|---|---|
+| Field accuracy | at least 90% | 96.83% | 96.67% | 95.25% | 97.25% | 95.67% | **97.50%** |
+| Hallucination | at most 2% | 1.07% | 1.04% | 0.89% | 0.89% | 0.89% | **0.88%** |
+| Triage accuracy | n/a | 78.00% | 80.00% | 80.00% | 76.67% | 98.00% | **97.33%** |
+| Cost per case | n/a | $0.00012 | $0.00012 | $0.00037 | $0.00038 | $0.00058 | **$0.00058** |
+| Hard failures | n/a | 0 | 1 | 0 | 0 | 0 | **0** |
+
+Lever 2b is lever 2 with one reconciliation rule revised after measurement. It
+is a separate arm rather than an edit, so the lever 2 numbers above are the
+originals rather than being quietly replaced.
 
 Verdicts against the baseline:
 
@@ -273,6 +277,12 @@ Verdicts against the baseline:
 | Levers 2+3+4 | triage | **20.00pp higher** | 10.00 | 0.008 | **improvement** |
 | Levers 2+3+4 | field accuracy | 1.17pp lower | 1.25 | 0.024 | within noise |
 | Levers 2+3+4 | cost | 4.8x higher | n/a | 0.008 | regression |
+| **2b+3+4 (final)** | triage | **19.33pp higher** | 10.00 | 0.008 | **improvement** |
+| **2b+3+4 (final)** | field accuracy | 0.67pp higher | 1.25 | 0.175 | within noise |
+| **2b+3+4 (final)** | hallucination | 0.18pp lower | 0.45 | 0.048 | within noise |
+| **2b+3+4 (final)** | cost | 4.8x higher | n/a | 0.008 | regression |
+| **2b vs 2**, full stack | field accuracy | **1.83pp higher** | 1.25 | 0.008 | **improvement** |
+| **2b vs 2**, full stack | cost | none | n/a | 0.944 | within noise |
 
 Lever 3's own incremental contribution, measured against lever 2 so it is not
 credited with lever 2's work: triage 80.00% to 98.00%, **18.00pp higher**,
@@ -293,8 +303,19 @@ for hollowness again: across 148 case-decisions the model agreed with the
 boolean rule 147 times and the rule corrected it once, so the formula is
 contributing almost nothing to the number rather than carrying it.
 
-**Lever 2 regresses field accuracy on v2, and the cause is exactly the designed
-tradeoff.** Counting outcomes across all five runs, the baseline produces 12
+**The lever 2 regression was diagnosed and fixed, and the fix is a measured
+improvement.** 40 of lever 2's 42 flags were `SUPPORTED` with a null value,
+which the reconciliation treated as a self-contradiction. In almost every case
+the document had said plainly that there is no value, for example "the Owner
+has not released a construction budget". Lever 2b abstains when the verifier
+marks a field supported, returns null, **and** produces a span that is located
+in the source; without a locatable span it still flags, so an unsupported claim
+is not rewarded. Measured against lever 2 in the full stack: field accuracy
+95.67% to **97.50%**, 1.83pp higher, p = 0.008, **improvement**, at no extra
+cost (p = 0.944). That is the loop closing: measure, diagnose, revise,
+re-measure, and keep both numbers.
+
+**The original lever 2 regression, for the record.** Counting outcomes across all five runs, the baseline produces 12
 incorrect and 26 missed slots, while lever 2 produces 10 incorrect, 5 missed
 and 42 flagged. It converts misses into flags, and a flag counts as not correct
 by the rule frozen before any measurement. The hallucination rate falls in
@@ -303,6 +324,19 @@ that are genuinely absent, where confident abstention would have scored as
 correct: `case_13`, `case_25` and `case_26` estimated value account for most of
 them. The verifier is reaching for "uncertain" where the honest answer is
 "the document does not say".
+
+**The final configuration solves all three adversarial cases.** Across five
+runs, every trap field scores correct 5 times out of 5, and triage is correct
+5/5 on each:
+
+| Case | Trap | Result |
+|---|---|---|
+| `case_12` | addendum supersedes the bid date, quoted 5 times against the correct date once | 5/5 correct |
+| `case_12` | fire protection sits in an ALT column and is not base scope | 5/5 correct |
+| `case_14` | addendum raises the bid bond and liability limits, superseded figures appear first | 5/5 correct |
+| `case_17` | a later reply in an email thread supersedes the date in the quoted original | 5/5 correct |
+
+Exported briefs for all three are in [`docs/sample-briefs/`](docs/sample-briefs/).
 
 **On v2 the baseline already meets both frozen targets**, 96.83% accuracy
 against 90% and 1.07% hallucination against 2%. The remaining headroom is
