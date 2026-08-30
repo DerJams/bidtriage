@@ -68,7 +68,11 @@ def _text_for_part(case_id: str, part: dict, index: int, total: int, loader=None
     pre-extracted canonical text is used, which is what the baseline sees.
     """
     if loader is not None:
-        return loader(part)
+        got = loader(part)
+        if got is not None:
+            return got
+        # A loader that declines this part (lever 1's parser only handles PDFs)
+        # falls through to the canonical extracted text rather than crashing.
     # Canonical extracted text. Multi-part cases store one file per part,
     # suffixed by index; single-part cases keep the plain case_id name.
     name = case_id if total == 1 else "%s_%d" % (case_id, index)

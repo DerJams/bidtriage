@@ -29,13 +29,21 @@ TARGETS = ("baseline", "solution")
 
 
 def load_cases(only: list | None = None) -> list:
+    """Assemble each case's document text.
+
+    Goes through the assembler rather than reading one file per case, because
+    v2 platform cases are an invitation plus an attachment and are stored as
+    one file per part. Single-part cases assemble to text identical to the
+    file, so v1 is unaffected.
+    """
+    from evals.harness.documents import assemble
     cases = []
     for p in sorted(GOLD_DIR.glob("case_*.json")):
         gold = json.loads(p.read_text(encoding="utf-8"))
         cid = gold["case_id"]
         if only and cid not in only:
             continue
-        text = (SRC_DIR / (cid + ".txt")).read_text(encoding="utf-8")
+        text, _manifest = assemble(cid, gold)
         cases.append((cid, gold, text))
     return cases
 

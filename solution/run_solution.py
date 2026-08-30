@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import json
 import os
+import pathlib
 import re
 
 from evals.harness import client
@@ -41,6 +42,8 @@ from evals.harness.schema import response_format as extract_response_format
 from solution import brief
 from solution import triage as triage_mod
 from solution import verify_schema
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 ALL_LEVERS = ("lever1_parse", "lever2_verify", "lever3_triage", "lever4_brief")
 
@@ -296,7 +299,35 @@ def _apply_triage(prediction, case_id, document_text, combined):
     return prediction
 
 
+def _lever1_document(case_id: str, gold: dict, fallback: str) -> str:
+    """Lever 1. Re-parse the source with table extraction and layout preserved.
+
+    Wired here rather than in the runner so the baseline keeps seeing exactly
+    the plain extracted text it saw before, and the parser is the only thing
+    that differs between the two arms.
+    """
+    from evals.harness.documents import assemble
+    from solution import parse as parse_mod
+
+    def loader(part):
+        path = ROOT / part["path"]
+        if part["kind"] == "pdf" and path.exists():
+            try:
+                return parse_mod.parse_pdf(path)
+            except Exception:
+                return None
+        return None
+
+    try:
+        text, _ = assemble(case_id, gold, loader=loader)
+        return text
+    except Exception:
+        return fallback
+
+
 def run(case_id: str, gold: dict, document_text: str) -> tuple:
+    if "lever1_parse" in ACTIVE_LEVERS:
+        document_text = _lever1_document(case_id, gold, document_text)
     draft, res1 = _extract(case_id, gold, document_text)
     if draft is None:
         return None, [], res1

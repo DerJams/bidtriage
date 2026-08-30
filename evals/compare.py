@@ -25,8 +25,16 @@ import json
 import pathlib
 import statistics as st
 
+from evals import config
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "evals" / "results"
+GOLD_DIR = ROOT / "evals" / config.GOLD_DIRNAME
+
+# Full-corpus size for the SELECTED corpus. Hardcoding 12 would have silently
+# excluded every v2 run, which is exactly the kind of empty-comparison failure
+# that looks like a missing arm rather than a filter bug.
+EXPECTED_CASES = len(list(GOLD_DIR.glob("case_*.json")))
 
 METRICS = [
     ("field_accuracy", "field accuracy %", "higher", lambda r: r["metrics"]["field_accuracy"] * 100),
@@ -55,8 +63,10 @@ def load_group(name: str) -> list:
         if "SUPERSEDED" in pathlib.Path(f).name:
             continue
         r = json.loads(pathlib.Path(f).read_text(encoding="utf-8"))
-        if r.get("n_cases") != 12:
+        if r.get("n_cases") != EXPECTED_CASES:
             continue  # partial/target-check runs are not measurements
+        if (r.get("run_config") or {}).get("corpus", "v1") != config.CORPUS:
+            continue  # never mix corpora in one comparison
         if (r.get("reliability") or {}).get("n_failures"):
             skipped.append(pathlib.Path(f).name)
             continue  # a run with hard failures is not a measurement either
@@ -91,6 +101,7 @@ def compare(name_a: str, name_b: str) -> int:
     if len(ga) < 2 or len(gb) < 2:
         raise SystemExit("need >=2 runs per group (got %d and %d)" % (len(ga), len(gb)))
 
+    print("corpus %s, %d cases per run" % (config.CORPUS, EXPECTED_CASES))
     print("A = %-18s n=%d" % (name_a, len(ga)))
     print("B = %-18s n=%d" % (name_b, len(gb)))
     print("verdict rule: improvement requires |delta| >= noise floor AND p < %.2f\n" % ALPHA)
