@@ -153,8 +153,14 @@ BIDTRIAGE_LEVERS=lever2_verify,lever3_triage $PY -m evals.run --target solution
 BIDTRIAGE_LEVERS=lever2_verify,lever3_triage,lever4_brief $PY -m evals.run --target solution
 ```
 
-Valid names: `lever1_parse`, `lever2_verify`, `lever3_triage`, `lever4_brief`.
-An unknown name exits with an error rather than being ignored.
+Valid names: `lever1_parse`, `lever2_verify`, `lever2b_verify`,
+`lever3_triage`, `lever4_brief`. An unknown name exits with an error rather
+than being ignored.
+
+`lever2b_verify` is lever 2 with one reconciliation rule revised after
+measurement. It is a separate lever id rather than an edit to `lever2_verify`,
+so both are runnable and the recorded results for each remain valid. The final
+configuration is `lever2b_verify,lever3_triage,lever4_brief`.
 
 Measured per-run wall clock on the 12-case set: baseline 136 s, lever 2 341 s,
 lever 2+3 654 s.
@@ -195,10 +201,24 @@ BIDTRIAGE_CORPUS=v1 $PY -m evals.run --target baseline    # default
 BIDTRIAGE_CORPUS=v2 $PY -m evals.run --target baseline
 ```
 
-v1 is the frozen 12-case set every recorded result was measured on. The corpus
-version also selects the bond field shape, because v2 splits general liability
-into per-occurrence and aggregate limits. v1 therefore stays exactly
-reproducible.
+**v1** is the frozen 12-case set (96 scored slots) that the v1 results were
+measured on. **v2** is the revised and expanded set: 30 cases, 240 scored slots,
+18 document formats, including multi-part platform cases. Both are kept and both
+sets of results are reported; v2 does not replace v1.
+
+The corpus version also selects the bond field shape, because v2 splits general
+liability into per-occurrence and aggregate limits, and it selects the gold and
+source directories. v1 therefore stays exactly reproducible.
+
+Rebuild and validate the v2 corpus with:
+
+```bash
+BIDTRIAGE_CORPUS=v2 $PY -m data.v2.build
+```
+
+That renders every document, extracts the text, authors the gold keys, and
+validates every span against the assembled document. It exits non-zero if any
+span cannot be located or any normalized value is not reproducible.
 
 ## 7. Sample briefs
 
@@ -225,16 +245,33 @@ lists them and asks rather than guessing.
 
 ## Runtime and cost
 
+All figures below are measured. Cost is the amount actually charged.
+
+**Corpus v1, 12 cases per run:**
+
 | Stage | Runtime | API cost |
 |---|---|---|
-| Corpus regeneration | 1.1 s total, measured | none |
-| Harness selftest | under 1 s, measured | none |
-| Comparing arms | under 1 s, measured | none |
-| Baseline, one run | 136 s, measured | $0.00154, actually charged |
-| Baseline, n=8 | about 18 min, measured | about $0.012, actually charged |
-| Lever 2, one run | 341 s, measured | $0.00480, actually charged |
-| Lever 2+3, one run | 654 s, measured | $0.00720, actually charged |
-| Lever 1 | not yet measured | not yet measured |
+| Corpus regeneration | 1.1 s total | none |
+| Harness selftest | under 1 s | none |
+| Comparing arms | under 2 s | none |
+| Baseline, one run | 136 s | $0.00154 |
+| Lever 2, one run | 341 s | $0.00480 |
+| Lever 2+3, one run | 654 s | $0.00720 |
+
+**Corpus v2, 30 cases per run:**
+
+| Arm | Runs recorded | Runtime per run | API cost per run |
+|---|---|---|---|
+| baseline | 8 | 345 s | $0.00368 |
+| `lever1_parse` | 6 | 347 s | $0.00371 |
+| `lever2_verify` | 5 | 733 s | $0.01122 |
+| `lever2b_verify` | 5 | 663 s | $0.01130 |
+| `lever2_verify,lever3_triage,lever4_brief` | 5 | 1108 s | $0.01739 |
+| `lever2b_verify,lever3_triage,lever4_brief` (final) | 8 | 1065 s | $0.01747 |
+
+Total API spend across every recorded v2 run: **$0.39**. Running the full v2
+measurement from scratch costs well under a dollar. Wall clock is about 90
+minutes with six concurrent streams, or about 5 hours sequentially.
 
 Cost is read from OpenRouter's `usage.cost` on each response, the amount
 actually charged. It is never computed from a price table and never estimated.
@@ -245,7 +282,14 @@ With `allow_fallbacks: false` a 429 is a hard failure rather than something
 OpenRouter reroutes around. The client retries with exponential backoff, capped
 at 6 attempts, and records every retry with its reason plus any hard failure in
 the results file. Observed: 2 to 11 retries per 12-case run, **0 hard
-failures** across every recorded run.
+failures** across every recorded v1 run, and 0 across the 16 runs of the two
+v2 headline arms.
+
+One further retry class was added after v2 exposed it: a structured-output
+request that returns unparseable content is retried as a malformed **response**,
+the same way a 429 is. It is not a semantic retry, so the baseline still gets
+exactly one attempt at the task. Retries are logged with status
+`malformed_json`.
 
 ---
 

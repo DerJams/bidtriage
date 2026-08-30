@@ -171,7 +171,7 @@ why; code applies only the published boolean formula to the model's own answers.
 The gold generator's computation is deliberately not ported into the solution,
 because scoring it against itself would prove nothing.
 
-### Results, n = 8 runs per arm
+### Corpus v1 results, n = 8 runs per arm, 12 cases and 96 slots
 
 Levels first. Every figure comes from a run recorded in `evals/results/`.
 Nothing is estimated, and cost is the amount OpenRouter actually charged.
@@ -239,12 +239,12 @@ lever 2's mean hallucination of 1.88% is under the 2% target and the baseline's
 
 | Lever | State | Verdict |
 |---|---|---|
-| 1. Document parsing | built (`solution/parse.py`), not yet measured | pending. Expected flat: pdfplumber finds tables in cases 06 to 09, which already score near-perfectly, and **zero** tables in case 12, whose quantity block is monospace text. It is measured anyway rather than assumed. |
+| 1. Document parsing | built (`solution/parse.py`), **measured on v2** | **removed experiment.** Flat on every metric: field accuracy p=0.770, hallucination p=0.976, triage p=0.643, cost unchanged p=0.103. Predicted flat, because pdfplumber finds tables only in the clean RFPs that already score well and finds **zero** in the hard case whose quantity block is monospace text. Measured anyway, which mattered: the prediction had already been wrong once about whether the lever was wired at all. |
 | 2. Verification with span checking | measured, n=8 per arm | **not an improvement.** Both headline deltas are smaller than the run-to-run spread. The only statistically solid result is that it costs 3.1 times more. A revision to fix the case 12 regression is pending separate measurement. |
 | 3. Structured triage | measured, n=8 per arm | **improvement, and the only one so far.** Triage 89.58% to 100.00%, zero variance across 8 runs, p=0.000, clearing the 8.33 noise floor. Verified model-driven: the model agreed with the boolean rule on 96 of 96 decisions and the rule corrected it zero times. |
 | 4. Estimator brief | built (`solution/brief.py`), wiring in progress | no measurable effect on the field metrics by construction, since it renders already-verified fields and makes no model call. Judged on whether it is forwardable without edits. |
 
-### Corpus v2 results, n = 5 runs per arm, 30 cases and 240 slots
+### Corpus v2 results, 30 cases and 240 slots (headline arms n = 8, others n = 5)
 
 v1 results above are kept exactly as measured. These are reported alongside
 them, never replacing them, because the corpus changed and a lever effect must
