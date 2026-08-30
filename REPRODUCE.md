@@ -123,13 +123,55 @@ provider for every call, per-slot outcomes, per-subcomponent bond diagnostics,
 both hallucination denominators, the minutes proxy with its constants, retry
 counts with reasons, any hard failures, and actual charged cost.
 
-## Step 4 — Solution
+## Step 4 - Solution levers
 
-*Pending.*
+Levers are selected with `BIDTRIAGE_LEVERS` and stack:
 
+```bash
+BIDTRIAGE_LEVERS=lever2_verify,lever3_triage,lever4_brief python -m evals.run --target solution
 ```
-python -m evals.run --target solution
+
+Measured per-run wall clock on the 12-case set: baseline 136 s, lever 2 341 s,
+lever 2+3 654 s.
+
+### Comparing arms
+
+```bash
+python -m evals.compare --a baseline --b lever2_verify+lever3_triage
 ```
+
+An arm is named by its lever set, joined with `+`. The verdict rule is enforced
+here rather than by judgement: an exact two-sided permutation test, with an
+improvement requiring the delta to clear the larger observed spread and reach
+p below 0.05. The noise floor is derived from the runs being compared, so it is
+always empirical to whatever corpus it is run against.
+
+### Running arms concurrently
+
+Arms are I/O bound. Measured: three concurrent workers give a 3.56x speedup,
+with retries rising only from 0.00 to 0.22 per case. Results filenames carry
+microseconds and pid, so concurrent runs cannot overwrite one another.
+
+### Corpus selection
+
+```bash
+BIDTRIAGE_CORPUS=v1 python -m evals.run --target baseline
+BIDTRIAGE_CORPUS=v2 python -m evals.run --target baseline
+```
+
+v1 is the frozen 12-case set that every recorded result was measured on. The
+corpus version also selects the bond field shape, because v2 splits general
+liability into per-occurrence and aggregate limits, so v1 stays exactly
+reproducible.
+
+### Sample briefs
+
+```bash
+python scripts/export_briefs.py <results.json>
+```
+
+Three exported examples covering bid, no-bid and insufficient-information are
+committed under `docs/sample-briefs/`.
 
 ## Runtime and cost
 
