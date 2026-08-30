@@ -131,7 +131,10 @@ _MULT = {"k": 1_000, "m": 1_000_000, "mm": 1_000_000, "b": 1_000_000_000,
 
 def _one_amount(tok: str):
     tok = tok.strip().lower().replace("$", "").replace(",", "").strip()
-    m = re.match(r"^(\d+(?:\.\d+)?)\s*(k|mm|m|b|thousand|million|billion)?$", tok)
+    # Anchored at the start but tolerant of trailing text. A full-string match
+    # meant "$2,100,000 (engineer estimate)" parsed as nothing, so a correctly
+    # extracted RANGE silently collapsed to a point value and scored wrong.
+    m = re.match(r"^(\d+(?:\.\d+)?)\s*(k|mm|m|b|thousand|million|billion)?\b", tok)
     if not m:
         return None
     val = float(m.group(1))
@@ -155,6 +158,7 @@ def norm_money(v):
         return UNPARSEABLE
 
     s = _ws(v).lower()
+    s = re.sub(r"\([^)]*\)", " ", s)  # drop parentheticals e.g. "(engineer estimate)"
     s = re.sub(r"\b(approximately|approx\.?|about|est\.?|estimated|engineer'?s estimate"
                r"|budget|around|circa|usd)\b", " ", s)
     s = _ws(s)

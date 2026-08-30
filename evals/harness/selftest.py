@@ -65,6 +65,11 @@ def main() -> int:
         ("approximately $1.2 million", {"low": 1200000, "high": 1200000, "currency": "USD"}),
         ("$1,800,000 to $2,100,000", {"low": 1800000, "high": 2100000, "currency": "USD"}),
         ("$1.8M - $2.1M", {"low": 1800000, "high": 2100000, "currency": "USD"}),
+        # Trailing text must not collapse a correct range to a point value.
+        ("$1,800,000 to $2,100,000 (engineer estimate)",
+         {"low": 1800000, "high": 2100000, "currency": "USD"}),
+        ("$850,000 (construction budget)",
+         {"low": 850000, "high": 850000, "currency": "USD"}),
         (600000, {"low": 600000, "high": 600000, "currency": "USD"}),
         ("not stated", UNPARSEABLE),
         (None, None),
