@@ -301,6 +301,16 @@ def brief_checks(text, prediction, flagged, evidence=None):
     cited = [f for f in asserted if (evidence.get(f) or {}).get("span")]
     placeholders = re.findall(r"\bTODO\b|\bTBD\b|\bFIXME\b|\bXXX\b|\{\{|\}\}|<[a-z_]+>", text)
 
+    # The criterion reasons are model-authored. Occasionally the model thinks
+    # aloud and corrects itself mid-sentence, for example "starts after
+    # Foothills ends 2027-03-20? No, Foothills ends 2027-03-20, but...". The
+    # conclusion is right and the prose is not something a person signs their
+    # name to. Measured rate on the final arm: 9 of 956 reasons, 0.9%. Detected
+    # here so it is caught mechanically rather than by whoever happens to read
+    # the brief.
+    aloud = re.findall(r"\?\s*(?:No|Yes|Wait|Actually)\b|\bWait,|\bActually,"
+                       r"|\bHmm\b|\blet me \b|\bI need to \b", text)
+
     # Every flagged field must be marked at its value, not only in the queue.
     marked = all(text.count(UNCONFIRMED) >= 1 for _ in [0]) if flagged else True
     unmarked = [f for f in flagged
@@ -318,6 +328,8 @@ def brief_checks(text, prediction, flagged, evidence=None):
         "citation_coverage": (len(cited) / len(asserted)) if asserted else 1.0,
         "no_placeholder_text": not placeholders,
         "placeholders_found": placeholders,
+        "no_reasoning_aloud": not aloud,
+        "reasoning_aloud_found": aloud,
         "line_count": len(text.splitlines()),
         # Citations are quotes and are exempt: editing a quote to satisfy a
         # house style is worse than the dash. Prose must be clean.

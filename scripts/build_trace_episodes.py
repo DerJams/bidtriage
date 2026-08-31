@@ -117,8 +117,8 @@ EPISODES = [
         "slug": "04-lever-3-verified-not-assumed",
         "title": "Lever 3 reaches 100 percent, and the agent checks whether that is hollow",
         "why": (
-            "Lever 3 took triage from 90.62 percent to 100.00 percent with zero variance "
-            "across 8 runs. The design splits work so the model evaluates four capacity "
+            "On corpus v1, lever 3 took triage from 90.62 percent to 100.00 percent with "
+            "zero variance across 8 runs. The design splits work so the model evaluates four capacity "
             "criteria and code applies only a published boolean formula. If the formula "
             "were carrying the score, the result would prove nothing, so the agent "
             "immediately tested exactly that rather than reporting the headline."
@@ -126,8 +126,9 @@ EPISODES = [
         "watch": [
             "The result arrives first, and the agent does not stop there.",
             "The follow-up query asks whether the rule ever corrected the model.",
-            "Answer: the model agreed with the rule on 96 of 96 decisions and the rule "
-            "corrected it zero times, so the formula contributed nothing to the number.",
+            "Answer: on v1 the model agreed with the rule on 96 of 96 decisions and the "
+            "rule corrected it zero times, so the formula contributed nothing. The same "
+            "check on corpus v2 gives 234 of 239.",
             "The model derived the at-capacity window itself, quoted verbatim in the "
             "output.",
         ],

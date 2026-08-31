@@ -1,5 +1,5 @@
-Exported from 20260830T171343231431Z_solution_p10600.json
-Run label: v2-full2b-1   levers: lever2b_verify, lever3_triage, lever4_brief
+Exported from 20260830T174923018475Z_solution_p34264.json
+Run label: v2-full2b-6   levers: lever2b_verify, lever3_triage, lever4_brief
 Model: z-ai/glm-5.3-flash via DeepInfra
 This file is generated output from a recorded run, not written by hand.
 ------------------------------------------------------------------------
@@ -11,31 +11,23 @@ Central Plant Upgrade
 
 RECOMMENDATION: BID
 
-  Trade fit        PASS      Base Bid requires HVAC, hydronic/process
-                             piping, and ATC controls, all
-                             self-performed. Fire protection (specs 21
-                             12 00, 21 13 16) is confined to Alternate
-                             No. 1, which is not part of the Base Bid
-                             and may be declined without prejudice.
-  Service radius   PASS      Project is in Castle Rock, CO, listed at 45
-                             miles from Golden, within the 90-mile
-                             radius.
-  Size band        PASS      Engineer estimate $1,800,000 to $2,100,000;
-                             midpoint = $1,950,000, inside the $250,000
-                             to $3,000,000 band.
+  Trade fit        PASS      Base Bid requires HVAC, piping, and
+                             controls (boilers, hydronic piping, DDC
+                             controls), all self-performed. Fire
+                             protection (specs 21 12 00, 21 13 16) is
+                             confined to Alternate No. 1, which is not
+                             part of the Base Bid and may be declined
+                             without prejudice.
+  Service radius   PASS      Project is in Castle Rock, CO, 45 miles
+                             from Golden, within the 90-mile radius.
+  Size band        PASS      Estimate $1,800,000-$2,100,000; midpoint =
+                             $1,950,000, inside the $250,000-$3,000,000
+                             band.
   Timeline         CLEAR     All three committed projects run
-                             concurrently from 2026-10-01 (Foothills
-                             start) until 2026-12-10 (Clear Creek end),
-                             which is the only period at max capacity of
-                             3. The new window (2027-03-15 to
-                             2027-11-30) starts after Foothills ends
-                             2027-03-20? No, Foothills ends 2027-03-20,
-                             but the new start 2027-03-15 falls before
-                             that; however at that point only Foothills
-                             (and Ridgeline, ending 2027-01-28, already
-                             ended) is running, so only 1 project is
-                             active. No period of 3 concurrent projects
-                             overlaps the new window.
+                             concurrently 2026-10-01 to 2026-12-10
+                             (Foothills starts 10-01, Clear Creek ends
+                             12-10). New window 2027-03-15 to 2027-11-30
+                             does not overlap that period.
 
 NEEDS YOUR REVIEW
   Nothing was flagged as uncertain.

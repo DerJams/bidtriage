@@ -9,7 +9,7 @@ This directory is a **readable subset**: four episodes, annotated, showing agent
 | [Human checkpoint: freezing the scoring rules before any measurement](01-human-checkpoint-scoring-rules.md) | The metric had to be fixed before any number existed, otherwise the target could be fitted to whatever the first attempt happened to produce. |
 | [An instruction that could not be followed, overridden by measurement](02-instruction-overridden-by-measurement.md) | The human instructed the agent to pin provider routing to Exacto. |
 | [The loop catching its own error before it corrupted any result](03-the-loop-catching-its-own-error.md) | The agent wrote a self-test for its scorer before trusting the scorer with a paid run. |
-| [Lever 3 reaches 100 percent, and the agent checks whether that is hollow](04-lever-3-verified-not-assumed.md) | Lever 3 took triage from 90. |
+| [Lever 3 reaches 100 percent, and the agent checks whether that is hollow](04-lever-3-verified-not-assumed.md) | On corpus v1, lever 3 took triage from 90. |
 
 Source transcript: `session_fdfe39b4-2363-48df-b2be-a645f0669109.jsonl`, 912 events.
 

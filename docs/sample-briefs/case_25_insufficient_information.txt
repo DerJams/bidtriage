@@ -1,0 +1,72 @@
+Exported from 20260830T174923018475Z_solution_p34264.json
+Run label: v2-full2b-6   levers: lever2b_verify, lever3_triage, lever4_brief
+Model: z-ai/glm-5.3-flash via DeepInfra
+This file is generated output from a recorded run, not written by hand.
+------------------------------------------------------------------------
+
+========================================================================
+BID TRIAGE BRIEF
+Cottonwood Bend Retail Alternates Pricing
+========================================================================
+
+RECOMMENDATION: INSUFFICIENT INFORMATION
+
+  Trade fit        PASS      Required trades are HVAC and controls only;
+                             both are on Summit Peak's self-performed
+                             list.
+  Service radius   PASS      Project is in Broomfield, CO, listed at 22
+                             miles from Golden, within the 90-mile
+                             radius.
+  Size band        UNKNOWN   No estimated value: extracted field is null
+                             and the document states 'No overall
+                             construction value is released for the
+                             alternates package,' so no midpoint can be
+                             computed against the $250,000 to $3,000,000
+                             band.
+  Timeline         UNKNOWN   The document states construction dates
+                             'will follow from the base contract
+                             schedule once alternates are accepted', no
+                             construction start or substantial
+                             completion date is given, so no overlap
+                             check is possible.
+
+NEEDS YOUR REVIEW
+  Nothing was flagged as uncertain.
+  Fields shown as "not stated" are genuinely absent from the document:
+  Walk-through, Estimated value.
+
+TO DECIDE, OBTAIN
+  - Construction window (start and substantial completion)
+  - Estimated project value or engineer's estimate
+
+KEY DATES
+  Bid due              2026-10-20 at 5:00 PM MT
+  Walk-through         none stated
+
+PROJECT
+  Client               Cottonwood Bend Developments
+  Location             Broomfield, CO
+  Trade scope          HVAC, controls
+  Estimated value      not stated
+
+BONDING AND INSURANCE
+  Bid bond             5%
+  Performance bond     100%
+  Payment bond         100%
+  General liability    $2,000,000 per occurrence / $4,000,000 aggregate
+
+------------------------------------------------------------------------
+SOURCE CITATIONS
+  Every figure above is quoted from the document below.
+
+  Client               "Client: Cottonwood Bend Developments"
+  Project              "Project: Cottonwood Bend Retail Alternates Pricing"
+  Trade scope          "Trades: HVAC and controls"
+  Location             "Location: Broomfield, CO"
+  Bid due              "Pricing due: October 20, 2026 at 5:00 PM MT"
+  Walk-through         "No job walk is scheduled."
+  Estimated value      "No overall construction value is released for the alternates package"
+  Bonding              "Bonding: bid bond 5% of the total bid; performance bond and payment bond ea..."
+
+------------------------------------------------------------------------
+Prepared by BidTriage from the source document for case_25.

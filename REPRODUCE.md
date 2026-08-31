@@ -63,7 +63,7 @@ check above confirms.
 
 ### API key
 
-Needed from section 3 onward. Sections 2 and 5 make no API calls.
+Needed from section 4 onward. Sections 2, 3 and 6 make no API calls.
 
 ```bash
 export OPENROUTER_API_KEY=...
@@ -81,7 +81,42 @@ $PY -m evals.harness.selftest
 No API calls. Exits non-zero on any failure. This is the fastest check that the
 checkout is sound.
 
-## 2. Regenerate the eval corpus (no API calls)
+## 2. Reproduce the headline result (no API calls, under 5 seconds)
+
+The headline is measured on **corpus v2** with the **final lever configuration**
+(`lever2b_verify,lever3_triage,lever4_brief`). Every run behind it is committed,
+so the number can be recomputed without an API key and without spending
+anything:
+
+```bash
+BIDTRIAGE_CORPUS=v2 $PY -m evals.compare \
+  --a baseline --b lever2b_verify+lever3_triage+lever4_brief
+```
+
+Expected, n=8 per arm:
+
+```
+triage accuracy %   77.92 [73.33-83.33]   97.50 [93.33-100.00]   +19.58   10.00   0.000155   IMPROVEMENT
+field accuracy %    96.98 [96.25-97.50]   97.45 [96.67-98.33]     +0.47    1.67   0.175      WITHIN NOISE
+hallucination %      1.00 [0.88-1.34]      0.89 [0.44-1.33]       -0.11    0.89   0.199      WITHIN NOISE
+cost per case $    0.00012              0.00058                   4.8x       n/a  0.000155   REGRESSION
+```
+
+The other comparisons behind the published tables, all equally free to run:
+
+```bash
+export BIDTRIAGE_CORPUS=v2
+$PY -m evals.compare --a baseline --b lever1_parse                    # the removed experiment
+$PY -m evals.compare --a baseline --b lever2_verify                   # the regression
+$PY -m evals.compare --a lever2_verify+lever3_triage+lever4_brief \
+                     --b lever2b_verify+lever3_triage+lever4_brief    # the fix
+```
+
+Corpus v1 results are kept and reproduce the same way with
+`BIDTRIAGE_CORPUS=v1`. They are reported alongside v2 in the README rather than
+being superseded by it.
+
+## 3. Regenerate the eval corpus (no API calls)
 
 The corpus is committed, so this only verifies reproducibility.
 
@@ -120,15 +155,16 @@ reportlab runs in invariant mode, so regeneration is byte-identical and
 `git status` stays clean afterwards. `.gitattributes` marks PDFs binary to
 prevent CRLF corruption on checkout. On macOS use `md5 -r` instead of `md5sum`.
 
-## 3. Baseline
+## 4. Baseline
 
 ```bash
 $PY -m evals.run --target baseline
 ```
 
-Runs all 12 cases, scores them deterministically, and writes a timestamped JSON
-file to `evals/results/`. **Measured: 136 s per run, $0.00154 per run
-($0.00013 per case).**
+Runs the selected corpus (12 cases on v1, 30 on v2), scores them
+deterministically, and writes a timestamped JSON file to `evals/results/`.
+**Measured on v1: 136 s per run, $0.00154 per run. On v2: 345 s per run,
+$0.00368 per run ($0.00012 per case).**
 
 Temperature 0 is **not** deterministic on this provider, so one run is not a
 measurement. Recorded results use **n=8** per arm:
@@ -142,15 +178,21 @@ A run that hits hard failures exits 1 and is excluded from comparisons.
 Flags: `--cases case_01,case_12` for a subset, `--label` to tag a run,
 `--model` to override the model id (recorded in the results file).
 
-## 4. Solution levers
+## 5. Solution levers
 
 Levers are selected with `BIDTRIAGE_LEVERS` and stack. **If the variable is
 unset the default is `lever2_verify` alone**, so set it explicitly:
 
 ```bash
+export BIDTRIAGE_CORPUS=v2
+
+# the final configuration, which produces the headline result
+BIDTRIAGE_LEVERS=lever2b_verify,lever3_triage,lever4_brief $PY -m evals.run --target solution
+
+# the intermediate arms, for the per-lever comparisons
+BIDTRIAGE_LEVERS=lever1_parse  $PY -m evals.run --target solution
 BIDTRIAGE_LEVERS=lever2_verify $PY -m evals.run --target solution
-BIDTRIAGE_LEVERS=lever2_verify,lever3_triage $PY -m evals.run --target solution
-BIDTRIAGE_LEVERS=lever2_verify,lever3_triage,lever4_brief $PY -m evals.run --target solution
+BIDTRIAGE_LEVERS=lever2b_verify $PY -m evals.run --target solution
 ```
 
 Valid names: `lever1_parse`, `lever2_verify`, `lever2b_verify`,
@@ -172,20 +214,25 @@ with retries rising only from 0.00 to 0.22 per case. Results filenames carry
 microseconds and pid, so concurrent runs cannot overwrite one another.
 
 ```bash
-BIDTRIAGE_LEVERS=lever2_verify $PY -m evals.run --target solution --label a &
-BIDTRIAGE_LEVERS=lever2_verify,lever3_triage $PY -m evals.run --target solution --label b &
+export BIDTRIAGE_CORPUS=v2
+BIDTRIAGE_LEVERS=lever2b_verify $PY -m evals.run --target solution --label a &
+BIDTRIAGE_LEVERS=lever2b_verify,lever3_triage,lever4_brief $PY -m evals.run --target solution --label b &
 wait
 ```
 
-## 5. Comparing arms (no API calls)
+## 6. Comparing arms (no API calls)
 
 Results are committed, so this reproduces every published number without
 spending anything:
 
 ```bash
-$PY -m evals.compare --a baseline --b lever2_verify+lever3_triage
-$PY -m evals.compare --a lever2_verify --b lever2_verify+lever3_triage
+BIDTRIAGE_CORPUS=v1 $PY -m evals.compare --a baseline --b lever2_verify+lever3_triage
+BIDTRIAGE_CORPUS=v2 $PY -m evals.compare --a baseline --b lever2b_verify+lever3_triage+lever4_brief
 ```
+
+**Set `BIDTRIAGE_CORPUS` explicitly.** It defaults to v1, so a bare `compare`
+reproduces the v1 numbers, not the headline. Comparison files are written with
+the corpus in the filename so the two can never overwrite one another.
 
 An arm is named by its lever set joined with `+`. The verdict rule is enforced
 here rather than by judgement: an exact two-sided permutation test, with an
@@ -194,7 +241,7 @@ reach p below 0.05. The noise floor is derived from the runs being compared, so
 it is always empirical to whatever corpus it is run against. Runs with hard
 failures are excluded and the exclusion is printed.
 
-## 6. Corpus selection
+## 7. Corpus selection
 
 ```bash
 BIDTRIAGE_CORPUS=v1 $PY -m evals.run --target baseline    # default
@@ -220,7 +267,7 @@ That renders every document, extracts the text, authors the gold keys, and
 validates every span against the assembled document. It exits non-zero if any
 span cannot be located or any normalized value is not reproducible.
 
-## 7. Sample briefs
+## 8. Sample briefs
 
 Three exported examples covering bid, no-bid and insufficient-information are
 committed under `docs/sample-briefs/` and need no API call to read. To export
@@ -230,7 +277,7 @@ your own from a run that had `lever4_brief` active:
 $PY scripts/export_briefs.py evals/results/<file>.json
 ```
 
-## 8. Trace capture
+## 9. Trace capture
 
 ```bash
 $PY scripts/capture_traces.py --list

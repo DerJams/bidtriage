@@ -173,7 +173,7 @@ methodology, so it is treated as directional rather than as a constant.
 
 ## System design and measured results
 
-![BidTriage inputs and the two paths: twelve cases feed a baseline path and a verified solution path](docs/system-design-paths.png)
+![BidTriage inputs and the two paths: thirty corpus v2 cases feed a baseline path and a verified solution path, scored by one shared harness](docs/system-design-paths.png)
 
 *Inputs and the two paths.* Source:
 [`docs/system-design-paths.excalidraw`](docs/system-design-paths.excalidraw)
@@ -315,10 +315,10 @@ Verdicts against the baseline:
 | Lever 1 | cost | none | n/a | 0.051 | within noise |
 | Lever 2 | field accuracy | **1.73pp lower** | 1.25 | 0.0008 | **regression** |
 | Lever 2 | hallucination | 0.11pp lower | 0.45 | 0.210 | within noise |
-| Lever 2 | cost | 3.1x higher | n/a | 0.008 | regression |
-| Levers 2+3+4 | triage | **20.00pp higher** | 10.00 | 0.008 | **improvement** |
-| Levers 2+3+4 | field accuracy | 1.17pp lower | 1.25 | 0.024 | within noise |
-| Levers 2+3+4 | cost | 4.8x higher | n/a | 0.008 | regression |
+| Lever 2 | cost | 3.1x higher | n/a | 0.0008 | regression |
+| Levers 2+3+4 | triage | **20.08pp higher** | 10.00 | 0.0008 | **improvement** |
+| Levers 2+3+4 | field accuracy | **1.31pp lower** | 1.25 | 0.0031 | **regression** |
+| Levers 2+3+4 | cost | 4.8x higher | n/a | 0.0008 | regression |
 | **2b+3+4 final, n=8** | triage | **19.58pp higher** | 10.00 | **0.000155** | **improvement** |
 | **2b+3+4 final, n=8** | field accuracy | 0.47pp higher | 1.67 | 0.175 | within noise |
 | **2b+3+4 final, n=8** | hallucination | 0.11pp lower | 0.89 | 0.199 | within noise |
@@ -339,7 +339,7 @@ than dropped on a prediction. The prediction being right is not the same as
 having checked.
 
 **Lever 3 replicates, and larger.** On v1 it moved triage 9.38pp. On v2, where
-the baseline triage is much weaker at 78%, it moves it 20.00pp. The harder
+the baseline triage is much weaker at 77.92%, it moves it 20.08pp. The harder
 corpus exposes more of the capacity reasoning the baseline never does. Checked
 for hollowness again. Across the final arm's eight runs the model agreed with
 the boolean rule on **234 of 239** case-decisions, so the rule corrected it 5
@@ -555,7 +555,7 @@ rather than silent.
 See [`REPRODUCE.md`](REPRODUCE.md). Commands are added there only after they
 have actually been run.
 
-## Main failure mode
+## Main failure mode (evidence from both corpora)
 
 **A temperature-0 endpoint is not deterministic, and a small eval carries a
 noise floor large enough to swallow real effects. A lever delta means nothing
@@ -591,7 +591,7 @@ every v2 arm and looked like a rate-limit problem. They were malformed model
 responses, one with more reasoning tokens than completion tokens. Diagnosing
 before re-running was the difference between a fix and a superstition.
 
-## Hot take
+## Hot take (corpus v2 figures)
 
 **Almost none of the agentic machinery moved the extraction numbers. The only
 thing that paid was handing the model the business rules in a form it could

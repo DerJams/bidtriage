@@ -1,5 +1,5 @@
-Exported from 20260830T171343231431Z_solution_p10600.json
-Run label: v2-full2b-1   levers: lever2b_verify, lever3_triage, lever4_brief
+Exported from 20260830T174923018475Z_solution_p34264.json
+Run label: v2-full2b-6   levers: lever2b_verify, lever3_triage, lever4_brief
 Model: z-ai/glm-5.3-flash via DeepInfra
 This file is generated output from a recorded run, not written by hand.
 ------------------------------------------------------------------------
@@ -11,24 +11,22 @@ Golden Foundry Lofts Adaptive Reuse
 
 RECOMMENDATION: BID
 
-  Trade fit        PASS      Required trades are hvac, plumbing,
-                             sheet_metal, all in the self-performed
-                             list; no refrigeration or fire_protection
-                             required.
+  Trade fit        PASS      Required trades are hvac, plumbing, sheet
+                             metal, all in the self-performed list; no
+                             refrigeration or fire protection required.
   Service radius   PASS      Project is in Golden, CO, listed at 0
-                             miles, well within the 90-mile radius.
-  Size band        PASS      Single-point estimate of $1,150,000 falls
-                             inside the $250,000 to $3,000,000 band.
-  Timeline         CLEAR     All three committed projects run
-                             concurrently only from 2026-10-01
-                             (Foothills start) to 2026-12-10 (Clear
-                             Creek end). The new window (2027-02-01 to
-                             2027-08-13) misses that period: by Feb 1,
-                             2027, Ridgeline (ends 2027-01-28) and Clear
-                             Creek (ends 2026-12-10) are done, leaving
-                             only Foothills (ends 2027-03-20), 2
-                             concurrent, under the 3-project max. No
-                             overlap with any 3-project period.
+                             miles, well under the 90-mile radius.
+  Size band        PASS      Single-point estimate of $1,150,000
+                             (midpoint = $1,150,000) falls inside the
+                             $250,000 to $3,000,000 band.
+  Timeline         CLEAR     All three committed projects overlap only
+                             from 2026-10-01 to 2026-12-10 (Foothills
+                             start to Clear Creek end). The new window
+                             (2027-02-01 to 2027-08-13) begins after
+                             2026-12-10, when only Ridgeline (to
+                             2027-01-28) and Foothills (to 2027-03-20)
+                             remain, at most 2 concurrent, so adding
+                             this project never exceeds 3.
 
 NEEDS YOUR REVIEW
   Nothing was flagged as uncertain.
@@ -58,7 +56,7 @@ SOURCE CITATIONS
   Project              "The project is the Golden Foundry Lofts Adaptive Reuse."
   Trade scope          "Mechanical scope for this package is HVAC, plumbing, and sheet metal."
   Location             "The building is in Golden, CO."
-  Bid due              "Please disregard the September 28 date I gave you below. Proposals are now ..."
+  Bid due              "Proposals are now due October 12, 2026 at 5:00 PM MT."
   Walk-through         "Site walk: September 16, 2026 at 1:00 PM."
   Estimated value      "Our internal budget for the mechanical package is $1,150,000."
   Bonding              "Bonding: bid bond 5% of the total bid; performance bond and payment bond ea..."

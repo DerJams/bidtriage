@@ -1,5 +1,5 @@
-Exported from 20260830T171343231431Z_solution_p10600.json
-Run label: v2-full2b-1   levers: lever2b_verify, lever3_triage, lever4_brief
+Exported from 20260830T174923018475Z_solution_p34264.json
+Run label: v2-full2b-6   levers: lever2b_verify, lever3_triage, lever4_brief
 Model: z-ai/glm-5.3-flash via DeepInfra
 This file is generated output from a recorded run, not written by hand.
 ------------------------------------------------------------------------
@@ -12,9 +12,9 @@ Headworks Odour Control Mechanical Package
 RECOMMENDATION: BID
 
   Trade fit        PASS      Required trades are HVAC, sheet metal, and
-                             process piping; all three are on the
-                             self-performed list (hvac, sheet_metal,
-                             piping).
+                             process piping, all in the self-performed
+                             list; no refrigeration or fire protection
+                             required.
   Service radius   PASS      Project is in Greeley, CO, listed at 75
                              miles, under the 90-mile radius from
                              Golden.
@@ -24,9 +24,9 @@ RECOMMENDATION: BID
   Timeline         CLEAR     All three committed projects run
                              concurrently only from 2026-10-01
                              (Foothills start) to 2026-12-10 (Clear
-                             Creek end). The new window (2027-04-26 to
-                             2027-10-08) begins after the last
-                             commitment ends (2027-03-20), so there is
+                             Creek end). The new window 2027-04-26 to
+                             2027-10-08 starts after even the latest
+                             commitment ends (Foothills, 2027-03-20), so
                              no overlap.
 
 NEEDS YOUR REVIEW
@@ -60,7 +60,7 @@ SOURCE CITATIONS
   Bid due              "Bid due: November 17, 2026 at 2:00 PM MT"
   Walk-through         "Pre-bid walk-through: October 29, 2026 at 9:00 AM"
   Estimated value      "Engineer's estimate: $1,650,000"
-  Bonding              "Bid security is increased to 10% of the bid amount. Commercial general liab..."
+  Bonding              "Item 1.2: SECTION 3 IS AMENDED. Bid security is increased to 10% of the bid..."
 
 ------------------------------------------------------------------------
 Prepared by BidTriage from the source document for case_14.
