@@ -332,10 +332,11 @@ floor 6.67, p = 0.008, **improvement**.
 
 **Lever 1 is the removed experiment.** Every metric is within noise, including
 cost, which is what a parser that changes nothing should look like. This was
-predicted from the parser's own behaviour, since pdfplumber finds tables in the
-clean RFPs that already score well and finds zero in the hard case whose
-quantity block is monospace text, but it was built and measured anyway rather
-than dropped on a prediction. The prediction being right is not the same as
+predicted from the parser's own behaviour. On v1 pdfplumber found tables in the
+four clean RFPs that already scored well and zero in the hard case, whose
+quantity block is monospace text. On v2 it finds zero tables in all 19 PDFs, so
+there is nowhere left for it to contribute at all. It was built and measured
+anyway rather than dropped on a prediction. The prediction being right is not the same as
 having checked.
 
 **Lever 3 replicates, and larger.** On v1 it moved triage 9.38pp. On v2, where
