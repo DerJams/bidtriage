@@ -239,7 +239,7 @@ def _reconcile(verified: dict, evidence: dict, source: str):
                 # null value, overwhelmingly on fields where the document says
                 # plainly that there is no value ("the Owner has not released a
                 # construction budget"). Treating that as a contradiction cost
-                # 1.58pp of field accuracy, because confident abstention would
+                # 1.73pp of field accuracy, because confident abstention would
                 # have scored correct. When the span is locatable the claim is
                 # coherent: the document addresses the field and the answer is
                 # none. Without a locatable span it is still just a flag.

@@ -313,8 +313,8 @@ Verdicts against the baseline:
 | Lever 1 | hallucination | 0.07pp higher | 0.47 | 0.821 | within noise |
 | Lever 1 | triage | +2.08pp | 10.00 | 0.467 | within noise |
 | Lever 1 | cost | none | n/a | 0.103 | within noise |
-| Lever 2 | field accuracy | **1.58pp lower** | 1.25 | 0.008 | **regression** |
-| Lever 2 | hallucination | 0.18pp lower | 0.45 | 0.063 | within noise |
+| Lever 2 | field accuracy | **1.73pp lower** | 1.25 | 0.0008 | **regression** |
+| Lever 2 | hallucination | 0.11pp lower | 0.45 | 0.210 | within noise |
 | Lever 2 | cost | 3.1x higher | n/a | 0.008 | regression |
 | Levers 2+3+4 | triage | **20.00pp higher** | 10.00 | 0.008 | **improvement** |
 | Levers 2+3+4 | field accuracy | 1.17pp lower | 1.25 | 0.024 | within noise |
@@ -323,8 +323,8 @@ Verdicts against the baseline:
 | **2b+3+4 final, n=8** | field accuracy | 0.47pp higher | 1.67 | 0.175 | within noise |
 | **2b+3+4 final, n=8** | hallucination | 0.11pp lower | 0.89 | 0.199 | within noise |
 | **2b+3+4 final, n=8** | cost | 4.8x higher | n/a | 0.000155 | regression |
-| **2b vs 2**, full stack | field accuracy | **1.83pp higher** | 1.25 | 0.008 | **improvement** |
-| **2b vs 2**, full stack | cost | none | n/a | 0.944 | within noise |
+| **2b vs 2**, full stack | field accuracy | **1.78pp higher** | 1.67 | 0.0008 | **improvement** |
+| **2b vs 2**, full stack | cost | none | n/a | 0.447 | within noise |
 
 Lever 3's own incremental contribution, measured against lever 2 so it is not
 credited with lever 2's work: triage 80.00% to 98.00%, **18.00pp higher**,
@@ -354,8 +354,8 @@ has not released a construction budget". Lever 2b abstains when the verifier
 marks a field supported, returns null, **and** produces a span that is located
 in the source; without a locatable span it still flags, so an unsupported claim
 is not rewarded. Measured against lever 2 in the full stack: field accuracy
-95.67% to **97.50%**, 1.83pp higher, p = 0.008, **improvement**, at no extra
-cost (p = 0.944). That is the loop closing: measure, diagnose, revise,
+95.67% to **97.45%**, 1.78pp higher, p = 0.0008, **improvement**, at no extra
+cost (p = 0.447). That is the loop closing: measure, diagnose, revise,
 re-measure, and keep both numbers.
 
 **The original lever 2 regression, for the record.** Counting outcomes across all five runs, the baseline produces 12
@@ -404,8 +404,8 @@ not always give the same answer on both.
 | Lever | Measured on | Verdict |
 |---|---|---|
 | **1. Document parsing** | v2, n=8 vs 5 | **Removed experiment.** Flat on every metric: field accuracy p=0.883, hallucination p=0.821, triage p=0.467, cost unchanged p=0.051. Predicted flat and measured anyway, which mattered, because the prediction had already been wrong once about whether the lever was wired at all. Six lever 1 runs exist; the harness excludes one for a hard failure, so the arm is n=5. |
-| **2. Verification with span checking** | v1, n=8; v2, n=5 | **Superseded by 2b.** On v1 both headline deltas were within noise. On v2 it **regressed** field accuracy by 1.58pp (p=0.008), by converting 26 missed slots into 42 flagged ones. Kept as an arm so the before and after remain comparable. |
-| **2b. Verification, revised** | v2, n=5 standalone and n=8 in the final stack | **Improvement over lever 2.** Abstains when the verifier marks a field supported, returns null, and produces a span that locates in the source. Field accuracy 95.67% to 97.50% in the full stack, +1.83pp, p=0.008, at no extra cost (p=0.944). |
+| **2. Verification with span checking** | v1, n=8; v2, n=5 | **Superseded by 2b.** On v1 both headline deltas were within noise. On v2 it **regressed** field accuracy by 1.73pp (p=0.0008), by converting 26 missed slots into 42 flagged ones. Kept as an arm so the before and after remain comparable. |
+| **2b. Verification, revised** | v2, n=5 standalone and n=8 in the final stack | **Improvement over lever 2.** Abstains when the verifier marks a field supported, returns null, and produces a span that locates in the source. Field accuracy 95.67% to 97.45% in the full stack, +1.78pp, p=0.0008, at no extra cost (p=0.447). |
 | **3. Structured triage** | v1, n=8; v2, n=8 | **The win, and it replicates.** v1 triage +9.38pp; v2 +19.58pp at p=0.000155 with the two arms completely disjoint. Verified model-driven both times: the model agreed with the boolean rule on 96 of 96 decisions on v1 and 234 of 239 on v2. |
 | **4. Estimator brief** | v2, in the final stack | **No measurable effect on the field metrics by construction**, since it renders already-verified fields and makes no model call. Judged as an artifact instead: see [`docs/sample-briefs/`](docs/sample-briefs/). |
 
@@ -554,3 +554,65 @@ rather than silent.
 
 See [`REPRODUCE.md`](REPRODUCE.md). Commands are added there only after they
 have actually been run.
+
+## Main failure mode
+
+**A temperature-0 endpoint is not deterministic, and a small eval carries a
+noise floor large enough to swallow real effects. A lever delta means nothing
+until the floor is measured on the set it governs.**
+
+This is the failure mode most likely to have wrecked this project quietly. It
+did not announce itself. The first time I re-ran an identical configuration and
+got a different score, the obvious reading was that I had changed something.
+The correct reading was that a single run is not a measurement.
+
+Concretely, on v1 the run-to-run spread was 2.08 percentage points on a 96-slot
+set. Lever 2's field-accuracy effect was 1.43pp. Had I run each arm once, I
+would have reported a win, and it would have been a coin flip dressed as a
+result. The same lever later **regressed** on v2 by 1.73pp, so the sign itself
+was not stable across corpora.
+
+Three things follow, and they are the parts worth stealing:
+
+1. **Measure the floor on the set it governs.** The 2.08pp v1 floor is
+   meaningless on v2, where the measured floors are 1.67pp for field accuracy
+   and 10.00pp for triage. `evals/compare.py` derives the floor from the arms
+   actually being compared, so it cannot be inherited by accident.
+2. **Put the verdict in code, not in judgement.** An exact permutation test
+   decides improvement, regression, or within-noise. It returned "within noise"
+   on results that pointed the way I wanted, including at p below 0.05, because
+   the delta did not clear the spread.
+3. **A small eval hides effects and invents them in equal measure.** Going from
+   96 slots to 240 did not just add confidence, it changed conclusions: lever 2
+   flipped sign, and lever 3 grew from 9.38pp to 19.58pp.
+
+The related trap, which cost a full rerun: 18 hard failures appeared across
+every v2 arm and looked like a rate-limit problem. They were malformed model
+responses, one with more reasoning tokens than completion tokens. Diagnosing
+before re-running was the difference between a fix and a superstition.
+
+## Hot take
+
+**Almost none of the agentic machinery moved the extraction numbers. The only
+thing that paid was handing the model the business rules in a form it could
+evaluate.**
+
+The baseline, one untooled call, scored 96.98% field accuracy and 1.00%
+hallucination on the final corpus. Both frozen targets, met by the thing you
+build in an afternoon. A verification pass that quotes the source and has its
+quotes checked is a genuinely good idea, and it bought **nothing** on field
+accuracy: within noise on v1, a regression on v2 until I fixed it, and 3.1x the
+cost. Better PDF parsing bought nothing at all, on any metric, at any p.
+
+What moved was lever 3, worth 19.58 points of triage accuracy with the two arms
+completely disjoint. All it does is render the contractor's capacity rules into
+criteria the model can check, and then let the model check them. The model was
+never bad at reading documents. It was bad at a decision nobody had written
+down for it.
+
+So the uncomfortable read: most of the effort in agent engineering goes into
+extraction and verification scaffolding, and on this task that scaffolding was
+either noise or a tax. The cheap win was writing down the rules the business
+already had. I would rather report that than pretend the pipeline earned its
+keep, and it is worth asking how often a wrapper is standing in for a
+specification nobody wrote.
