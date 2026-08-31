@@ -70,8 +70,12 @@ mechanical and plumbing work*, not because it is the general standard.
 The strong half is peer-reviewed: a study of bid/no-bid decision factors finds
 that small contractors rank **project size, availability of capital, client
 payment timeliness, current workload, and general overhead** as the five most
-critical factors.[^bidnobid] That directly supports keeping size-band and
-timeline-conflict as criteria.
+critical factors.[^bidnobid] That supports keeping size-band and
+timeline-conflict as criteria. Its population is Sri Lankan small and medium
+contractors, so it is treated as directional support for *which* criteria
+matter rather than as evidence that a Colorado mechanical contractor declines
+for identical reasons. Verified against the publisher's abstract, which states
+that ranking verbatim.
 
 The geographic half is weaker. The frequently quoted figures that 80% of
 accepted bids fall within 55 miles and 87.1% within 100 miles come from a
@@ -123,6 +127,32 @@ consistency, CSI division scoping, bond and insurance percentage ranges) are
 weighted heavily in the corpus design, and the thinner quantitative claims
 about failure-mode frequency are treated as directional priors only.
 
+### Citation verification
+
+Checked on 2026-08-31 by fetching every URL. 23 citations, all cross-referenced
+with no orphans in either direction.
+
+| Result | Count | Notes |
+|---|---|---|
+| Resolved 200 | 17 | includes the corrected Grit link |
+| Blocked by bot protection (403) | 6 | 4 BuildingConnected support articles, Taylor and Francis, GAO |
+| Broken | 0 | one was found and fixed, see below |
+
+One link was genuinely dead: the Grit insurance citation used an AMP variant
+with `?hs_amp=true`, which returns 404. The same page without the query string
+returns 200. Fixed.
+
+The six 403s are **not** evidence that those pages exist. Each of those hosts
+returns 403 for a deliberately nonsensical path on the same domain as well, so
+the status code carries no information about the specific article. They are
+reported as unverified-by-fetch rather than counted as verified.
+
+The peer-reviewed citation was verified directly in a browser rather than by
+status code, because it is the one the design leans on hardest. The DOI resolves
+to the paper named, and the abstract states the five-factor ranking quoted above
+verbatim. Doing so also surfaced that the study population is Sri Lankan, which
+is now recorded as a scope caveat.
+
 ### References
 
 [^meltplan]: [How to Send Bid Invitations to Subcontractors, a GC's Step-by-Step ITB Guide](https://www.meltplan.com/blogs/how-to-send-bid-invitations-to-subcontractors-a-gc-s-step-by-step-itb-guide)
@@ -137,9 +167,9 @@ about failure-mode frequency are treated as directional priors only.
 [^scalabid]: [Bid Bond vs Performance Bond: When Each Is Required](https://www.scalabid.com/resources/bid-bond-vs-performance-bond-when)
 [^trucordia]: [Understanding Bid, Performance, and Payment Bonds for Contractors](https://www.trucordia.com/blog/understanding-bid-performance-and-payment-bonds-for-contractors)
 [^grit]: [Subcontractor Insurance Requirements (What GCs Must Verify)](https://gritinsurance.com/blog/subcontractor-insurance-requirements-what-general-contractors-gcs-and-subcontractors-must-know)
-[^grit26]: [Subcontractor Insurance Requirements, What GCs Are Demanding](https://gritinsurance.com/blog/subcontractor-insurance-requirements-2026?hs_amp=true)
+[^grit26]: [Subcontractor Insurance Requirements, What GCs Are Demanding](https://gritinsurance.com/blog/subcontractor-insurance-requirements-2026)
 [^docutrax]: [Subcontractor Insurance Requirements: A GC's Guide](https://www.docutrax.com/resources/guides/subcontractor-insurance-requirements)
-[^bidnobid]: [Critical Factors Influencing the Bid/no-Bid Decisions of Contractors](https://www.tandfonline.com/doi/abs/10.1080/15578771.2024.2332237) (peer-reviewed)
+[^bidnobid]: Dodanwala and Santoso, [Critical Factors Influencing the Bid/no-Bid Decisions of Small and Medium-Sized Contractors in Sri Lanka](https://www.tandfonline.com/doi/abs/10.1080/15578771.2024.2332237), *International Journal of Construction Education and Research* 21(1), 2025, pp. 24 to 49. Peer-reviewed. **Scope caveat: the study surveys 160 small and 118 medium contractors in Sri Lanka.** The factor ranking is used here as directional support for which criteria matter, not as a claim that Sri Lankan and Colorado contractors decline for identical reasons.
 [^itbkit]: [ITB Response Kit 2026](https://constructionbids.ai/kits/itb-response-scope-letter) (vendor toolkit, methodology not published)
 [^bidintell]: [Bid No Bid Checklist for Specialty Subcontractors](https://bidintell.ai/bid-no-bid-checklist)
 [^quantify]: [Bid No-Bid Decision Criteria: A Contractor's Framework](https://quantifyna.com/bid-no-bid-decision-criteria/)
