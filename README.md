@@ -288,8 +288,8 @@ The two headline arms are measured at **n=8**; the intermediate arms at n=5.
 
 | Metric | Target | Baseline (n=8) | Lever 1 | Lever 2 | Lever 2b | 2+3+4 | **2b+3+4 final (n=8)** |
 |---|---|---|---|---|---|---|---|
-| Field accuracy | at least 90% | 96.98% | 96.67% | 95.25% | 97.25% | 95.67% | **97.45%** |
-| Hallucination | at most 2% | 1.00% | 1.04% | 0.89% | 0.89% | 0.89% | **0.89%** |
+| Field accuracy | at least 90% | 96.98% | 97.08% | 95.25% | 97.25% | 95.67% | **97.45%** |
+| Hallucination | at most 2% | 1.00% | 1.07% | 0.89% | 0.89% | 0.89% | **0.89%** |
 | Triage accuracy | n/a | 77.92% | 80.00% | 80.00% | 76.67% | 98.00% | **97.50%** |
 | Cost per case | n/a | $0.00012 | $0.00012 | $0.00037 | $0.00038 | $0.00058 | **$0.00058** |
 | Hard failures | n/a | 0 | 1 | 0 | 0 | 0 | **0** |
@@ -309,9 +309,9 @@ Verdicts against the baseline:
 
 | Arm | Metric | Delta | Floor | p | Verdict |
 |---|---|---|---|---|---|
-| Lever 1 | field accuracy | +0.25pp | 2.50 | 0.770 | within noise |
-| Lever 1 | hallucination | 0.00pp | 0.47 | 0.976 | within noise |
-| Lever 1 | triage | +2.00pp | 10.00 | 0.643 | within noise |
+| Lever 1 | field accuracy | +0.10pp | 2.50 | 0.883 | within noise |
+| Lever 1 | hallucination | 0.07pp higher | 0.47 | 0.821 | within noise |
+| Lever 1 | triage | +2.08pp | 10.00 | 0.467 | within noise |
 | Lever 1 | cost | none | n/a | 0.103 | within noise |
 | Lever 2 | field accuracy | **1.58pp lower** | 1.25 | 0.008 | **regression** |
 | Lever 2 | hallucination | 0.18pp lower | 0.45 | 0.063 | within noise |
@@ -403,7 +403,7 @@ not always give the same answer on both.
 
 | Lever | Measured on | Verdict |
 |---|---|---|
-| **1. Document parsing** | v2, n=8 vs 5 | **Removed experiment.** Flat on every metric: field accuracy p=0.770, hallucination p=0.976, triage p=0.643, cost unchanged p=0.103. Predicted flat and measured anyway, which mattered, because the prediction had already been wrong once about whether the lever was wired at all. |
+| **1. Document parsing** | v2, n=8 vs 5 | **Removed experiment.** Flat on every metric: field accuracy p=0.883, hallucination p=0.821, triage p=0.467, cost unchanged p=0.051. Predicted flat and measured anyway, which mattered, because the prediction had already been wrong once about whether the lever was wired at all. Six lever 1 runs exist; the harness excludes one for a hard failure, so the arm is n=5. |
 | **2. Verification with span checking** | v1, n=8; v2, n=5 | **Superseded by 2b.** On v1 both headline deltas were within noise. On v2 it **regressed** field accuracy by 1.58pp (p=0.008), by converting 26 missed slots into 42 flagged ones. Kept as an arm so the before and after remain comparable. |
 | **2b. Verification, revised** | v2, n=5 standalone and n=8 in the final stack | **Improvement over lever 2.** Abstains when the verifier marks a field supported, returns null, and produces a span that locates in the source. Field accuracy 95.67% to 97.50% in the full stack, +1.83pp, p=0.008, at no extra cost (p=0.944). |
 | **3. Structured triage** | v1, n=8; v2, n=8 | **The win, and it replicates.** v1 triage +9.38pp; v2 +19.58pp at p=0.000155 with the two arms completely disjoint. Verified model-driven both times: the model agreed with the boolean rule on 96 of 96 decisions on v1 and 234 of 239 on v2. |
