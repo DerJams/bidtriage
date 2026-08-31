@@ -344,7 +344,9 @@ the baseline triage is much weaker at 77.92%, it moves it 20.08pp. The harder
 corpus exposes more of the capacity reasoning the baseline never does. Checked
 for hollowness again. Across the final arm's eight runs the model agreed with
 the boolean rule on **234 of 239** case-decisions, so the rule corrected it 5
-times in 239. The formula is contributing almost nothing to the number rather
+times in 239. Recompute that figure from the committed runs with
+[`scripts/check_triage_agreement.py`](scripts/check_triage_agreement.py),
+which needs no API key and costs nothing. The formula is contributing almost nothing to the number rather
 than carrying it.
 
 **The lever 2 regression was diagnosed and fixed, and the fix is a measured

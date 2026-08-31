@@ -116,6 +116,20 @@ Corpus v1 results are kept and reproduce the same way with
 `BIDTRIAGE_CORPUS=v1`. They are reported alongside v2 in the README rather than
 being superseded by it.
 
+### Check the triage result is not hollow (no API calls, instant)
+
+Lever 3 is the largest contributor, and it has an obvious way to be hollow:
+if the boolean formula were doing the work rather than the model, the number
+would prove nothing. This recomputes the agreement rate from the committed
+runs.
+
+```bash
+$PY scripts/check_triage_agreement.py
+```
+
+Prints `model agreed with the boolean rule on 234 of 239 decisions`, the
+figure quoted in the README.
+
 ## 3. Regenerate the eval corpus (no API calls)
 
 The corpus is committed, so this only verifies reproducibility.
