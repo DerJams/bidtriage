@@ -18,11 +18,13 @@ Two rules keep the curation honest:
 from __future__ import annotations
 
 import pathlib
+import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 from trace_lib import (  # noqa: E402
+    TRACES,
     ASSISTANT_TEXT,
     MIDTURN_HUMAN,
     THINKING,
@@ -268,16 +270,34 @@ def build(events: list, ep: dict) -> str:
     return "\n".join(L) + "\n"
 
 
+def _sizes() -> tuple:
+    """(build MB, diagram MB, total MB), read from disk.
+
+    Stated rather than computed in the first version, and the figure went
+    stale the moment a session was added.
+    """
+    build = default_trace()
+    others = [p for p in sorted(TRACES.glob("session_*.jsonl")) if p != build]
+    b = build.stat().st_size / 1e6
+    o = sum(p.stat().st_size for p in others) / 1e6
+    return (b, o, b + o)
+
+
 def main() -> int:
     path = default_trace()
+    sizes = _sizes()
     events = load_events(path)
     OUT.mkdir(parents=True, exist_ok=True)
 
     index = ["# Annotated trajectory episodes", "",
              "The full agent trajectories are the raw JSONL transcripts in "
              "[`traces/`](../), which are the authoritative record and are kept "
-             "unmodified. That file is roughly 5 MB of session events, which is not "
-             "something a reader can follow from an instruction through to a result.",
+             "unmodified. There are TWO of them, because the work ran across two "
+             "Claude Code sessions: the build session (%.0f MB), which produced "
+             "everything except the diagrams, and the diagram session (%.0f MB), "
+             "which produced the two system-design files in `docs/`. Together that "
+             "is %.0f MB of session events, which is not something a reader can "
+             "follow from an instruction through to a result." % sizes,
              "",
              "This directory is a **readable subset**: four episodes, annotated, showing "
              "agent instructions, tool calls, tool responses, retries and human "
@@ -289,11 +309,15 @@ def main() -> int:
         ep["_ranges"] = resolve_ranges(events, ep)
         text = build(events, ep)
         (OUT / (ep["slug"] + ".md")).write_text(text, encoding="utf-8", newline="\n")
-        first_line = ep["why"].split(".")[0] + "."
+        # Split on sentence end, not any period, or "90.62 percent" becomes "90."
+        first_line = re.split(r"(?<=[a-z\)])\.\s", ep["why"])[0].rstrip(".") + "."
         index.append("| [%s](%s.md) | %s |" % (ep["title"], ep["slug"], first_line))
         print("wrote traces/annotated/%s.md  (%d bytes)" % (ep["slug"], len(text)))
 
-    index += ["", "Source transcript: `%s`, %d events." % (path.name, len(events)),
+    index += ["", "Episodes below are drawn from the build session, `%s`, %d events. "
+              "The diagram session is included raw but has no annotated episodes: it is "
+              "largely large JSON payloads for the drawing itself, which annotate poorly."
+              % (path.name, len(events)),
               "",
               "Episodes were chosen to show the loop working (episodes 1 and 4), an "
               "instruction being checked rather than obeyed (episode 2), and the loop "

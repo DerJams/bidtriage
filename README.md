@@ -523,11 +523,18 @@ open-source libraries, both listed above.
 `traces/` holds the complete Claude Code session transcripts as raw JSONL.
 Those are the authoritative record and are kept unmodified.
 
+**There are two sessions, and both are included.** The build session (about
+10 MB) produced everything in this repository except the diagrams. The diagram
+session (about 45 MB) produced the two system-design files in `docs/`. The
+second one is large because it carries the drawing payloads; it is included
+anyway, because it produced committed deliverables and a trajectory set that
+omitted it would be incomplete.
+
 **[`traces/annotated/`](traces/annotated/) is a readable subset of those same
-transcripts**, not a replacement for them and not a separate record. The raw
-JSONL is roughly 5 MB of session events, which no reader can realistically
-follow from an instruction through to a result, so four episodes are extracted
-and annotated:
+transcripts**, not a replacement for them and not a separate record. The two
+raw files together are about 55 MB of session events, which no reader can
+realistically follow from an instruction through to a result, so four episodes
+are extracted from the build session and annotated:
 
 | Episode | What it shows |
 |---|---|

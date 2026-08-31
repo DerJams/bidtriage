@@ -161,7 +161,18 @@ def find(events: list, needle: str, kinds=None) -> list:
     return hits
 
 
+# The episodes are all drawn from the build session. Once the diagram session
+# was also captured, taking the first file alphabetically silently picked the
+# wrong transcript and every anchor failed. Named explicitly rather than
+# inferred, with a fallback so the module still works on a single-session
+# checkout.
+BUILD_SESSION = "session_fdfe39b4-2363-48df-b2be-a645f0669109.jsonl"
+
+
 def default_trace() -> pathlib.Path:
+    named = TRACES / BUILD_SESSION
+    if named.exists():
+        return named
     candidates = sorted(TRACES.glob("session_*.jsonl"))
     if not candidates:
         raise SystemExit("no session transcript found in traces/")

@@ -403,4 +403,4 @@ Cost is reported exactly (`usage.cost`, actual credits charged) — so cost per 
 
 ---
 
-Episode covers transcript events 139-139, 165-183 of 912 total. Raw transcript: [`traces/`](../).
+Episode covers transcript events 139-139, 165-183 of 1279 total. Raw transcript: [`traces/`](../).
