@@ -312,7 +312,7 @@ Verdicts against the baseline:
 | Lever 1 | field accuracy | +0.10pp | 2.50 | 0.883 | within noise |
 | Lever 1 | hallucination | 0.07pp higher | 0.47 | 0.821 | within noise |
 | Lever 1 | triage | +2.08pp | 10.00 | 0.467 | within noise |
-| Lever 1 | cost | none | n/a | 0.103 | within noise |
+| Lever 1 | cost | none | n/a | 0.051 | within noise |
 | Lever 2 | field accuracy | **1.73pp lower** | 1.25 | 0.0008 | **regression** |
 | Lever 2 | hallucination | 0.11pp lower | 0.45 | 0.210 | within noise |
 | Lever 2 | cost | 3.1x higher | n/a | 0.008 | regression |
